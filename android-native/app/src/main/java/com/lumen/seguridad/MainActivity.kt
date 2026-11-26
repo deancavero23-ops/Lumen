@@ -391,6 +391,7 @@ class MainActivity : Activity() {
             t("language"),
             "${t("voice_on")}: ${if (voz) t("ok") else t("cancel")}",
             "${t("vpn")}: ${if (vpn) t("vpn_on") else t("vpn_off")}",
+            t("rules_update"), t("rules"),
             t("web"), t("apk"), t("qr"), t("windows"),
             t("rules_note"), t("back")
         )
@@ -401,14 +402,76 @@ class MainActivity : Activity() {
                     0 -> elegirIdioma()
                     1 -> prefs().edit().putBoolean("voz", !voz).apply()
                     2 -> configurarVpn()
-                    3 -> abrirUrl("https://deancavero23-ops.github.io/Lumen/")
-                    4 -> abrirUrl("https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk")
-                    5 -> mostrarQr()
-                    6 -> abrirUrl("https://github.com/deancavero23-ops/Lumen/releases/latest")
-                    7 -> toast(t("rules_note"))
+                    3 -> actualizarReglas()
+                    4 -> mostrarReglas()
+                    5 -> abrirUrl("https://deancavero23-ops.github.io/Lumen/")
+                    6 -> abrirUrl("https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk")
+                    7 -> mostrarQr()
+                    8 -> abrirUrl("https://github.com/deancavero23-ops/Lumen/releases/latest")
+                    9 -> toast(t("rules_note"))
                     else -> volver()
                 }
             }
+            .show()
+    }
+
+    private fun actualizarReglas() {
+        val actual = Reglas.info(this)
+        val origen = if (actual.origen == "github") t("rules_from_github") else t("rules_from_app")
+        AlertDialog.Builder(this)
+            .setTitle(t("rules_update"))
+            .setMessage("${t("rules_update_note")}\n\n${t("rules_current")}: $origen · v${actual.version} · ${actual.fecha}")
+            .setPositiveButton(t("rules_update")) { _, _ -> descargarReglas() }
+            .setNegativeButton(t("cancel"), null)
+            .show()
+    }
+
+    private fun descargarReglas() {
+        val espera = AlertDialog.Builder(this)
+            .setTitle(t("rules_update"))
+            .setMessage(t("rules_downloading"))
+            .setCancelable(false)
+            .show()
+        Thread {
+            val resultado = runCatching { Reglas.actualizar(applicationContext) }
+            runOnUiThread {
+                try { espera.dismiss() } catch (e: Exception) { }
+                resultado.onSuccess { info ->
+                    toast("${t("rules_ok")} v${info.version} · ${info.fecha}")
+                    hablar("lumiDone")
+                }.onFailure { e ->
+                    val clave = (e as? ErrorReglas)?.clave ?: "rules_err_red"
+                    toast("${t("rules_error")}: ${t(clave)}")
+                }
+            }
+        }.start()
+    }
+
+    private fun mostrarReglas() {
+        val info = Reglas.info(this)
+        val origen = if (info.origen == "github") t("rules_from_github") else t("rules_from_app")
+        val mensaje = "${t("rules_current")}: $origen\n" +
+            "${t("rules_version")}: ${info.version}\n" +
+            "${t("rules_date")}: ${info.fecha}\n" +
+            "${t("rules_counts")}: ${info.hashes} / ${info.firmantes}\n\n" +
+            t("rules_note")
+        AlertDialog.Builder(this)
+            .setTitle(t("rules"))
+            .setMessage(mensaje)
+            .setNeutralButton(t("rules_restore")) { _, _ -> confirmarRestablecer() }
+            .setPositiveButton(t("ok"), null)
+            .show()
+    }
+
+    private fun confirmarRestablecer() {
+        AlertDialog.Builder(this)
+            .setTitle(t("rules_restore"))
+            .setMessage(t("rules_restore_note"))
+            .setPositiveButton(t("rules_restore")) { _, _ ->
+                Reglas.restablecer(this)
+                toast(t("rules_restored"))
+            }
+            .setNegativeButton(t("cancel"), null)
             .show()
     }
 

@@ -1,16 +1,16 @@
 # Lumen Seguridad en Google Play
 
-> **Estado:** el AAB firmado se genera en GitHub Actions, pero **no lo subimos a Play Console**. Necesitas tu cuenta de desarrollador para publicarlo. El APK de sideload sigue disponible en la [Release de seguridad](https://github.com/deancavero23-ops/Lumen/releases/tag/seguridad-v1.1.0).
+> **Estado:** el AAB firmado se genera en GitHub Actions, pero **no lo subimos a Play Console**. Necesitas tu cuenta de desarrollador para publicarlo. El APK de sideload sigue disponible en la [Release de seguridad](https://github.com/deancavero23-ops/Lumen/releases/tag/seguridad-v1.2.0).
 
 ## Descargar el AAB
 
-**[Descargar Lumen-Seguridad-1.1.0-play.aab](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.1.0/Lumen-Seguridad-1.1.0-play.aab)** · [SHA-256](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.1.0/SHA256-PLAY-AAB.txt)
+**[Descargar Lumen-Seguridad-1.2.0-play.aab](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.0/Lumen-Seguridad-1.2.0-play.aab)** · [SHA-256](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.0/SHA256-PLAY-AAB.txt)
 
-- Huella SHA-256 del AAB publicado: `02888784c03cddff0cf300e5f57b7de79019a187773d7fcf9634e3ca37f19329` (2.854.558 bytes).
+- Huella SHA-256 del AAB publicado: pendiente de la compilación 1.2.0 (se publica en `SHA256-PLAY-AAB.txt`).
 - Package: `com.lumen.seguridad`.
 - Firma: la misma que la APK (`android-native/lumen-seguridad.keystore`, alias `lumen`). Si vas a subir una versión nueva más adelante, **usa el mismo keystore** o Play no aceptará la actualización.
 - Antes de crear la app en Play Console, comprueba que `com.lumen.seguridad` esté disponible en tu cuenta. Si ya existe una app tuya con otro package, dime cuál es y ajusto el `applicationId`.
-- `versionCode` = 2, `versionName` = `1.1.0`. Para la primera subida está bien; cada actualización en Play debe subir el `versionCode`.
+- `versionCode` = 3, `versionName` = `1.2.0`. Si ya subiste la 1.1.0, este AAB es la actualización. Cada nueva versión en Play debe subir el `versionCode`.
 
 ## Publicarlo
 
@@ -35,9 +35,9 @@ Justificación adicional si el revisor pide más:
 ## Privacidad y protección de datos
 
 - **Datos recopilados por Lumen:** ninguno. No hay cuentas, telemetría ni servidor propio.
-- **Datos compartidos:** el análisis de apps y archivos se queda en el dispositivo. La única salida a Internet ocurre si el usuario activa el bloqueo de anuncios por VPN: las consultas DNS de los dominios permitidos se reenvían a Cloudflare (`1.1.1.1`) o Google (`8.8.8.8`). Es tráfico DNS transitorio, no está vinculado a una identidad y Lumen no recibe esos datos.
+- **Datos compartidos:** el análisis de apps y archivos se queda en el dispositivo. Hay dos salidas a Internet, ambas bajo control del usuario: (1) si activa el bloqueo de anuncios por VPN, las consultas DNS de los dominios permitidos se reenvían a Cloudflare (`1.1.1.1`) o Google (`8.8.8.8`); (2) si pulsa «Actualizar reglas», se hace una petición HTTPS anónima a GitHub Releases. No se envía la lista de apps, archivos ni identificadores. Lumen no recibe esos datos.
 - Si el formulario obliga a marcar una categoría, elige **Actividad de red / Información de navegación** y marca **no vinculado a la identidad**, **solo mientras la VPN está activa** y **finalidad: bloquear dominios publicitarios**.
-- **Permisos que más llaman la atención:** `QUERY_ALL_PACKAGES` (analizador de seguridad), `INTERNET` (reenvío DNS), `FOREGROUND_SERVICE_SPECIAL_USE` (filtro DNS con notificación). No se pide almacenamiento amplio ni accesibilidad.
+- **Permisos que más llaman la atención:** `QUERY_ALL_PACKAGES` (analizador de seguridad), `INTERNET` (reenvío DNS y descarga manual de reglas desde GitHub), `FOREGROUND_SERVICE_SPECIAL_USE` (filtro DNS con notificación). No se pide almacenamiento amplio ni accesibilidad.
 
 ## Uso de `VpnService`
 
@@ -47,11 +47,11 @@ Texto sugerido para la ficha o para el revisor:
 
 ## Texto corto de la ficha
 
-**Español:** Analiza las apps instaladas, revisa permisos y firmas, escanea las carpetas que eliges y pone en cuarentena los archivos candidatos con opción de restaurar. Bloqueo de anuncios por DNS opcional. Sin telemetría.
+**Español:** Analiza las apps instaladas, revisa permisos y firmas, escanea las carpetas que eliges y pone en cuarentena los archivos candidatos con opción de restaurar. Bloqueo de anuncios por DNS opcional y reglas actualizables desde GitHub. Sin telemetría.
 
-**Italiano:** Analizza le app installate, controlla permessi e firme, scansiona le cartelle che scegli e mette in quarantena i file candidati con ripristino. Blocco annunci DNS opzionale. Nessuna telemetria.
+**Italiano:** Analizza le app installate, controlla permessi e firme, scansiona le cartelle che scegli e mette in quarantena i file candidati con ripristino. Blocco annunci DNS opzionale e regole aggiornabili da GitHub. Nessuna telemetria.
 
-**English:** Scans installed apps, checks permissions and signatures, scans the folders you choose, and quarantines candidate files with restore. Optional DNS ad blocking. No telemetry.
+**English:** Scans installed apps, checks permissions and signatures, scans the folders you choose, and quarantines candidate files with restore. Optional DNS ad blocking and rules updatable from GitHub. No telemetry.
 
 ## Compilar el AAB
 

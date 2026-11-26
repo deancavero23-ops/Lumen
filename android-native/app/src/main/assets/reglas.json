@@ -1,7 +1,7 @@
 {
   "version": 1,
   "actualizado": "2026-11-26",
-  "nota": "Base local de ejemplo. Añade aquí hashes SHA-256 y firmantes que consideres riesgosos. Lumen no envía datos ni consulta servidores propios.",
+  "nota": "Base local de ejemplo. Añade aquí hashes SHA-256 y firmantes que consideres riesgosos. También puedes actualizarla desde Ajustes → Actualizar reglas desde GitHub (Release reglas-v1). Lumen no envía datos ni consulta servidores propios.",
   "hashes": {},
   "firmantes": {},
   "permisosSensibles": [

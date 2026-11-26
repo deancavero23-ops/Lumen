@@ -23,22 +23,25 @@ data class AppRiesgo(
 
 object Analizador {
 
-    private data class Reglas(
+    private data class Conjunto(
         val hashes: JSONObject,
         val firmantes: JSONObject,
         val sensibles: Set<String>
     )
 
-    private fun reglas(context: Context): Reglas {
-        val texto = context.assets.open("reglas.json").bufferedReader().use { it.readText() }
-        val json = JSONObject(texto)
+    private fun reglas(context: Context): Conjunto {
+        val json = try {
+            JSONObject(Reglas.texto(context))
+        } catch (e: Exception) {
+            JSONObject()
+        }
         val hashes = json.optJSONObject("hashes") ?: JSONObject()
         val firmantes = json.optJSONObject("firmantes") ?: JSONObject()
         val sensibles = mutableSetOf<String>()
         json.optJSONArray("permisosSensibles")?.let { arr ->
             for (i in 0 until arr.length()) sensibles.add(arr.getString(i))
         }
-        return Reglas(hashes, firmantes, sensibles)
+        return Conjunto(hashes, firmantes, sensibles)
     }
 
     private fun firmante(pi: PackageInfo): String {
@@ -51,7 +54,7 @@ object Analizador {
         return Utilidades.sha256(bytes).take(16)
     }
 
-    private fun construir(context: Context, pi: PackageInfo, r: Reglas): AppRiesgo? {
+    private fun construir(context: Context, pi: PackageInfo, r: Conjunto): AppRiesgo? {
         val ai = pi.applicationInfo ?: return null
         val paquete = pi.packageName
         if (paquete == context.packageName) return null

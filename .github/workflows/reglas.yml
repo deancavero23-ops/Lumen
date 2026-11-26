@@ -1,0 +1,31 @@
+# Publica las reglas locales de Lumen Seguridad como assets de una Release pública.
+# La app las descarga solo si el usuario lo pide y comprueba el SHA-256 publicado.
+
+name: Publicar reglas de Lumen Seguridad
+
+on:
+  push:
+    tags: ['reglas-v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  reglas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generar la huella de las reglas
+        working-directory: android-native/app/src/main/assets
+        run: |
+          sha256sum reglas.json > reglas.json.sha256
+          cat reglas.json.sha256
+
+      - name: Publicar reglas y huella en la Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            android-native/app/src/main/assets/reglas.json
+            android-native/app/src/main/assets/reglas.json.sha256

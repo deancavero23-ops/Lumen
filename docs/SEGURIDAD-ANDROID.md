@@ -6,21 +6,21 @@ Esta APK **sí hace cosas reales**, a diferencia de la demo TWA descrita en [AND
 
 ## Descargar
 
-**[Descargar Lumen-Seguridad-1.1.0.apk](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.1.0/Lumen-Seguridad-1.1.0.apk)** · [SHA-256 publicado](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.1.0/SHA256-SEGURIDAD.txt)
+**[Descargar Lumen-Seguridad-1.2.0.apk](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.2.0/Lumen-Seguridad-1.2.0.apk)** · [SHA-256 publicado](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.2.0/SHA256-SEGURIDAD.txt)
 
 ![QR para descargar Lumen Seguridad](img/qr-android-seguridad.png)
 
-- Huella SHA-256 del APK publicado: `0139639c1898f11bf0b612fff6ccf999ffd14a727acc0993473b4ec4b329f305`.
+- Huella SHA-256 del APK publicado: pendiente de la compilación 1.2.0 (se publica en `SHA256-SEGURIDAD.txt`).
 - Requiere **Android 7.0 (API 24) o superior**.
 - Se instala por **sideload**: al abrir la APK, Android pedirá permitir **fuentes desconocidas**. Acepta solo si confías en este repositorio.
 - La firma es propia (`android-native/lumen-seguridad.keystore`, alias `lumen`). **No es la misma firma** que la APK demo, por lo que Android las tratará como apps distintas y podrás tener las dos instaladas.
-- Para verificar la descarga: `certutil -hashfile Lumen-Seguridad-1.1.0.apk SHA256` en Windows o `sha256sum Lumen-Seguridad-1.1.0.apk` en Linux.
+- Para verificar la descarga: `certutil -hashfile Lumen-Seguridad-1.2.0.apk SHA256` en Windows o `sha256sum Lumen-Seguridad-1.2.0.apk` en Linux.
 
 ## Lo que sí hace
 
 | Función | Cómo funciona | Límite real |
 |---|---|---|
-| **Análisis de apps instaladas** | Lee el APK de cada app, calcula su SHA-256, obtiene el certificado firmante, el instalador y sus permisos sensibles. Ordena por riesgo (mayor puntuación primero). | No tiene una base de virus: `assets/reglas.json` es una lista local editable de hashes y firmantes. Un hash desconocido **no significa** que sea malware. |
+| **Análisis de apps instaladas** | Lee el APK de cada app, calcula su SHA-256, obtiene el certificado firmante, el instalador y sus permisos sensibles. Ordena por riesgo (mayor puntuación primero). | No tiene una base de virus: las reglas son una lista editable de hashes y firmantes. Un hash desconocido **no significa** que sea malware. |
 | **Señales de riesgo** | Cuenta permisos como SMS, contactos, ubicación, cámara, micrófono, `SYSTEM_ALERT_WINDOW`, `REQUEST_INSTALL_PACKAGES`; detecta servicios de accesibilidad e instalación fuera de tienda. | Es una orientación, no un veredicto. Muchas apps legítimas piden esos permisos. |
 | **Aviso de nuevas apps** | Mientras Lumen está abierto, avisa cuando se instala un paquete y lo analiza. | Android 8+ no permite escuchar ese evento en segundo plano desde el manifiesto; el aviso solo está activo con la app abierta. |
 | **Escaneo de archivos** | Con el selector de carpetas del sistema (SAF), recorre hasta 5.000 archivos y marca temporales, `.log`, vacíos, APK con más de 30 días y duplicados por nombre y tamaño. | Lee **solo la carpeta que eliges**. No toca los datos privados de otras apps. |
@@ -30,7 +30,8 @@ Esta APK **sí hace cosas reales**, a diferencia de la demo TWA descrita en [AND
 | **Desinstalar con confirmación** | Abre el diálogo del sistema con `ACTION_UNINSTALL_PACKAGE`. | La app nunca desinstala por sí sola; el usuario confirma siempre. |
 | **Lumi y voces** | Mascota dibujada en código y 15 audios femeninos incluidos (`es`, `it`, `en`). Si falla el audio, usa TTS prefiriendo voces femeninas. | Se puede silenciar en Ajustes. |
 | **Idiomas** | Español, italiano e inglés, detectados del sistema y cambiables en Ajustes. | — |
-| **Privacidad** | Sin telemetría, sin servidor propio, sin accesibilidad y sin permisos de almacenamiento amplio. | Las reglas viven en el APK; para actualizarlas hay que publicar una versión nueva (o editar el archivo en una compilación propia). |
+| **Privacidad** | Sin telemetría, sin servidor propio, sin accesibilidad y sin permisos de almacenamiento amplio. | Las reglas se guardan solo en el dispositivo. La descarga es manual y no envía nada a Lumen. |
+| **Reglas actualizables** | **Ajustes → Actualizar reglas desde GitHub** descarga `reglas.json` y su `.sha256` desde la Release `reglas-v1`, comprueba la huella y la guarda dentro de la app. **Ajustes → Reglas de seguridad** muestra el origen y permite volver a las incluidas. | No se descarga nada automáticamente. Si falla la red o el SHA-256 no coincide, se conservan las reglas anteriores. La fuente de confianza es este repositorio de GitHub; el hash evita cambios en tránsito, no compromisos del repositorio. |
 
 ## Lo que NO hace (y no puede hacer sin root)
 
@@ -45,7 +46,7 @@ Esta APK **sí hace cosas reales**, a diferencia de la demo TWA descrita en [AND
 ## Permisos
 
 - `QUERY_ALL_PACKAGES`: imprescindible para listar y analizar las apps instaladas, que es la función central de un analizador de seguridad. Al distribuirse por sideload no necesita el formulario de permisos sensibles de Google Play. Si algún día se publica en Play, habrá que justificarlo ante Google.
-- `INTERNET`: se usa **únicamente** para reenviar a un DNS público (Cloudflare o Google) las consultas de dominios que no son publicidad. La app excluye su propio tráfico del VPN para evitar bucles. No hay telemetría ni servidor de Lumen.
+- `INTERNET`: se usa para reenviar a un DNS público (Cloudflare o Google) las consultas que no son publicidad mientras la VPN está activa, y para descargar las reglas **solo cuando tú pulsas Actualizar reglas**. La app excluye su propio tráfico del VPN para evitar bucles. No hay telemetría ni servidor de Lumen.
 - `FOREGROUND_SERVICE` y `FOREGROUND_SERVICE_SPECIAL_USE`: necesarios para mantener el filtro DNS activo con notificación persistente mientras tú lo dejes encendido.
 - No pide `READ/WRITE_EXTERNAL_STORAGE`, `MANAGE_EXTERNAL_STORAGE`, accesibilidad ni permisos de SMS/contactos. El acceso a archivos se concede carpeta por carpeta desde el selector del sistema.
 - Android muestra un **diálogo propio de VPN** la primera vez. Si lo rechazas, el bloqueo queda desactivado y el resto de la app sigue funcionando.
@@ -60,6 +61,17 @@ En **Ajustes → Bloqueo global de anuncios** aparece el estado y un diálogo co
 4. Una notificación persistente permite volver a la app. En Ajustes se puede **Desactivar bloqueo global** en cualquier momento.
 
 Es un filtro DNS, **no un túnel completo**: no lee páginas web, contraseñas ni mensajes. No bloquea anuncios servidos desde el mismo dominio que el contenido, ni los que usen DNS sobre TLS. Tampoco sustituye a un bloqueador de contenidos dentro del navegador.
+
+## Actualizar reglas desde GitHub
+
+Las reglas incluidas (`android-native/app/src/main/assets/reglas.json`) son una base de ejemplo vacía: añade tus propios hashes o firmantes si quieres. Desde **Ajustes → Actualizar reglas desde GitHub**:
+
+1. La app muestra qué reglas están activas y pide confirmación.
+2. Descarga `reglas.json` y `reglas.json.sha256` desde la Release [`reglas-v1`](https://github.com/deancavero23-ops/Lumen/releases/tag/reglas-v1).
+3. Calcula el SHA-256 local y lo compara con el publicado. Solo si coinciden valida el formato y guarda el archivo en el almacenamiento privado de la app.
+4. **Ajustes → Reglas de seguridad** muestra el origen, versión, fecha y número de hashes/firmantes, y permite **Restablecer incluidas**.
+
+No hay descargas en segundo plano, ni comprobación de actualizaciones al abrir la app, ni envío de la lista de apps instaladas. El límite de descarga es 1 MB y solo se aceptan URLs de GitHub.
 
 ## Compilar
 
@@ -78,6 +90,7 @@ android-native/app/src/main/java/com/lumen/seguridad/
   Limpieza.kt     escaneo SAF, cuarentena y restauración
   Voz.kt          audios femeninos + TTS de respaldo
   BloqueoVpn.kt   filtro DNS opcional con VpnService
+  Reglas.kt       descarga manual y verificación SHA-256
   Textos.kt       es / it / en
   LumiView.kt     mascota dibujada
   MainActivity.kt interfaz y flujos
