@@ -6,7 +6,7 @@ Lumen tiene un **APK instalable**: es un envoltorio propio (Trusted Web Activity
 
 **[Descargar Lumen-1.0.0.apk](https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk)**
 
-- Necesita Android con **Chrome** instalado.
+- Necesita **Android 7.0 o superior** con **Chrome** instalado.
 - Al abrir el APK fuera de Google Play, Android pedirá permitir **fuentes desconocidas**: acepta solo si confías en este repositorio.
 - El APK se actualizará con el contenido publicado en la web; la primera vez descarga los audios de Lumi.
 

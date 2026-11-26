@@ -22,7 +22,7 @@
   "webManifestUrl": "https://deancavero23-ops.github.io/Lumen/manifest.webmanifest",
   "fullScopeUrl": "https://deancavero23-ops.github.io/Lumen/",
   "fallbackType": "customtabs",
-  "minSdkVersion": 21,
+  "minSdkVersion": 24,
   "generatorApp": "bubblewrap-cli",
   "signingKey": {
     "path": "./lumen.keystore",
