@@ -1,12 +1,12 @@
 /* Lumen PWA: caché offline y filtro de publicidad dentro de la app. */
-const CACHE = 'lumen-app-v14-0-0';
+const CACHE = 'lumen-app-v15-0-0';
 // El scope del service worker es /Lumen/ en GitHub Pages y / en una prueba local.
 const BASE = self.registration.scope;
 const RUTAS = [
   '', 'app/', 'app/index.html', 'app/styles.css', 'app/app.js',
   'manifest.webmanifest', 'img/pwa-192.png', 'img/pwa-512.png',
   'img/pwa-maskable-512.png', 'img/icon-180.png', 'img/audiowide.woff2',
-  'img/qr-android-pwa.png', 'img/qr-android-apk.png', 'img/qr-android-seguridad.png', 'logo.svg', 'index.html',
+  'img/qr-android-pwa.png', 'img/qr-android-apk.png', 'img/qr-android-seguridad.png', 'img/qr-descarga-android.png', 'logo.svg', 'index.html',
   'SEGURIDAD-ANDROID.md', 'GOOGLE-PLAY.md', 'PLAY-FICHA.md', 'ANDROID.md', 'PRIVACIDAD.md',
   'audio/en-ahorroActivo.wav', 'audio/en-ahorroOff.wav', 'audio/en-anunciosActivo.wav',
   'audio/en-anunciosInactivo.wav', 'audio/en-bloqueoProbado.wav', 'audio/en-lumi1.wav',
