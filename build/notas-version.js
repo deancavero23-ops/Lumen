@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const version = String(process.argv[2] || '').replace(/^v/, '');
-const repo = process.env.GITHUB_REPOSITORY || 'deancaver023-ops/Lumen';
+const repo = process.env.GITHUB_REPOSITORY || 'deancavero23-ops/Lumen';
 const datos = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'novedades.json'), 'utf8'));
 const v = (datos.versiones || []).find((x) => x.version === version);
 const out = [];

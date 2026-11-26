@@ -6,7 +6,7 @@
 
 Gratis · Código abierto (GPL-3.0) · Sin telemetría · Todo se puede deshacer
 
-🌐 **Web oficial: [deancaver023-ops.github.io/Lumen](https://deancaver023-ops.github.io/Lumen/)**
+🌐 **Web oficial: [deancavero23-ops.github.io/Lumen](https://deancavero23-ops.github.io/Lumen/)**
 
 **Idiomas: Español · Italiano · Inglés** (se detecta el idioma de Windows y se puede cambiar en Ajustes).
 

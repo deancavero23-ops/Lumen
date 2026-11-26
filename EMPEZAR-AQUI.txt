@@ -1,9 +1,9 @@
 LUMEN 1.0.0 — CÓMO PROBARLO
 
 1) PUBLICACIÓN
-   Ya está configurado para el usuario de GitHub deancaver023-ops.
-   Web: https://deancaver023-ops.github.io/Lumen/
-   Repo: https://github.com/deancaver023-ops/Lumen
+   Ya está configurado para el usuario de GitHub deancavero23-ops.
+   Web: https://deancavero23-ops.github.io/Lumen/
+   Repo: https://github.com/deancavero23-ops/Lumen
    Si cambias de usuario: powershell -ExecutionPolicy Bypass -File tools/preparar-publicacion.ps1 -Usuario NUEVO_USUARIO
    Pasos para publicar y aparecer en Google: PUBLICAR.md
 

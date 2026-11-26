@@ -6,9 +6,9 @@
   "main": "src/main.js",
   "author": "Lumen contributors (based on RetroLimpia by Retropunk94)",
   "license": "GPL-3.0-or-later",
-  "homepage": "https://github.com/deancaver023-ops/Lumen",
+  "homepage": "https://github.com/deancavero23-ops/Lumen",
   "lumen": {
-    "repo": "deancaver023-ops/Lumen",
+    "repo": "deancavero23-ops/Lumen",
     "paypal": "",
     "reportes": "",
     "discord": ""
@@ -28,7 +28,7 @@
     "electron-builder": "^26.18.0"
   },
   "build": {
-    "appId": "com.deancaver023-ops.lumen",
+    "appId": "com.deancavero23-ops.lumen",
     "productName": "Lumen",
     "copyright": "GPL-3.0-or-later - Lumen, basado en RetroLimpia (Retropunk94)",
     "directories": {
@@ -81,7 +81,7 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "deancaver023-ops",
+        "owner": "deancavero23-ops",
         "repo": "Lumen",
         "releaseType": "release"
       }

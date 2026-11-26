@@ -2,9 +2,9 @@
 
 Ya está configurado para tu cuenta:
 
-- Usuario: `deancaver023-ops`
-- Repo: https://github.com/deancaver023-ops/Lumen
-- Web: https://deancaver023-ops.github.io/Lumen/
+- Usuario: `deancavero23-ops`
+- Repo: https://github.com/deancavero23-ops/Lumen
+- Web: https://deancavero23-ops.github.io/Lumen/
 
 El repositorio local ya está creado en esta carpeta, con rama `main` y un primer commit.
 
@@ -27,7 +27,7 @@ El repositorio local ya está creado en esta carpeta, con rama `main` y un prime
 Si prefieres hacerlo con comandos, desde esta carpeta:
 
 ```bash
-git remote add origin https://github.com/deancaver023-ops/Lumen.git
+git remote add origin https://github.com/deancavero23-ops/Lumen.git
 git push -u origin main
 ```
 
@@ -35,7 +35,7 @@ Si el repo ya existe en GitHub, crea primero el repo **vacío** en https://githu
 
 ## 2) Activar la web en GitHub Pages
 
-1. Entra a https://github.com/deancaver023-ops/Lumen
+1. Entra a https://github.com/deancavero23-ops/Lumen
 2. **Settings** → **Pages** (en el menú lateral).
 3. En *Build and deployment*:
    - Source: **Deploy from a branch**
@@ -43,7 +43,7 @@ Si el repo ya existe en GitHub, crea primero el repo **vacío** en https://githu
 4. Pulsa **Save**.
 5. Espera 1–2 minutos y abre:
 
-   https://deancaver023-ops.github.io/Lumen/
+   https://deancavero23-ops.github.io/Lumen/
 
 Ya incluimos `docs/.nojekyll`, `docs/robots.txt` y `docs/sitemap.xml`.
 
@@ -52,7 +52,7 @@ Ya incluimos `docs/.nojekyll`, `docs/robots.txt` y `docs/sitemap.xml`.
 1. Entra con tu Google a https://search.google.com/search-console
 2. **Add property** → modo **URL prefix** y pega:
 
-   `https://deancaver023-ops.github.io/Lumen/`
+   `https://deancavero23-ops.github.io/Lumen/`
 
 3. Verifica la propiedad. La forma más fácil es **HTML file upload**:
    - Google te dará un archivo tipo `googleXXXXXXXX.html`.

@@ -105,7 +105,7 @@ function renderReport() {
       <div class="rep-ok">✔</div>
       <h2>${L('¡Borrador listo! 💜', 'Draft ready! 💜')}</h2>
       <p class="lead">${L('Se abrió GitHub con tu reporte ya escrito. Revisa el borrador y pulsa «Submit new issue» si quieres publicarlo. Lumen no envía nada automáticamente.', 'GitHub opened with your report ready. Review the draft and press "Submit new issue" if you want to publish it. Nothing is sent automatically.')}</p>
-      <div class="foot"><button class="btn primary" data-open="${esc(repoUrl() || 'https://github.com/deancaver023-ops/Lumen/issues')}">🐞 ${L('Ver el borrador en GitHub', 'View the draft on GitHub')}</button><button class="btn ghost" data-act="modalClose">${L('Cerrar', 'Close')}</button></div></div>`;
+      <div class="foot"><button class="btn primary" data-open="${esc(repoUrl() || 'https://github.com/deancavero23-ops/Lumen/issues')}">🐞 ${L('Ver el borrador en GitHub', 'View the draft on GitHub')}</button><button class="btn ghost" data-act="modalClose">${L('Cerrar', 'Close')}</button></div></div>`;
     return;
   }
   const img = r.useImg && r.img;

@@ -339,7 +339,7 @@ function renderUpdWin() {
     <h2>✨ ${L('Actualizando Lumen a la ' + v, 'Updating Lumen to ' + v)}</h2>
     <p class="lead">${L('No tienes que hacer nada. Se descarga sola desde GitHub, se instala en silencio y el programa se vuelve a abrir.', 'Nothing to do. It downloads from GitHub, installs silently and the program reopens.')}</p>
     <ol class="upw-steps">
-      ${paso(1, 'Descargar la versión nueva', 'Download the new version', L('Desde github.com/' + esc(S.info.repo || 'deancaver023-ops/Lumen') + ' · comprobada con su firma SHA-512', 'From github.com/' + esc(S.info.repo || 'deancaver023-ops/Lumen') + ' · checked with its SHA-512 hash'))}
+      ${paso(1, 'Descargar la versión nueva', 'Download the new version', L('Desde github.com/' + esc(S.info.repo || 'deancavero23-ops/Lumen') + ' · comprobada con su firma SHA-512', 'From github.com/' + esc(S.info.repo || 'deancavero23-ops/Lumen') + ' · checked with its SHA-512 hash'))}
       ${paso(2, 'Preparar la instalación', 'Prepare the install', L('Tus ajustes y la cuarentena se conservan', 'Your settings and quarantine are kept'))}
       ${paso(3, 'Cerrar, instalar y volver a abrir', 'Close, install and reopen', L('La ventana se cierra unos segundos y vuelve sola', 'The window closes a few seconds and comes back by itself'))}
     </ol>
