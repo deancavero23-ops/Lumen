@@ -10,4 +10,3 @@ android/local.properties
 android/app-release-*.apk
 android/app-release-*.aab
 android/decompressed/
-android/manifest-checksum.txt
