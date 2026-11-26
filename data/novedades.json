@@ -1,0 +1,27 @@
+{
+  "_info": "Notas de cada versión. Se muestran en Lumen después de actualizarse y en la página de la versión en GitHub. REGLA: cada versión nueva añade aquí sus notas, en palabras sencillas.",
+  "versiones": [
+    {
+      "version": "1.0.0",
+      "fecha": "2026-11-26",
+      "es": [
+        "Lumen ya no es RetroLimpia: nuevo nombre, logo rojo y mascota Lumi. Se mantiene la base GPL y todos los créditos del proyecto original.",
+        "Interfaz en español, italiano e inglés. El idioma se detecta desde Windows y se puede cambiar en Ajustes.",
+        "Los reportes ya no se envían a ningún servidor: se abre un borrador de GitHub y tú decides si lo publicas.",
+        "Sin donaciones ni Discord: el proyecto sigue siendo código abierto y las dudas se resuelven en GitHub."
+      ],
+      "en": [
+        "Lumen is no longer RetroLimpia: new name, red logo and Lumi mascot. The GPL base and all credits from the original project are kept.",
+        "Interface in Spanish, Italian and English. The language is detected from Windows and can be changed in Settings.",
+        "Reports are no longer sent to any server: a GitHub draft opens and you decide whether to publish it.",
+        "No donations or Discord: the project stays open source and questions are handled on GitHub."
+      ],
+      "it": [
+        "Lumen non è più RetroLimpia: nuovo nome, logo rosso e mascotte Lumi. La base GPL e tutti i crediti del progetto originale restano intatti.",
+        "Interfaccia in spagnolo, italiano e inglese. La lingua viene rilevata da Windows e può essere cambiata nelle Impostazioni.",
+        "Le segnalazioni non vengono più inviate a nessun server: si apre una bozza su GitHub e decidi tu se pubblicarla.",
+        "Nessuna donazione o Discord: il progetto resta open source e le domande si gestiscono su GitHub."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+LUMEN 1.0.0 — CÓMO PROBARLO
+
+1) PUBLICACIÓN
+   Ya está configurado para el usuario de GitHub deancaver023-ops.
+   Web: https://deancaver023-ops.github.io/Lumen/
+   Repo: https://github.com/deancaver023-ops/Lumen
+   Si cambias de usuario: powershell -ExecutionPolicy Bypass -File tools/preparar-publicacion.ps1 -Usuario NUEVO_USUARIO
+   Pasos para publicar y aparecer en Google: PUBLICAR.md
+
+2) INSTALAR Y PROBAR SIN RIESGO
+   Necesitas Node.js 20 o newer en Windows. Desde esta carpeta:
+
+     npm install
+     npm run demo
+
+   El modo demo usa datos de ejemplo y NO toca tu PC. En Ajustes puedes cambiar
+   entre Español, Italiano e Inglés; al arrancar se detecta el idioma de Windows.
+
+3) COMPROBACIONES RÁPIDAS
+
+     npm run check:json
+     npm run check:i18n
+
+   También se comprueban sintaxis de JS y PowerShell en GitHub Actions.
+
+4) MODO REAL (CON CUIDADO)
+
+     npm start
+
+   Ábrelo como administrador y, la primera vez, hazlo en una máquina virtual
+   o en un PC de prueba. El modo real sí desinstala programas, toca el registro,
+   mueve archivos a cuarentena y puede instalar drivers/actualizaciones.
+
+5) GENERAR EL INSTALADOR
+
+     npm run dist
+
+   Sale en dist/Lumen-Instalador-1.0.0.exe.
+
+NO HAY SERVICIOS PROPIOS: sin Discord, sin donaciones y sin servidor de reportes.
+"Reportar un problema" abre un borrador de GitHub: no se envía nada automáticamente.
+
+Lumen es una versión modificada de RetroLimpia, de Retropunk94 (GPL-3.0-or-later).
+No es la versión oficial. Lee CRÉDITOS.md antes de redistribuirlo.

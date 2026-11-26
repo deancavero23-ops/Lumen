@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lumen</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="titlebar">
+    <div class="brand">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span class="logo-text">Lu<b>men</b></span>
+      <span class="ver" id="ver"></span>
+    </div>
+    <div class="titlebar-status" id="titlebarStatus"></div>
+    <div class="win-btns">
+      <button data-win="min" title="Minimizar" aria-label="Minimizar"><svg viewBox="0 0 12 12"><path d="M2 6h8"/></svg></button>
+      <button data-win="max" title="Maximizar" aria-label="Maximizar"><svg viewBox="0 0 12 12"><rect x="2" y="2" width="8" height="8" rx="1"/></svg></button>
+      <button data-win="close" class="close" title="Cerrar" aria-label="Cerrar"><svg viewBox="0 0 12 12"><path d="M3 3l6 6M9 3l-6 6"/></svg></button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="nav"></nav>
+    <main class="main" id="main" tabindex="-1"></main>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <div class="modal-back hidden" id="modal"></div>
+  <div class="modal-back hidden" id="updwin" role="dialog" aria-modal="true" aria-label="Actualización"></div>
+  <div class="monitor-back hidden" id="monitor" role="dialog" aria-modal="true" aria-label="Desinstalación"></div>
+  <div class="tour hidden" id="tour" role="dialog" aria-modal="true" aria-live="polite"></div>
+
+  <script src="js/00-estado.js"></script>
+  <script src="js/01-ui-datos.js"></script>
+  <script src="js/02-salud-acciones.js"></script>
+  <script src="js/03-monitor.js"></script>
+  <script src="js/04-vistas.js"></script>
+  <script src="js/04b-privacidad.js"></script>
+  <script src="js/04c-restos.js"></script>
+  <script src="js/04d-juego.js"></script>
+  <script src="js/04e-formateo.js"></script>
+  <script src="js/04f-salud.js"></script>
+  <script src="js/04g-apoyo.js"></script>
+  <script src="js/05-procesos.js"></script>
+  <script src="js/06-ventanas.js"></script>
+  <script src="js/07-tour.js"></script>
+  <script src="js/07b-retro.js"></script>
+  <script src="js/08-eventos.js"></script>
+  <script src="js/09-arranque.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+# Compila Lumen para Windows en los servidores de GitHub (gratis para código abierto).
+# - Cada cambio subido: genera el .exe para descargar desde la pestaña "Actions".
+# - Al crear una etiqueta de versión (ej. v2.0.1): publica una "Release" con el
+#   instalador y su huella SHA-256 para comprobarlo.
+
+name: Compilar Lumen
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Comprobar JSON y cobertura de idiomas
+        run: |
+          npm run check:json
+          npm run check:i18n
+
+      - name: Comprobar sintaxis de JavaScript
+        shell: bash
+        run: find src renderer tools -name '*.js' -print0 | xargs -0 -n1 node --check
+
+      - name: Comprobar sintaxis de los scripts de PowerShell
+        shell: pwsh
+        run: |
+          $fail = $false
+          Get-ChildItem scripts -Filter *.ps1 | ForEach-Object {
+            $errs = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$null, [ref]$errs) | Out-Null
+            if ($errs) { $fail = $true; $errs | ForEach-Object { Write-Host "::error file=$($_.Extent.File),line=$($_.Extent.StartLineNumber)::$($_.Message)" } }
+          }
+          if ($fail) { exit 1 }
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Compilar instalador
+        run: npm run dist
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+
+      - name: Calcular huellas SHA-256
+        shell: pwsh
+        run: |
+          Get-ChildItem dist -Filter *.exe | ForEach-Object {
+            "$((Get-FileHash $_.FullName -Algorithm SHA256).Hash)  $($_.Name)"
+          } | Set-Content dist/SHA256.txt
+          Get-Content dist/SHA256.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Lumen-windows
+          path: |
+            dist/*.exe
+            dist/latest.yml
+            dist/SHA256.txt
+
+      - name: Notas de la versión
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        run: node build/notas-version.js "${GITHUB_REF_NAME}" > RELEASE.md
+
+      - name: Publicar versión
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.exe
+            dist/*.blockmap
+            dist/latest.yml
+            dist/SHA256.txt
+          body_path: RELEASE.md

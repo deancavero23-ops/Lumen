@@ -1,0 +1,97 @@
+{
+  "name": "lumen",
+  "productName": "Lumen",
+  "version": "1.0.0",
+  "description": "Limpia, desinstala sin dejar restos, revisa tu hardware y mantiene tus drivers al día. Guided in Spanish, Italian and English.",
+  "main": "src/main.js",
+  "author": "Lumen contributors (based on RetroLimpia by Retropunk94)",
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://github.com/deancaver023-ops/Lumen",
+  "lumen": {
+    "repo": "deancaver023-ops/Lumen",
+    "paypal": "",
+    "reportes": "",
+    "discord": ""
+  },
+  "scripts": {
+    "start": "electron .",
+    "demo": "electron . --demo",
+    "dist": "electron-builder --win --x64 --publish never",
+    "check:json": "node tools/verificar-json.js",
+    "check:i18n": "node tools/verificar-i18n.js"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.11"
+  },
+  "devDependencies": {
+    "electron": "^45.3.3",
+    "electron-builder": "^26.18.0"
+  },
+  "build": {
+    "appId": "com.deancaver023-ops.lumen",
+    "productName": "Lumen",
+    "copyright": "GPL-3.0-or-later - Lumen, basado en RetroLimpia (Retropunk94)",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "renderer/**/*",
+      "locales/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "scripts",
+        "to": "scripts"
+      },
+      {
+        "from": "data",
+        "to": "data"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "requestedExecutionLevel": "requireAdministrator",
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "license": "build/antes-de-instalar.txt",
+      "installerLanguages": [
+        "es_ES",
+        "it_IT",
+        "en_US"
+      ],
+      "language": "3082",
+      "createDesktopShortcut": true,
+      "shortcutName": "Lumen",
+      "artifactName": "Lumen-Instalador-${version}.exe"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "deancaver023-ops",
+        "repo": "Lumen",
+        "releaseType": "release"
+      }
+    ],
+    "electronLanguages": [
+      "es",
+      "es-419",
+      "it",
+      "en-US"
+    ],
+    "compression": "maximum"
+  }
+}
