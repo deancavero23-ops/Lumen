@@ -6,7 +6,7 @@
 
 **[Descargar Lumen-Seguridad-1.2.0-play.aab](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.0/Lumen-Seguridad-1.2.0-play.aab)** · [SHA-256](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.0/SHA256-PLAY-AAB.txt)
 
-- Huella SHA-256 del AAB publicado: pendiente de la compilación 1.2.0 (se publica en `SHA256-PLAY-AAB.txt`).
+- Huella SHA-256 del AAB publicado: `acfcf7e7043450b393cf884ad28ea36c041ddf265868fb4e3e17f8032b7d0b7e` (2.861.452 bytes).
 - Package: `com.lumen.seguridad`.
 - Firma: la misma que la APK (`android-native/lumen-seguridad.keystore`, alias `lumen`). Si vas a subir una versión nueva más adelante, **usa el mismo keystore** o Play no aceptará la actualización.
 - Antes de crear la app en Play Console, comprueba que `com.lumen.seguridad` esté disponible en tu cuenta. Si ya existe una app tuya con otro package, dime cuál es y ajusto el `applicationId`.

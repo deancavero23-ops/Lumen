@@ -10,7 +10,7 @@ Esta APK **sí hace cosas reales**, a diferencia de la demo TWA descrita en [AND
 
 ![QR para descargar Lumen Seguridad](img/qr-android-seguridad.png)
 
-- Huella SHA-256 del APK publicado: pendiente de la compilación 1.2.0 (se publica en `SHA256-SEGURIDAD.txt`).
+- Huella SHA-256 del APK publicado: `bc036e6a58f4c89322e331e521c732cba2e3ab6257081986e72c49e74ba063e2`.
 - Requiere **Android 7.0 (API 24) o superior**.
 - Se instala por **sideload**: al abrir la APK, Android pedirá permitir **fuentes desconocidas**. Acepta solo si confías en este repositorio.
 - La firma es propia (`android-native/lumen-seguridad.keystore`, alias `lumen`). **No es la misma firma** que la APK demo, por lo que Android las tratará como apps distintas y podrás tener las dos instaladas.
@@ -71,7 +71,7 @@ Las reglas incluidas (`android-native/app/src/main/assets/reglas.json`) son una 
 3. Calcula el SHA-256 local y lo compara con el publicado. Solo si coinciden valida el formato y guarda el archivo en el almacenamiento privado de la app.
 4. **Ajustes → Reglas de seguridad** muestra el origen, versión, fecha y número de hashes/firmantes, y permite **Restablecer incluidas**.
 
-No hay descargas en segundo plano, ni comprobación de actualizaciones al abrir la app, ni envío de la lista de apps instaladas. El límite de descarga es 1 MB y solo se aceptan URLs de GitHub.
+No hay descargas en segundo plano, ni comprobación de actualizaciones al abrir la app, ni envío de la lista de apps instaladas. El límite de descarga es 1 MB y solo se aceptan URLs de GitHub. La huella publicada de esta primera versión de las reglas es `b09901e3dab6de16ea5e47de9b1683556bff1e304d6f6587313fc401686214a9`.
 
 ## Compilar
 
