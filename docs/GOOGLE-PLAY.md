@@ -1,6 +1,6 @@
 # Lumen Seguridad en Google Play
 
-> **Estado:** el AAB firmado se genera en GitHub Actions, pero **no lo subimos a Play Console**. Necesitas tu cuenta de desarrollador para publicarlo. El APK de sideload sigue disponible en la [Release de seguridad](https://github.com/deancavero23-ops/Lumen/releases/tag/seguridad-v1.2.0).
+> **Estado:** el AAB firmado se genera en GitHub Actions, pero **no lo subimos a Play Console**. Necesitas tu cuenta de desarrollador para publicarlo. El APK de sideload sigue disponible en la [Release de seguridad](https://github.com/deancavero23-ops/Lumen/releases/tag/seguridad-v1.2.0). La ficha de texto y el material gráfico están en [PLAY-FICHA.md](PLAY-FICHA.md).
 
 ## Descargar el AAB
 
