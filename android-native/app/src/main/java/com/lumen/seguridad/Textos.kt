@@ -717,6 +717,10 @@ object Textos {
     fun textos(lang: String): Map<String, String> = mapas[lang] ?: es
 
     /** Devuelve la clave de una frase incluida, para reproducir su audio en vez de TTS. */
-    fun claveDe(context: Context, texto: String): String? =
-        textos(idioma(context)).firstOrNull { it.value == texto }?.key
+    fun claveDe(context: Context, texto: String): String? {
+        for ((clave, valor) in textos(idioma(context))) {
+            if (valor == texto) return clave
+        }
+        return null
+    }
 }
