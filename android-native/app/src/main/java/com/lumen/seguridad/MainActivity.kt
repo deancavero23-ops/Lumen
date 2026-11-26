@@ -315,6 +315,21 @@ class MainActivity : Activity() {
         acciones.addView(boton(clave, primario, onClick))
     }
 
+    /** Botón con texto dinámico (nombre de una app detectada). */
+    private fun accionTexto(texto: String, onClick: () -> Unit) {
+        acciones.addView(Button(this).apply {
+            text = texto
+            setTextColor(Color.WHITE)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+            isAllCaps = false
+            background = fondoBoton(false)
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { topMargin = dp(8) }
+            setOnClickListener { onClick() }
+        })
+    }
+
     private fun volver() {
         salida.text = t("lumiHola")
         limpiarAcciones()
@@ -352,7 +367,7 @@ class MainActivity : Activity() {
             historial.append("\n\n${t("chat_you")}: $pregunta\n${t("chat_lumi")}: $respuesta")
             campo.text.clear()
             scroll.post { scroll.fullScroll(ScrollView.FOCUS_DOWN) }
-            Voz.decir(this, respuesta)
+            if (prefs().getBoolean("voz", true)) Voz.decir(this, respuesta)
         }
         val rapido = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
         listOf("quick_apps", "quick_files", "quick_battery", "quick_auto").forEach { clave ->
@@ -406,6 +421,11 @@ class MainActivity : Activity() {
             p.contains("virus") || p.contains("malware") || p.contains("segur") ||
                 p.contains("sicur") || p.contains("secur") -> t("resp_virus")
             p.contains("app") || p.contains("aplicacion") || p.contains("applicaz") -> t("resp_apps")
+            p.contains("foto") || p.contains("photo") -> t("resp_fotos")
+            p.contains("video") || p.contains("vídeo") || p.contains("vidéo") -> t("resp_video")
+            p.contains("music") || p.contains("musica") || p.contains("música") -> t("resp_musica")
+            p.contains("apk") || p.contains("no usas") || p.contains("sin usar") ||
+                p.contains("unused") -> t("resp_apk")
             p.contains("limpi") || p.contains("cach") || p.contains("basura") ||
                 p.contains("borr") || p.contains("puliz") || p.contains("cancell") ||
                 p.contains("clean") || p.contains("delete") || p.contains("archiv") ||
@@ -655,19 +675,52 @@ class MainActivity : Activity() {
         "reason_empty" -> t("advice_empty")
         "reason_old_apk" -> t("advice_old_apk")
         "reason_duplicate" -> t("advice_duplicate")
+        "reason_duplicate_photo" -> t("advice_duplicate_photo")
+        "reason_duplicate_video" -> t("advice_duplicate_video")
+        "reason_duplicate_music" -> t("advice_duplicate_music")
+        "reason_long_video" -> t("advice_long_video")
+        "reason_large_music" -> t("advice_large_music")
         else -> t("advice_generic")
     }
 
     private fun mostrarConsejosArchivos() {
+        val seguros = documentos.filter { esSeguro(it) }
+        val revision = documentos.filter { !esSeguro(it) }
         val sb = StringBuilder("${t("advice_title")}\n\n")
-        sb.append("${t("advice_safe")}\n\n")
-        sb.append("${t("advice_review")}\n\n")
-        documentos.take(12).forEach { d ->
-            sb.append("${if (esSeguro(d)) "✓" else "!"} ${d.nombre}: ${consejoArchivo(d.motivo)}\n")
+        sb.append("${t("advice_safe")}: ${seguros.size}\n")
+        seguros.take(5).forEach { d ->
+            sb.append("  ✓ ${d.nombre}: ${consejoArchivo(d.motivo)}\n")
+        }
+        sb.append("\n${t("advice_review")}: ${revision.size}\n")
+        revision.groupBy { it.motivo }.forEach { (motivo, lista) ->
+            sb.append("  ! ${t(motivo)} (${lista.size}): ${consejoArchivo(motivo)}\n")
+            lista.take(2).forEach { d ->
+                sb.append("      ${d.nombre} · ${Utilidades.tamano(d.tamano)}\n")
+            }
         }
         if (documentos.isEmpty()) sb.append(t("files_empty"))
         salida.text = sb.toString()
         limpiarAcciones()
+        if (documentos.isNotEmpty()) {
+            accion("move_quarantine") {
+                AlertDialog.Builder(this)
+                    .setTitle(t("move_quarantine"))
+                    .setMessage(t("confirm_move"))
+                    .setPositiveButton(t("ok")) { _, _ -> moverArchivos() }
+                    .setNegativeButton(t("cancel"), null)
+                    .show()
+            }
+            if (seguros.isNotEmpty()) {
+                accion("delete_safe") {
+                    AlertDialog.Builder(this)
+                        .setTitle(t("delete_safe"))
+                        .setMessage("${t("confirm_delete")}\n\n${t("deleted_count")}: ${seguros.size}")
+                        .setPositiveButton(t("ok")) { _, _ -> borrarArchivos(seguros) }
+                        .setNegativeButton(t("cancel"), null)
+                        .show()
+                }
+            }
+        }
         accion("files_back") { mostrarArchivos() }
     }
 
@@ -792,6 +845,26 @@ class MainActivity : Activity() {
 
     /** Consejos calculados con datos reales del dispositivo; nunca inventa una puntuación. */
     private fun mostrarConsejos() {
+        if (!Analizador.tieneUso(this)) {
+            mostrarConsejosCon(emptyList(), false)
+            return
+        }
+        salida.text = t("scanning_apps")
+        Thread {
+            val apps = Analizador.analizar(applicationContext)
+            runOnUiThread { mostrarConsejosCon(apps, true) }
+        }.start()
+    }
+
+    private fun pedirUso() {
+        try {
+            startActivity(Intent(android.provider.Settings.ACTION_USAGE_ACCESS_SETTINGS))
+        } catch (e: Exception) {
+            abrirUrl("https://deancavero23-ops.github.io/Lumen/SEGURIDAD-ANDROID.md")
+        }
+    }
+
+    private fun mostrarConsejosCon(apps: List<AppRiesgo>, uso: Boolean) {
         @Suppress("DEPRECATION")
         val b = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
         val nivel = b?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
@@ -800,6 +873,10 @@ class MainActivity : Activity() {
         val decimas = b?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, Int.MIN_VALUE) ?: Int.MIN_VALUE
         val libre = StatFs(applicationContext.filesDir.path).availableBytes
         val reglas = Reglas.info(this)
+        val ahora = System.currentTimeMillis()
+        val sinUso = apps.filter {
+            it.ultimoUso > 0 && ahora - it.ultimoUso >= 90L * 24 * 60 * 60 * 1000
+        }.sortedBy { it.ultimoUso }.take(5)
 
         val sb = StringBuilder(t("consejos_title")).append("\n\n")
         var numero = 0
@@ -813,11 +890,28 @@ class MainActivity : Activity() {
         if (Limpieza.leerCuarentena(this).isNotEmpty()) consejo("consejo_cuarentena")
         if (reglas.origen != "github" || reglas.version == "?") consejo("consejo_reglas")
         if (!prefs().getBoolean("vpn", false)) consejo("consejo_vpn")
+        if (Limpieza.arbol(this) == null) consejo("consejo_archivos")
+        else if (documentos.any { it.motivo == "reason_old_apk" }) consejo("consejo_apk_unused")
+        if (!uso) consejo("usage_hint")
+        if (sinUso.isNotEmpty()) {
+            consejo("consejo_unused_apps")
+            sinUso.forEach { app ->
+                val dias = (ahora - app.ultimoUso) / 86_400_000L
+                sb.append("    ${app.nombre} · $dias ${t("unused_app_days")}\n")
+            }
+        }
         if (numero == 0) sb.append(t("consejo_ok"))
         salida.text = sb.toString()
         limpiarAcciones()
         accion("consejos_escanear") { escanearApps() }
         accion("consejos_liberar") { elegirCarpeta() }
+        if (!uso) accion("usage_access") { pedirUso() }
+        sinUso.forEach { app ->
+            val dias = (ahora - app.ultimoUso) / 86_400_000L
+            accionTexto("${app.nombre} · $dias ${t("unused_app_days")} · ${t("review_app")}") {
+                abrirPermisos(app.paquete)
+            }
+        }
         accion("back") { volver() }
     }
 

@@ -1,10 +1,13 @@
 package com.lumen.seguridad
 
+import android.app.AppOpsManager
+import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Process
 import org.json.JSONObject
 import java.io.File
 
@@ -19,7 +22,9 @@ data class AppRiesgo(
     val accesibilidad: Boolean,
     val puntuacion: Int,
     val nivel: String,
-    val conocida: Boolean = false
+    val conocida: Boolean = false,
+    /** Último uso en milisegundos; 0 si el usuario no ha dado acceso al uso de apps. */
+    val ultimoUso: Long = 0L
 )
 
 object Analizador {
@@ -32,6 +37,35 @@ object Analizador {
             .getStringSet(CONOCIDAS, emptySet())?.toMutableSet() ?: mutableSetOf()
 
     fun esConocida(context: Context, paquete: String): Boolean = paquete in conocidas(context)
+
+    /** El acceso al uso de apps es opt-in y se concede en Ajustes del sistema. */
+    fun tieneUso(context: Context): Boolean = try {
+        val ops = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+        @Suppress("DEPRECATION")
+        val modo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ops.unsafeCheckOpNoThrow(
+                AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), context.packageName
+            )
+        } else {
+            ops.checkOpNoThrow(
+                AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), context.packageName
+            )
+        }
+        modo == AppOpsManager.MODE_ALLOWED
+    } catch (e: Exception) { false }
+
+    /** Consulta única de uso: evita recorrer las estadísticas una vez por app. */
+    private fun usosRecientes(context: Context): Map<String, Long> {
+        if (!tieneUso(context)) return emptyMap()
+        return try {
+            val gestor = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+            val fin = System.currentTimeMillis()
+            val inicio = fin - 90L * 86_400_000L
+            gestor.queryUsageStats(UsageStatsManager.INTERVAL_BEST, inicio, fin)
+                .groupBy { it.packageName }
+                .mapValues { (_, lista) -> lista.maxOf { it.lastTimeUsed } }
+        } catch (e: Exception) { emptyMap() }
+    }
 
     /** Añade o quita una app de la lista local de confianza y devuelve true si quedó marcada. */
     fun alternarConocida(context: Context, paquete: String): Boolean {
@@ -74,7 +108,7 @@ object Analizador {
         return Utilidades.sha256(bytes).take(16)
     }
 
-    private fun construir(context: Context, pi: PackageInfo, r: Conjunto): AppRiesgo? {
+    private fun construir(context: Context, pi: PackageInfo, r: Conjunto, usos: Map<String, Long>): AppRiesgo? {
         val ai = pi.applicationInfo ?: return null
         val paquete = pi.packageName
         if (paquete == context.packageName) return null
@@ -108,8 +142,18 @@ object Analizador {
             else -> "risk_low"
         }
         return AppRiesgo(
-            paquete, nombre, version, sha, firma, instalador, permisos,
-            accesibilidad, if (conocida) 0 else puntos, nivel, conocida
+            paquete = paquete,
+            nombre = nombre,
+            version = version,
+            sha = sha,
+            firmante = firma,
+            instalador = instalador,
+            permisos = permisos,
+            accesibilidad = accesibilidad,
+            puntuacion = if (conocida) 0 else puntos,
+            nivel = nivel,
+            conocida = conocida,
+            ultimoUso = usos[paquete] ?: 0L
         )
     }
 
@@ -117,8 +161,9 @@ object Analizador {
         val pm = context.packageManager
         val flags = PackageManager.GET_PERMISSIONS or PackageManager.GET_SIGNATURES
         val r = reglas(context)
+        val usos = usosRecientes(context)
         return pm.getInstalledPackages(flags)
-            .mapNotNull { construir(context, it, r) }
+            .mapNotNull { construir(context, it, r, usos) }
             .sortedWith(compareByDescending<AppRiesgo> { it.puntuacion }.thenBy { it.nombre.lowercase() })
     }
 

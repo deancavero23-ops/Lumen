@@ -156,7 +156,6 @@ const D = {
 
 const $ = (q) => document.querySelector(q);
 const $$ = (q) => Array.from(document.querySelectorAll(q));
-const idiomas = { es: 'es-ES', it: 'it-IT', en: 'en-US' };
 const CLAVES_AUDIO = new Set([
   'lumiHola', 'lumi1', 'lumi2', 'lumi3', 'lumiScan', 'lumiDone', 'lumiDemo',
   'anunciosActivo', 'anunciosInactivo', 'bloqueoProbado', 'ahorroActivo', 'ahorroOff', 'sinVoz'
@@ -202,45 +201,23 @@ function toast(texto) {
   el._t = setTimeout(() => el.classList.remove('ver'), 2800);
 }
 
-function elegirVoz() {
-  if (!('speechSynthesis' in window)) return null;
-  const voces = speechSynthesis.getVoices();
-  const prefijo = idiomas[lang].slice(0, 2).toLowerCase();
-  const delIdioma = voces.filter((v) => v.lang.toLowerCase().startsWith(prefijo));
-  const femeninas = ['female', 'femin', 'mujer', 'woman', 'samantha', 'victoria', 'zira', 'karen', 'moira', 'tessa', 'fiona', 'serena', 'allison', 'ava', 'susan', 'lucia', 'paola', 'chiara'];
-  return delIdioma.find((v) => femeninas.some((n) => v.name.toLowerCase().includes(n)))
-    || delIdioma[0]
-    || null;
-}
-
-function hablarLimpio(texto) {
-  // Los motores TTS leen emoji y comillas como palabras raras; Lumen los muestra pero no los pronuncia.
-  return texto.replace(/[^\p{L}\p{N}\s¿?¡!.,;:-]/gu, ' ').replace(/\s+/g, ' ').trim();
-}
-
-function rutaAudio(texto) {
+function claveDeTexto(texto) {
   if (!D[lang]) return null;
   for (const clave of CLAVES_AUDIO) {
-    if (D[lang][clave] === texto) return `audio/${lang}-${clave}.wav`;
+    if (D[lang][clave] === texto) return clave;
   }
   return null;
 }
 
-function hablarTts(texto, lumi) {
-  if (!('speechSynthesis' in window)) { toast(t('sinVoz')); return; }
-  try {
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(hablarLimpio(texto));
-    u.lang = idiomas[lang];
-    u.rate = 0.98;
-    const voces = speechSynthesis.getVoices();
-    const voz = elegirVoz();
-    if (voz) { u.voice = voz; u.lang = voz.lang; }
-    u.pitch = 1.15;
-    u.onend = () => lumi.classList.remove('hablando');
-    speechSynthesis.speak(u);
-    if (!voces.length) toast(t('sinVoz'));
-  } catch (_) { toast(t('sinVoz')); }
+// La demo usa solo los audios incluidos (voces neuronales femeninas). Nunca llama al TTS
+// del navegador: era el que producía una voz rara y distinta en cada móvil.
+function reproducirAudio(clave, lumi) {
+  if (audioActual) { audioActual.pause(); audioActual = null; }
+  const audio = new Audio(`audio/${lang}-${clave}.mp3`);
+  audioActual = audio;
+  audio.onended = () => { lumi.classList.remove('hablando'); audioActual = null; };
+  audio.onerror = () => { audioActual = null; lumi.classList.remove('hablando'); };
+  audio.play().catch(() => { audioActual = null; lumi.classList.remove('hablando'); });
 }
 
 function hablar(texto, ms, forzarVoz) {
@@ -255,20 +232,12 @@ function hablar(texto, ms, forzarVoz) {
 
   const quiereVoz = $('#voz').checked || forzarVoz;
   if (!quiereVoz) return;
-  if (audioActual) { audioActual.pause(); audioActual = null; }
-
-  const ruta = rutaAudio(texto);
-  if (ruta) {
-    const audio = new Audio(ruta);
-    audioActual = audio;
-    audio.onended = () => { lumi.classList.remove('hablando'); audioActual = null; };
-    const usarTts = () => { audioActual = null; hablarTts(texto, lumi); };
-    audio.onerror = usarTts;
-    audio.play().catch(usarTts);
-    return;
-  }
-  hablarTts(texto, lumi);
+  const clave = claveDeTexto(texto);
+  if (clave) reproducirAudio(clave, lumi);
+  else lumi.classList.remove('hablando');
 }
+
+function hablarClave(clave, ms) { hablar(t(clave), ms); }
 
 function parpadear() {
   if (ahorroActivo() || document.hidden) return;

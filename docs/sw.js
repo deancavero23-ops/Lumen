@@ -1,5 +1,5 @@
 /* Lumen PWA: caché offline y filtro de publicidad dentro de la app. */
-const CACHE = 'lumen-app-v19-0-0';
+const CACHE = 'lumen-app-v20-0-0';
 // El scope del service worker es /Lumen/ en GitHub Pages y / en una prueba local.
 const BASE = self.registration.scope;
 const RUTAS = [
@@ -8,18 +8,18 @@ const RUTAS = [
   'img/pwa-maskable-512.png', 'img/icon-180.png', 'img/audiowide.woff2',
   'img/qr-android-pwa.png', 'img/qr-android-apk.png', 'img/qr-android-seguridad.png', 'img/qr-descarga-android.png', 'logo.svg', 'index.html',
   'SEGURIDAD-ANDROID.md', 'GOOGLE-PLAY.md', 'PLAY-FICHA.md', 'ANDROID.md', 'PRIVACIDAD.md',
-  'audio/en-ahorroActivo.wav', 'audio/en-ahorroOff.wav', 'audio/en-anunciosActivo.wav',
-  'audio/en-anunciosInactivo.wav', 'audio/en-bloqueoProbado.wav', 'audio/en-lumi1.wav',
-  'audio/en-lumi2.wav', 'audio/en-lumi3.wav', 'audio/en-lumiDemo.wav', 'audio/en-lumiDone.wav',
-  'audio/en-lumiHola.wav', 'audio/en-lumiScan.wav', 'audio/en-sinVoz.wav',
-  'audio/es-ahorroActivo.wav', 'audio/es-ahorroOff.wav', 'audio/es-anunciosActivo.wav',
-  'audio/es-anunciosInactivo.wav', 'audio/es-bloqueoProbado.wav', 'audio/es-lumi1.wav',
-  'audio/es-lumi2.wav', 'audio/es-lumi3.wav', 'audio/es-lumiDemo.wav', 'audio/es-lumiDone.wav',
-  'audio/es-lumiHola.wav', 'audio/es-lumiScan.wav', 'audio/es-sinVoz.wav',
-  'audio/it-ahorroActivo.wav', 'audio/it-ahorroOff.wav', 'audio/it-anunciosActivo.wav',
-  'audio/it-anunciosInactivo.wav', 'audio/it-bloqueoProbado.wav', 'audio/it-lumi1.wav',
-  'audio/it-lumi2.wav', 'audio/it-lumi3.wav', 'audio/it-lumiDemo.wav', 'audio/it-lumiDone.wav',
-  'audio/it-lumiHola.wav', 'audio/it-lumiScan.wav', 'audio/it-sinVoz.wav'
+  'app/audio/en-ahorroActivo.mp3', 'app/audio/en-ahorroOff.mp3', 'app/audio/en-anunciosActivo.mp3',
+  'app/audio/en-anunciosInactivo.mp3', 'app/audio/en-bloqueoProbado.mp3', 'app/audio/en-lumi1.mp3',
+  'app/audio/en-lumi2.mp3', 'app/audio/en-lumi3.mp3', 'app/audio/en-lumiDemo.mp3', 'app/audio/en-lumiDone.mp3',
+  'app/audio/en-lumiHola.mp3', 'app/audio/en-lumiScan.mp3', 'app/audio/en-sinVoz.mp3',
+  'app/audio/es-ahorroActivo.mp3', 'app/audio/es-ahorroOff.mp3', 'app/audio/es-anunciosActivo.mp3',
+  'app/audio/es-anunciosInactivo.mp3', 'app/audio/es-bloqueoProbado.mp3', 'app/audio/es-lumi1.mp3',
+  'app/audio/es-lumi2.mp3', 'app/audio/es-lumi3.mp3', 'app/audio/es-lumiDemo.mp3', 'app/audio/es-lumiDone.mp3',
+  'app/audio/es-lumiHola.mp3', 'app/audio/es-lumiScan.mp3', 'app/audio/es-sinVoz.mp3',
+  'app/audio/it-ahorroActivo.mp3', 'app/audio/it-ahorroOff.mp3', 'app/audio/it-anunciosActivo.mp3',
+  'app/audio/it-anunciosInactivo.mp3', 'app/audio/it-bloqueoProbado.mp3', 'app/audio/it-lumi1.mp3',
+  'app/audio/it-lumi2.mp3', 'app/audio/it-lumi3.mp3', 'app/audio/it-lumiDemo.mp3', 'app/audio/it-lumiDone.mp3',
+  'app/audio/it-lumiHola.mp3', 'app/audio/it-lumiScan.mp3', 'app/audio/it-sinVoz.mp3'
 ];
 const ARCHIVOS = RUTAS.map((r) => new URL(r, BASE).href);
 

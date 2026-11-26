@@ -1,6 +1,6 @@
 # Ficha de Lumen Seguridad para Google Play 🛡️
 
-Textos listos para copiar en Play Console. Mantienen el nombre **Lumen Seguridad**, el logo rojo con la L negra y chispa blanca, a Lumi y el emoji 🛡️. El AAB es [`Lumen-Seguridad-1.2.4-play.aab`](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.4/Lumen-Seguridad-1.2.4-play.aab) y la guía de permisos está en [GOOGLE-PLAY.md](GOOGLE-PLAY.md).
+Textos listos para copiar en Play Console. Mantienen el nombre **Lumen Seguridad**, el logo rojo con la L negra y chispa blanca, a Lumi y el emoji 🛡️. El AAB es [`Lumen-Seguridad-1.2.5-play.aab`](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.5/Lumen-Seguridad-1.2.5-play.aab) y la guía de permisos está en [GOOGLE-PLAY.md](GOOGLE-PLAY.md). La descripción habla solo de lo que la app hace: **no promete acelerar ni enfriar el móvil**.
 
 ## Datos base
 
@@ -32,11 +32,11 @@ Lumen Seguridad es una segunda opinión local para tu Android. No sustituye a Pl
 
 🔎 **Análisis de apps instaladas** — Calcula el SHA-256 de cada APK, lee su certificado firmante, el instalador y los permisos sensibles (SMS, contactos, ubicación, cámara, micrófono, accesibilidad...). Ordena los resultados por riesgo y abre el diálogo del sistema si pides desinstalar algo.
 
-🧹 **Limpieza que tú controlas** — Elige una carpeta con el selector de Android. Lumen marca temporales, `.log`, archivos vacíos, APK antiguos y duplicados; los mueve a una cuarentena dentro de esa carpeta y los restaura con un toque. Nada se borra sin tu confirmación.
+🧹 **Limpieza que tú controlas** — Elige una carpeta con el selector de Android. Lumen marca temporales, `.log` y archivos vacíos como seguros, y separa para revisar los APK que no usas, las fotos duplicadas (comparando contenido, no solo el nombre), los vídeos largos o pesados y la música duplicada o muy grande. Te dice cuál conservar y mueve el resto a una cuarentena dentro de esa carpeta; puedes restaurarla con un toque. Nada se borra sin tu confirmación.
 
 🛡️ **Bloqueo global de anuncios (opcional)** — Filtro DNS local con `VpnService`: a los dominios publicitarios responde `0.0.0.0` y reenvía el resto a un DNS público. Android pide permiso y tú puedes desactivarlo cuando quieras. No lee páginas, contraseñas ni mensajes.
 
-🔋 **Batería real y Lumi** — Lee el nivel y el estado de carga con `BatteryManager`, y la mascota Lumi te habla con voces femeninas grabadas en español, italiano e inglés (con TTS de respaldo). Con **«Escribir a Lumi»** puedes hacerle preguntas y obtener respuestas locales sobre apps, archivos, anuncios, batería y reglas.
+🔋 **Batería real y Lumi** — Lee el nivel y el estado de carga con `BatteryManager`; **no promete acelerar ni enfriar el móvil**. Lumi habla con audios MP3 de voces femeninas neuronales incluidos en español, italiano e inglés: no lee emoji ni suena distinto según el teléfono. Con **«Escribir a Lumi»** obtienes consejos locales sobre apps sin usar, fotos duplicadas, vídeos largos, música pesada, anuncios, batería y reglas.
 
 📄 **Reglas actualizables** — Desde Ajustes puedes descargar hashes y firmantes desde la Release pública de GitHub, con verificación SHA-256, o volver a las reglas incluidas. Nunca se descarga nada automáticamente.
 
@@ -48,11 +48,11 @@ Lumen Seguridad es una seconda opinione locale per Android. Non sostituisce Play
 
 🔎 **Analisi delle app installate** — Calcola lo SHA-256 di ogni APK, legge il certificato firmatario, l'installatore e i permessi sensibili (SMS, contatti, posizione, fotocamera, microfono, accessibilità...). Ordina per rischio e apre la finestra di sistema se chiedi di disinstallare.
 
-🧹 **Pulizia sotto controllo** — Scegli una cartella con il selettore di Android. Lumen segnala temporanei, `.log`, file vuoti, APK vecchi e duplicati; li sposta in quarantena nella stessa cartella e li ripristina con un tocco. Nulla viene cancellato senza conferma.
+🧹 **Pulizia sotto controllo** — Scegli una cartella con il selettore di Android. Lumen considera sicuri temporanei, `.log` e file vuoti; segnala per la revisione APK che non usi, foto duplicate (confronta il contenuto, non solo il nome), video lunghi o pesanti e musica duplicata o molto grande. Ti dice quale tenere e sposta gli altri in quarantena nella stessa cartella, ripristinabili con un tocco. Nulla viene cancellato senza conferma.
 
 🛡️ **Blocco annunci globale (opzionale)** — Filtro DNS locale con `VpnService`: ai domini pubblicitari risponde `0.0.0.0` e inoltra il resto a un DNS pubblico. Android chiede il permesso e puoi disattivarlo quando vuoi. Non legge pagine, password o messaggi.
 
-🔋 **Batteria reale e Lumi** — Legge livello e stato di carica con `BatteryManager`; Lumi parla con voci femminili registrate in spagnolo, italiano e inglese (con TTS di riserva). Con **«Scrivi a Lumi»** puoi farle domande e ricevere risposte locali su app, file, annunci, batteria e regole.
+🔋 **Batteria reale e Lumi** — Legge livello e stato di carica con `BatteryManager`; **non promette di accelerare né raffreddare il telefono**. Lumi parla con MP3 di voci femminili neurali incluse in spagnolo, italiano e inglese: non legge gli emoji e non cambia voce da telefono a telefono. Con **«Scrivi a Lumi»** ricevi consigli locali su app non usate, foto duplicate, video lunghi, musica pesante, annunci, batteria e regole.
 
 📄 **Regole aggiornabili** — Da Impostazioni puoi scaricare hash e firmatari dalla Release pubblica su GitHub con verifica SHA-256, oppure tornare alle regole incluse. Nessun download automatico.
 
@@ -64,23 +64,23 @@ Lumen Seguridad is a local second opinion for Android. It does not replace Play 
 
 🔎 **Installed app analysis** — Computes each APK's SHA-256, reads its signing certificate, installer and sensitive permissions (SMS, contacts, location, camera, microphone, accessibility...). Sorts by risk and opens the system dialog if you request an uninstall.
 
-🧹 **Cleanup you control** — Pick a folder with Android's picker. Lumen flags temporary files, `.log`, empty files, old APKs and duplicates; moves them to quarantine in that same folder and restores them with one tap. Nothing is deleted without your confirmation.
+🧹 **Cleanup you control** — Pick a folder with Android's picker. Lumen treats temporary files, `.log` and empty files as safe, and flags for review unused APKs, duplicate photos (compared by content, not just name), long or large videos and duplicate or very large music. It tells you which one to keep and moves the rest to quarantine in that same folder, restorable with one tap. Nothing is deleted without your confirmation.
 
 🛡️ **Optional global ad blocking** — Local DNS filter using `VpnService`: known ad domains get `0.0.0.0` and everything else is forwarded to a public resolver. Android asks for permission and you can switch it off anytime. It does not read pages, passwords or messages.
 
-🔋 **Real battery info and Lumi** — Reads level and charging state with `BatteryManager`. Lumi speaks with recorded female voices in Spanish, Italian and English (TTS fallback). With **"Chat with Lumi"** you can type questions and get local answers about apps, files, ads, battery and rules.
+🔋 **Real battery info and Lumi** — Reads level and charging state with `BatteryManager`; it does **not** promise to speed up or cool down the phone. Lumi speaks with included neural female-voice MP3 files in Spanish, Italian and English: no emoji read aloud and no voice changing between phones. With **"Chat with Lumi"** you get local advice about unused apps, duplicate photos, long videos, heavy music, ads, battery and rules.
 
 📄 **Updatable rules** — In Settings you can download hashes and signers from the public GitHub Release with SHA-256 verification, or restore the bundled rules. Nothing is downloaded automatically.
 
 Available in Spanish, Italian and English. Android 7.0 or newer. Free, open source (GPL-3.0-or-later) and based on RetroLimpia by Retropunk94. Not the official version. More info: https://deancavero23-ops.github.io/Lumen/
 
-## Novedades de la versión 1.2.4 (cuadro «Qué hay de nuevo»)
+## Novedades de la versión 1.2.5 (cuadro «Qué hay de nuevo»)
 
-**Español:** Actualizaciones automáticas: reglas verificadas con SHA-256 una vez al día y aviso de nueva versión, controlables en «🔄 Auto». Nuevo «💡 Consejos» con avisos reales de batería, temperatura y espacio. Escudo 🛡️ dibujado que abre el chat, voces femeninas que no leen emoji y borrado seguro con consejos antes de eliminar.
+**Español:** Lumi ya no suena raro: usa audios MP3 con voces femeninas neuronales incluidas y no lee emoji. Consejos concretos antes de borrar: APK que no usas, fotos duplicadas por contenido, vídeos largos y música pesada se separan para revisar o cuarentena, nunca para borrar automáticamente. Si activas el acceso al uso en Ajustes del sistema, «💡 Consejos» señala apps sin abrir en 90 días y abre su pantalla de permisos; Android confirma siempre la desinstalación.
 
-**Italiano:** Aggiornamenti automatici: regole verificate con SHA-256 una volta al giorno e avviso di nuova versione, gestibili in «🔄 Auto». Nuovi «💡 Consigli» con dati reali su batteria, temperatura e spazio. Scudo 🛡️ disegnato che apre la chat, voci femminili che non leggono gli emoji e cancellazione sicura con consigli prima di eliminare.
+**Italiano:** Lumi non ha più la voce strana: usa MP3 con voci femminili neurali incluse e non legge gli emoji. Consigli concreti prima di cancellare: APK non usati, foto duplicate per contenuto, video lunghi e musica pesante vanno solo in revisione o quarantena, mai cancellati automaticamente. Se attivi l'accesso all'utilizzo nelle Impostazioni di sistema, «💡 Consigli» mostra le app non aperte da 90 giorni e apre la loro schermata dei permessi; Android conferma sempre la disinstallazione.
 
-**English:** Automatic updates: SHA-256-verified rules once a day and a new-version alert, both controllable in "Auto". New "Advice" screen with real battery, temperature and storage warnings. Drawn 🛡️ shield opens the chat, female voices skip emoji, and safe deletion now shows advice before removing files.
+**English:** Lumi no longer sounds odd: included neural female-voice MP3s, with no emoji read aloud. Concrete advice before deleting: unused APKs, duplicate photos by content, long videos and heavy music are flagged for review or quarantine, never deleted automatically. With optional Usage access in system Settings, "Advice" lists apps unused for 90 days and opens their permission screen; Android always confirms uninstallation.
 
 ## Material gráfico
 

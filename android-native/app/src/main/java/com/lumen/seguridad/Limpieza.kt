@@ -1,12 +1,15 @@
 package com.lumen.seguridad
 
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.provider.DocumentsContract
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
+import java.security.MessageDigest
 
 data class DocInfo(
     val uri: Uri,
@@ -14,7 +17,8 @@ data class DocInfo(
     val nombre: String,
     val tamano: Long,
     val modificado: Long,
-    val motivo: String
+    val motivo: String,
+    val mime: String = ""
 )
 
 data class CuarentenaItem(
@@ -60,6 +64,38 @@ object Limpieza {
         }
     }
 
+    /** Hash del contenido real: detecta fotos duplicadas aunque tengan distinto nombre. */
+    private fun sha256(uri: Uri, cr: ContentResolver): String? {
+        val digest = MessageDigest.getInstance("SHA-256")
+        val buffer = ByteArray(8192)
+        var total = 0L
+        try {
+            cr.openInputStream(uri)?.use { entrada ->
+                while (true) {
+                    val n = entrada.read(buffer)
+                    if (n < 0) break
+                    total += n
+                    if (total > 80L * 1024 * 1024) return null
+                    digest.update(buffer, 0, n)
+                }
+            } ?: return null
+        } catch (e: Exception) {
+            return null
+        }
+        return digest.digest().joinToString("") { "%02x".format(it) }
+    }
+
+    /** Duración en milisegundos; 0 si el proveedor no la expone. */
+    private fun duracion(context: Context, uri: Uri): Long = try {
+        val retriever = MediaMetadataRetriever()
+        retriever.setDataSource(context, uri)
+        val valor = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+        retriever.release()
+        valor?.toLongOrNull() ?: 0L
+    } catch (e: Exception) {
+        0L
+    }
+
     fun escanear(context: Context, treeUri: Uri): List<DocInfo> {
         val cr = context.contentResolver
         val projection = arrayOf(
@@ -95,7 +131,7 @@ object Limpieza {
                         continue
                     }
                     val docUri = DocumentsContract.buildDocumentUriUsingTree(treeUri, id)
-                    val base = DocInfo(docUri, padre, nombre, size, mod, "")
+                    val base = DocInfo(docUri, padre, nombre, size, mod, "", mime)
                     todos.add(base)
                     val m = motivo(nombre, size, mod)
                     if (m != null) candidatos.add(base.copy(motivo = m))
@@ -103,14 +139,50 @@ object Limpieza {
             }
         }
 
-        val duplicados = todos.filter { it.tamano > 0 }
+        val ya = candidatos.map { it.uri.toString() }.toHashSet()
+        fun marcar(doc: DocInfo, motivo: String) {
+            if (ya.add(doc.uri.toString())) candidatos.add(doc.copy(motivo = motivo))
+        }
+
+        // Duplicados por nombre y tamaño (rápido).
+        todos.filter { it.tamano > 0 }
             .groupBy { it.tamano to it.nombre.lowercase() }
             .values
             .filter { it.size > 1 }
-        val ya = candidatos.map { it.uri.toString() }.toHashSet()
-        duplicados.forEach { grupo ->
-            grupo.sortedByDescending { it.modificado }.drop(1).forEach { doc ->
-                if (ya.add(doc.uri.toString())) candidatos.add(doc.copy(motivo = "reason_duplicate"))
+            .forEach { grupo ->
+                grupo.sortedByDescending { it.modificado }.drop(1).forEach {
+                    marcar(it, "reason_duplicate")
+                }
+            }
+
+        // Duplicados reales por contenido (fotos, vídeos y música con distinto nombre).
+        val media = todos.filter {
+            it.tamano in 1024L..(200L * 1024 * 1024) &&
+                (it.mime.startsWith("image/") || it.mime.startsWith("video/") ||
+                    it.mime.startsWith("audio/"))
+        }.take(120)
+        val porHash = HashMap<String, MutableList<DocInfo>>()
+        media.forEach { doc ->
+            val hash = sha256(doc.uri, cr) ?: return@forEach
+            porHash.getOrPut(hash) { mutableListOf() }.add(doc)
+        }
+        porHash.values.filter { it.size > 1 }.forEach { grupo ->
+            val motivo = when {
+                grupo.first().mime.startsWith("image/") -> "reason_duplicate_photo"
+                grupo.first().mime.startsWith("video/") -> "reason_duplicate_video"
+                else -> "reason_duplicate_music"
+            }
+            grupo.sortedByDescending { it.modificado }.drop(1).forEach { marcar(it, motivo) }
+        }
+
+        // Vídeos largos/pesados y música muy grande: solo se recomienda revisar.
+        todos.forEach { doc ->
+            when {
+                doc.mime.startsWith("video/") && doc.tamano > 20L * 1024 * 1024 &&
+                    (doc.tamano > 150L * 1024 * 1024 || duracion(context, doc.uri) > 600_000L) ->
+                    marcar(doc, "reason_long_video")
+                doc.mime.startsWith("audio/") && doc.tamano > 25L * 1024 * 1024 ->
+                    marcar(doc, "reason_large_music")
             }
         }
         return candidatos.take(200)

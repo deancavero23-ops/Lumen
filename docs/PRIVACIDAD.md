@@ -1,6 +1,6 @@
 # Política de privacidad de Lumen 🛡️
 
-**Última actualización: 26 de noviembre de 2026 · Aplica a Lumen Seguridad 1.2.4 y a la web/app de Lumen.**
+**Última actualización: 26 de noviembre de 2026 · Aplica a Lumen Seguridad 1.2.5 y a la web/app de Lumen.**
 
 Lumen respeta tu privacidad. No hay cuentas, no hay telemetría y no hay servidor propio de Lumen. Todo el análisis se hace en tu dispositivo. Lumi y su voz funcionan con archivos de audio locales.
 
@@ -9,13 +9,14 @@ Lumen respeta tu privacidad. No hay cuentas, no hay telemetría y no hay servido
 | Dato | Se queda en el dispositivo | Se envía a algún sitio |
 |---|---|---|
 | Lista de apps instaladas, SHA-256 de cada APK, certificado firmante y permisos | Sí, solo en pantalla mientras usas la app | **No**. Nunca se sube. |
-| Archivos que eliges con el selector de carpetas (SAF) | Sí. La cuarentena se guarda en el almacenamiento de la propia app | **No**. |
+| Archivos que eliges con el selector de carpetas (SAF) | Sí. Los candidatos se muestran en pantalla; la cuarentena se mueve a una carpeta `LumenCuarentena` dentro de la carpeta elegida y su índice se guarda en el almacenamiento privado de la app | **No**. |
 | Nivel y estado de la batería | Sí, se lee con `BatteryManager` | **No**. |
 | Consultas DNS cuando activas el bloqueo de anuncios | No se guardan | Solo se reenvían a un resolvedor público (Cloudflare `1.1.1.1` o Google `8.8.8.8`) **mientras la VPN está activa**. A los dominios publicitarios se les responde `0.0.0.0` localmente. |
 | Reglas de seguridad | Se guardan en el almacenamiento privado de la app | Petición HTTPS anónima a GitHub Releases (`reglas.json` y su SHA-256), automática una vez al día si está activa o manual cuando pulsas **Actualizar reglas**. No se envía tu lista de apps. |
-| Voz de Lumi | Archivos WAV incluidos en la app | **No**. Si faltan, se usa el TTS del sistema. |
+| Voz de Lumi | Archivos MP3 con voces femeninas incluidos en la app | **No**. La demo solo usa esos audios y nunca llama al TTS del navegador; la app nativa usa el TTS del sistema únicamente si falta el archivo. |
+| Uso de apps (solo si tú lo activas) | `UsageStatsManager` consulta los últimos 90 días una sola vez para señalar apps sin abrir | **No**. El historial no se guarda en Lumen ni se envía a ningún sitio. |
 
-No recopilamos ubicación, contactos, SMS, fotos, identificadores publicitarios ni historial de navegación. No mostramos anuncios dentro de la app nativa.
+No recopilamos ubicación, contactos, SMS, identificadores publicitarios ni historial de navegación. Cuando eliges una carpeta, Lumen lee los archivos de esa carpeta (incluidas fotos o vídeos) solo para mostrarlos y comparar su contenido localmente; **no los copia ni los sube**. No mostramos anuncios dentro de la app nativa.
 
 ## Permisos y por qué los pide
 
@@ -24,6 +25,7 @@ No recopilamos ubicación, contactos, SMS, fotos, identificadores publicitarios 
 - `FOREGROUND_SERVICE` y `FOREGROUND_SERVICE_SPECIAL_USE`: para mantener el filtro DNS con una notificación persistente mientras tú lo dejes encendido.
 - Acceso a archivos: se concede **carpeta por carpeta** mediante el selector del sistema (SAF). No se pide `MANAGE_EXTERNAL_STORAGE`.
 - VPN: Android muestra su propio diálogo. Si lo rechazas, el bloqueo no se activa. Puedes desactivarlo cuando quieras desde Ajustes o desde la notificación.
+- `PACKAGE_USAGE_STATS`: **opcional**. Debes activarlo tú en Ajustes del sistema para que «💡 Consejos» detecte apps sin usar. Si no lo das, esa sugerencia simplemente no aparece. Nunca desinstalamos una app por ti: abrimos la pantalla de ajustes y Android pide la confirmación.
 
 ## Retención y seguridad
 

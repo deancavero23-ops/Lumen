@@ -103,7 +103,7 @@ object Reglas {
         conexion.connectTimeout = 10_000
         conexion.readTimeout = 15_000
         conexion.instanceFollowRedirects = true
-        conexion.setRequestProperty("User-Agent", "Lumen-Seguridad/1.2.4")
+        conexion.setRequestProperty("User-Agent", "Lumen-Seguridad/1.2.5")
         try {
             val codigo = conexion.responseCode
             if (codigo !in 200..299) throw ErrorReglas("rules_err_red")

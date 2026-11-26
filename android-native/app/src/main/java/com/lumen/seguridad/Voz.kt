@@ -9,6 +9,10 @@ import java.util.Locale
 object Voz {
     private var tts: TextToSpeech? = null
     private var reproductor: MediaPlayer? = null
+    /** Texto pendiente mientras el motor TTS termina de iniciarse (último recurso). */
+    private var pendiente: Pair<String, String>? = null
+    private var creandoTts = false
+    private var generacion = 0
 
     /**
      * Reproduce el audio femenino incluido. Usa un único MediaPlayer y preparación asíncrona
@@ -17,9 +21,15 @@ object Voz {
     fun hablar(context: Context, clave: String, texto: String) {
         val lang = Textos.idioma(context)
         val mp = reproductor ?: MediaPlayer().also { reproductor = it }
+        val afd = try {
+            context.assets.openFd("audio/$lang-$clave.mp3")
+        } catch (e: Exception) {
+            // Solo las frases incluidas tienen audio. Si falta, se usa TTS como último recurso.
+            hablarTts(context, texto, lang)
+            return
+        }
         try {
             mp.reset()
-            val afd = context.assets.openFd("audio/$lang-$clave.wav")
             mp.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
             afd.close()
             mp.setOnPreparedListener { it.start() }
@@ -29,14 +39,27 @@ object Voz {
             }
             mp.prepareAsync()
         } catch (e: Exception) {
+            try { afd.close() } catch (e2: Exception) { }
             hablarTts(context, texto, lang)
         }
     }
 
-    /** Habla texto libre (respuestas del chat) con el TTS del sistema. */
-    fun decir(context: Context, texto: String) = hablarTts(context, texto, Textos.idioma(context))
+    /**
+     * Respuestas del chat: si el texto coincide con una frase incluida se reproduce su audio
+     * femenino; solo se usa el TTS del sistema para texto libre sin audio preparado.
+     */
+    fun decir(context: Context, texto: String) {
+        val clave = Textos.claveDe(context, texto)
+        if (clave != null) hablar(context, clave, texto)
+        else hablarTts(context, texto, Textos.idioma(context))
+    }
 
     fun detener() {
+        synchronized(this) {
+            generacion++
+            pendiente = null
+            creandoTts = false
+        }
         reproductor?.let {
             try {
                 if (it.isPlaying) it.stop()
@@ -100,16 +123,31 @@ object Voz {
         synchronized(this) {
             if (tts != null) {
                 configurarYHablar(tts!!, texto, lang)
-            } else {
-                val referencia = arrayOfNulls<TextToSpeech>(1)
-                referencia[0] = TextToSpeech(context.applicationContext) { estado ->
-                    val creado = referencia[0]
-                    if (estado == TextToSpeech.SUCCESS && creado != null) {
-                        tts = creado
-                        configurarYHablar(creado, texto, lang)
+                return
+            }
+            // Guardar la última frase y no marcar el motor como listo hasta onInit:
+            // hablar sobre un TTS sin inicializar era otra causa de voz "rara".
+            pendiente = texto to lang
+            if (creandoTts) return
+            creandoTts = true
+            val mia = generacion
+            val referencia = arrayOfNulls<TextToSpeech>(1)
+            referencia[0] = TextToSpeech(context.applicationContext) { estado ->
+                val frase = synchronized(this) {
+                    if (mia != generacion) null else {
+                        creandoTts = false
+                        val guardada = if (estado == TextToSpeech.SUCCESS) pendiente else null
+                        pendiente = null
+                        guardada
                     }
                 }
-                tts = referencia[0]
+                val creado = referencia[0]
+                if (estado == TextToSpeech.SUCCESS && creado != null && frase != null) {
+                    tts = creado
+                    configurarYHablar(creado, frase.first, frase.second)
+                } else if (mia == generacion) {
+                    try { creado?.shutdown() } catch (e: Exception) { }
+                }
             }
         }
     }

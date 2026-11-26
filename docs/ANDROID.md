@@ -48,7 +48,7 @@ Si sigue sin aparecer, actualiza Chrome, sal del modo incógnito y comprueba que
 
 - Misma identidad: logo rojo con “L” negra y chispa blanca, colores negro/rojo/gris/blanco.
 - **Lumi interactúa**: toca la mascota y aparece un globo con mensajes; cambia de expresión mientras revisa y al terminar.
-- El botón **“Hablar con Lumi”** (y tocar la mascota) reproduce **audios femeninos grabados** en español, italiano e inglés. Si falta el audio, usa la voz del móvil prefiriendo una femenina y con tono más agudo. Si activas **“Que Lumi hable en voz alta”** en Ajustes, también hablan los mensajes automáticos.
+- El botón **"Hablar con Lumi"** (y tocar la mascota) reproduce **audios MP3 con voces femeninas neuronales** en español, italiano e inglés. La demo **no usa el TTS del navegador** (era el que sonaba raro y distinto en cada móvil): si el archivo falta, Lumi solo muestra el texto. Si activas **"Que Lumi hable en voz alta"** en Ajustes, también hablan los mensajes automáticos.
 - Idiomas **español, italiano e inglés**, detectados desde el móvil y cambiables en Ajustes.
 - Pantallas de Inicio, Limpieza, Arranque, Privacidad, Batería y Ajustes con datos de ejemplo.
 - **Cuidado de batería:** lee el estado real del móvil cuando el navegador lo permite y activa un modo ahorro que reduce animaciones, parpadeos y trabajo en segundo plano.
@@ -68,7 +68,7 @@ Es una **demo**: no limpia el móvil, no desinstala apps, no toca permisos ni ac
 - `docs/sw.js` — caché offline y filtro de dominios publicitarios
 - `docs/img/pwa-*.png` — iconos 192, 512 y maskable
 - `docs/img/qr-android-apk.png` — QR verificado de descarga del APK
-- `docs/app/audio/*.wav` — voces femeninas grabadas para Lumi
+- `docs/app/audio/*.mp3` — voces femeninas neuronales incluidas para Lumi (sin TTS del navegador)
 - `android/` — proyecto del APK (Bubblewrap/TWA) y certificado de firma
 
 Créditos: Lumen se basa en RetroLimpia, de Retropunk94 (GPL-3.0-or-later). No es la versión oficial.

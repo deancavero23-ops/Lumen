@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Necesario para listar las apps instaladas: función central de un analizador de seguridad. -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
     <!-- Solo se usa para consultar el DNS público de los dominios permitidos; la app no envía datos a Lumen. -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Opcional: el usuario lo activa en Ajustes para ver apps que no usa. No se envía nada. -->
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 
