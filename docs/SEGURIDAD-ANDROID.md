@@ -6,18 +6,18 @@ Esta APK **sí hace cosas reales**, a diferencia de la demo TWA descrita en [AND
 
 ## Descargar
 
-**[Descargar Lumen-Seguridad-1.2.1.apk](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.2.1/Lumen-Seguridad-1.2.1.apk)** · [SHA-256 publicado](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.2.1/SHA256-SEGURIDAD.txt)
+**[Descargar Lumen-Seguridad-1.2.2.apk](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.2.2/Lumen-Seguridad-1.2.2.apk)** · [SHA-256 publicado](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.2.2/SHA256-SEGURIDAD.txt)
 
 ![QR para descargar Lumen Seguridad](img/qr-android-seguridad.png)
 
 Si prefieres que el QR abra la página con las instrucciones en vez del APK directo, usa este otro: ![QR de la página de descarga](img/qr-descarga-android.png)
 
-- Huella SHA-256 del APK publicado: `88937ca1a40eb2b0a70e4cce6f85dd0950c224ccfb9c024b312694096742036c`.
+- Huella SHA-256 del APK publicado: pendiente de la compilación 1.2.2 (se publica en `SHA256-SEGURIDAD.txt`).
 - Requiere **Android 7.0 (API 24) o superior**.
 - Se instala por **sideload**: al abrir la APK, Android pedirá permitir **fuentes desconocidas**. Acepta solo si confías en este repositorio.
 - La firma es propia (`android-native/lumen-seguridad.keystore`, alias `lumen`). **No es la misma firma** que la APK demo, por lo que Android las tratará como apps distintas y podrás tener las dos instaladas.
-- Para verificar la descarga: `certutil -hashfile Lumen-Seguridad-1.2.1.apk SHA256` en Windows o `sha256sum Lumen-Seguridad-1.2.1.apk` en Linux.
-- **¿Te sale «demo»?** En Ajustes debe poner `v1.2.1`. Si pone `v1.0.0` o el icono no es el de Lumen Seguridad 🛡️, instalaste la APK demo (solo interfaz). Descarga `Lumen-Seguridad-1.2.1.apk` desde el enlace de arriba o su QR.
+- Para verificar la descarga: `certutil -hashfile Lumen-Seguridad-1.2.2.apk SHA256` en Windows o `sha256sum Lumen-Seguridad-1.2.2.apk` en Linux.
+- **¿Te sale «demo»?** En Ajustes debe poner `v1.2.2`. Si pone `v1.0.0` o el texto dice «Demo · no limpia tu móvil», instalaste la APK demo TWA (solo interfaz; ahora también lleva 🛡️). Descarga `Lumen-Seguridad-1.2.2.apk` desde el enlace de arriba o su QR.
 
 ## Lo que sí hace
 
@@ -29,6 +29,10 @@ Si prefieres que el QR abra la página con las instrucciones en vez del APK dire
 | **Escaneo de archivos** | Con el selector de carpetas del sistema (SAF), recorre hasta 5.000 archivos y marca temporales, `.log`, vacíos, APK con más de 30 días y duplicados por nombre y tamaño. | Lee **solo la carpeta que eliges**. No toca los datos privados de otras apps. |
 | **Cuarentena restaurable** | Mueve los archivos marcados a `LumenCuarentena` dentro de esa misma carpeta y guarda su ruta original en `cuarentena.json`. Cada elemento se puede restaurar con un toque. | Si el proveedor de archivos no permite mover, intenta copiar y borrar. Nada se elimina de forma definitiva. |
 | **Batería real** | Lee nivel y estado de carga con `BatteryManager`. El "modo ahorro de Lumi" es una preferencia de la app. | No cambia ajustes del sistema ni limita procesos de otras apps. |
+| **Botones con estado** | Inicio en dos columnas, con 🛡️ e iconos: 🔎 Escanear, 🧹 Liberar espacio, 📦 Cuarentena, ⚡ Rendimiento, 🌡️ Temperatura, 🔄 Actualizar, 🔋 Batería, 🗣️ Hablar, 💬 Chat y ⚙️ Ajustes. Verde = correcto, ámbar = revisar, rojo = urgente; el botón de Hablar se apaga si silencias a Lumi. | El color viene de datos reales (batería, temperatura, memoria y espacio), no de una puntuación inventada. |
+| **Rendimiento y temperatura** | ⚡ muestra memoria disponible y espacio libre reales (`ActivityManager` y `StatFs`). 🌡️ lee la temperatura de la batería con `BatteryManager.EXTRA_TEMPERATURE`. | Ninguna app puede "acelerar" Android ni enfriar el móvil: Lumen no mata procesos ajenos. Si la temperatura es alta, muestra consejos (quitar funda, dejar de cargar, cerrar apps pesadas). |
+| **Soluciones al analizar una app** | Tras el escaneo, «Qué hacer con una app» permite abrirla en Play Store, abrir sus permisos del sistema, marcarla como conocida (lista local), pedir su desinstalación con el diálogo del sistema y pasar Play Protect. | No elimina malware por sí mismo. Un hash desconocido es una señal, no una condena; la lista de conocidas solo cambia la presentación local. |
+| **Actualizar apps** | 🔄 abre la sección de actualizaciones de Google Play (`market://details?id=com.android.vending`). | Lumen no descarga ni instala actualizaciones: lo hace Play Store. |
 | **Bloqueo global de anuncios (opcional)** | VPN local que responde `0.0.0.0` a los dominios publicitarios en las consultas DNS de **todas las apps**. Se activa solo desde **Ajustes → Bloqueo global de anuncios** y Android muestra su diálogo de permiso. | Filtra **solo DNS**: no abre ni lee el resto del tráfico, no funciona con DNS sobre TLS (DoT) y cualquiera puede desactivarlo desde Ajustes o desde la notificación. |
 | **Desinstalar con confirmación** | Abre el diálogo del sistema con `ACTION_UNINSTALL_PACKAGE`. | La app nunca desinstala por sí sola; el usuario confirma siempre. |
 | **Lumi, voces y chat** | Mascota dibujada en código y 15 audios femeninos incluidos (`es`, `it`, `en`). Si falla el audio, usa TTS prefiriendo voces femeninas. **«Escribir a Lumi» abre un chat local** con respuestas sobre apps, archivos, anuncios, batería y reglas. | El audio se prepara de forma asíncrona para no bloquear la interfaz. Se puede silenciar en Ajustes. El chat no consulta Internet ni modelos externos. |

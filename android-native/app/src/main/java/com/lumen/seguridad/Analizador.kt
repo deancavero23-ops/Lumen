@@ -18,10 +18,30 @@ data class AppRiesgo(
     val permisos: List<String>,
     val accesibilidad: Boolean,
     val puntuacion: Int,
-    val nivel: String
+    val nivel: String,
+    val conocida: Boolean = false
 )
 
 object Analizador {
+
+    private const val CONOCIDAS = "apps_conocidas"
+
+    /** Lista local de paquetes que el usuario marca como conocidos. Nada sale del móvil. */
+    private fun conocidas(context: Context): MutableSet<String> =
+        context.getSharedPreferences(Textos.PREFS, Context.MODE_PRIVATE)
+            .getStringSet(CONOCIDAS, emptySet())?.toMutableSet() ?: mutableSetOf()
+
+    fun esConocida(context: Context, paquete: String): Boolean = paquete in conocidas(context)
+
+    /** Añade o quita una app de la lista local de confianza y devuelve true si quedó marcada. */
+    fun alternarConocida(context: Context, paquete: String): Boolean {
+        val actuales = conocidas(context)
+        val marcada = !actuales.contains(paquete)
+        if (marcada) actuales.add(paquete) else actuales.remove(paquete)
+        context.getSharedPreferences(Textos.PREFS, Context.MODE_PRIVATE)
+            .edit().putStringSet(CONOCIDAS, actuales).apply()
+        return marcada
+    }
 
     private data class Conjunto(
         val hashes: JSONObject,
@@ -80,14 +100,16 @@ object Analizador {
         if (accesibilidad) puntos += 2
         if (fuenteDesconocida && permisos.any { it.endsWith("REQUEST_INSTALL_PACKAGES") }) puntos += 2
 
+        val conocida = paquete in conocidas(context)
         val nivel = when {
+            conocida -> "risk_low"
             puntos >= 5 -> "risk_high"
             puntos >= 3 -> "risk_medium"
             else -> "risk_low"
         }
         return AppRiesgo(
             paquete, nombre, version, sha, firma, instalador, permisos,
-            accesibilidad, puntos, nivel
+            accesibilidad, if (conocida) 0 else puntos, nivel, conocida
         )
     }
 

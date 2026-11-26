@@ -3,7 +3,7 @@
 
 const D = {
   es: {
-    demoChip: 'Demo · no limpia tu móvil', language: 'Idioma', greeting: '¡Hola! Soy Lumi',
+    demoChip: '🛡️ Demo · no limpia tu móvil', language: 'Idioma', greeting: '🛡️ ¡Hola! Soy Lumi',
     subtitle: 'Pulsa para ver una simulación. No borro ni cambio nada de tu móvil.',
     scanBtn: 'Simular revisión', talkBtn: 'Hablar con Lumi', estadoInicial: 'Preparado cuando quieras.',
     escaneando: 'Revisando… no toco nada de tu móvil.', listo: 'Listo. Ya tengo el informe.',
@@ -53,7 +53,7 @@ const D = {
     instalado: 'Se abrió el diálogo de instalación.'
   },
   it: {
-    demoChip: 'Demo · non pulisce il telefono', language: 'Lingua', greeting: 'Ciao! Sono Lumi',
+    demoChip: '🛡️ Demo · non pulisce il telefono', language: 'Lingua', greeting: '🛡️ Ciao! Sono Lumi',
     subtitle: 'Premi per vedere una simulazione. Non cancello né modifico nulla sul tuo telefono.',
     scanBtn: 'Simula controllo', talkBtn: 'Parla con Lumi', estadoInicial: 'Pronto quando vuoi.',
     escaneando: 'Sto controllando… non tocco niente del tuo telefono.', listo: 'Fatto. Ho il report.',
@@ -103,7 +103,7 @@ const D = {
     instalado: 'Si è aperta la finestra di installazione.'
   },
   en: {
-    demoChip: 'Demo · does not clean your phone', language: 'Language', greeting: "Hi! I'm Lumi",
+    demoChip: '🛡️ Demo · does not clean your phone', language: 'Language', greeting: "🛡️ Hi! I'm Lumi",
     subtitle: "Tap to see a simulation. I don't delete or change anything on your phone.",
     scanBtn: 'Run demo scan', talkBtn: 'Talk to Lumi', estadoInicial: 'Ready when you are.',
     escaneando: 'Checking… I am not touching your phone.', listo: "Done. I've got the report.",

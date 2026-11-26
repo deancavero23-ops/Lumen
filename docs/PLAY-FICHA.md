@@ -1,6 +1,6 @@
 # Ficha de Lumen Seguridad para Google Play 🛡️
 
-Textos listos para copiar en Play Console. Mantienen el nombre **Lumen Seguridad**, el logo rojo con la L negra y chispa blanca, a Lumi y el emoji 🛡️. El AAB es [`Lumen-Seguridad-1.2.1-play.aab`](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.1/Lumen-Seguridad-1.2.1-play.aab) y la guía de permisos está en [GOOGLE-PLAY.md](GOOGLE-PLAY.md).
+Textos listos para copiar en Play Console. Mantienen el nombre **Lumen Seguridad**, el logo rojo con la L negra y chispa blanca, a Lumi y el emoji 🛡️. El AAB es [`Lumen-Seguridad-1.2.2-play.aab`](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.2/Lumen-Seguridad-1.2.2-play.aab) y la guía de permisos está en [GOOGLE-PLAY.md](GOOGLE-PLAY.md).
 
 ## Datos base
 
@@ -74,13 +74,13 @@ Lumen Seguridad is a local second opinion for Android. It does not replace Play 
 
 Available in Spanish, Italian and English. Android 7.0 or newer. Free, open source (GPL-3.0-or-later) and based on RetroLimpia by Retropunk94. Not the official version. More info: https://deancavero23-ops.github.io/Lumen/
 
-## Novedades de la versión 1.2.1 (cuadro «Qué hay de nuevo»)
+## Novedades de la versión 1.2.2 (cuadro «Qué hay de nuevo»)
 
-**Español:** Añade «Escribir a Lumi», un chat local con respuestas sobre apps, archivos, anuncios, batería y reglas. Corrige la reproducción de voz para que no bloquee la app y quita la etiqueta de «demo» de la app nativa.
+**Español:** Botones grandes con emoji y colores según estado (🟢 correcto, 🟠 revisar, 🔴 urgente): «Liberar espacio», «Rendimiento», «Temperatura» y «Actualizar». Tras analizar una app, «Qué hacer» ofrece abrirla en Play Store, revisar permisos del sistema, marcarla como conocida o pedir su desinstalación. El 🛡️ aparece en la cabecera con Lumi.
 
-**Italiano:** Aggiunge «Scrivi a Lumi», una chat locale con risposte su app, file, annunci, batteria e regole. Corregge la riproduzione vocale che poteva bloccare l’app e rimuove l’etichetta «demo» dall’app nativa.
+**Italiano:** Pulsanti grandi con emoji e colori in base allo stato (🟢 ok, 🟠 controllare, 🔴 urgente): «Libera spazio», «Prestazioni», «Temperatura» e «Aggiorna». Dopo l’analisi di un’app, «Cosa fare» permette di aprirla in Play Store, controllare i permessi di sistema, segnarla come conosciuta o chiederne la disinstallazione. Lo 🛡️ appare nell’intestazione con Lumi.
 
-**English:** Adds "Chat with Lumi", a local chat with answers about apps, files, ads, battery and rules. Fixes voice playback so it no longer freezes the app and removes the "demo" label from the native app.
+**English:** Large emoji buttons colored by state (🟢 good, 🟠 check, 🔴 urgent): "Free up space", "Performance", "Temperature" and "Update". After scanning an app, "What to do" lets you open it in Play Store, review system permissions, mark it as known or request uninstall. The 🛡️ shows in the header next to Lumi.
 
 ## Material gráfico
 

@@ -1,6 +1,7 @@
 package com.lumen.seguridad
 
 import android.app.Activity
+import android.app.ActivityManager
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.BroadcastReceiver
@@ -15,6 +16,7 @@ import android.net.VpnService
 import android.os.BatteryManager
 import android.os.Build
 import android.os.Bundle
+import android.os.StatFs
 import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.Button
@@ -130,6 +132,76 @@ class MainActivity : Activity() {
             setOnClickListener { onClick() }
         }
 
+    /** Verde = correcto, ámbar = revisar, rojo = urgente, gris = sin estado. */
+    private fun fondoEstado(estado: Int): GradientDrawable = GradientDrawable().apply {
+        shape = GradientDrawable.RECTANGLE
+        cornerRadius = dp(14).toFloat()
+        val color = when (estado) {
+            1 -> "#1E8E3E"
+            2 -> "#F9AB00"
+            -1 -> "#C5221F"
+            else -> "#24262B"
+        }
+        setColor(Color.parseColor(color))
+    }
+
+    private fun botonEstado(clave: String, estado: Int, onClick: () -> Unit): Button =
+        Button(this).apply {
+            text = t(clave)
+            setTextColor(Color.WHITE)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+            isAllCaps = false
+            background = fondoEstado(estado)
+            setMinHeight(dp(52))
+            setOnClickListener { onClick() }
+        }
+
+    private fun filaBotones(vararg bots: Button) {
+        val fila = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
+        bots.forEach { b ->
+            b.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).apply {
+                leftMargin = dp(4)
+                rightMargin = dp(4)
+                topMargin = dp(8)
+            }
+            fila.addView(b)
+        }
+        contenedor.addView(fila)
+    }
+
+    private fun estadoBateria(): Int {
+        @Suppress("DEPRECATION")
+        val b = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED)) ?: return 0
+        val nivel = b.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+        val escala = b.getIntExtra(BatteryManager.EXTRA_SCALE, 100)
+        if (nivel < 0 || escala <= 0) return 0
+        val porcentaje = nivel * 100 / escala
+        return when {
+            porcentaje < 20 -> -1
+            porcentaje < 50 -> 2
+            else -> 1
+        }
+    }
+
+    private fun estadoTemperatura(): Int {
+        @Suppress("DEPRECATION")
+        val b = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED)) ?: return 0
+        val decimas = b.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, Int.MIN_VALUE)
+        return when {
+            decimas <= 0 -> 0
+            decimas >= 450 -> -1
+            decimas >= 400 -> 2
+            else -> 1
+        }
+    }
+
+    private fun estadoRendimiento(): Int {
+        val gestor = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val memoria = ActivityManager.MemoryInfo().also { gestor.getMemoryInfo(it) }
+        val libre = StatFs(applicationContext.filesDir.path).availableBytes
+        return if (memoria.availMem < memoria.totalMem / 6 || libre < 512L * 1024 * 1024) 2 else 1
+    }
+
     private fun texto(contenido: String, gris: Boolean = false, mono: Boolean = false): TextView =
         TextView(this).apply {
             text = contenido
@@ -153,7 +225,7 @@ class MainActivity : Activity() {
         }
         val titulos = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
         titulos.addView(TextView(this).apply {
-            text = t("app_name")
+            text = "🛡️ ${t("app_name")}"
             setTextColor(Color.WHITE)
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
         })
@@ -170,15 +242,30 @@ class MainActivity : Activity() {
         contenedor.addView(texto(t("monitor_on"), gris = true))
         contenedor.addView(texto(""))
 
-        contenedor.addView(boton("scan_apps") { escanearApps() })
-        contenedor.addView(boton("choose_folder", false) { elegirCarpeta() })
-        contenedor.addView(boton("quarantine", false) { mostrarCuarentena() })
-        contenedor.addView(boton("battery", false) { mostrarBateria() })
-        contenedor.addView(boton("speak", false) { hablar("lumiHola") })
-        contenedor.addView(boton("chat", false) { mostrarChat() })
-        contenedor.addView(boton("settings", false) { mostrarAjustes() })
+        contenedor.addView(texto(t("legend"), gris = true))
+        val voz = prefs().getBoolean("voz", true)
+        filaBotones(
+            boton("scan_apps", true) { escanearApps() },
+            botonEstado("free_space", estadoRendimiento()) { elegirCarpeta() }
+        )
+        filaBotones(
+            botonEstado("quarantine", if (Limpieza.leerCuarentena(this).isNotEmpty()) 1 else 0) { mostrarCuarentena() },
+            botonEstado("performance", estadoRendimiento()) { mostrarRendimiento() }
+        )
+        filaBotones(
+            botonEstado("temperature", estadoTemperatura()) { mostrarTemperatura() },
+            boton("update_apps", false) { abrirTienda() }
+        )
+        filaBotones(
+            botonEstado("battery", estadoBateria()) { mostrarBateria() },
+            botonEstado("speak", if (voz) 1 else 0) { hablar("lumiHola") }
+        )
+        filaBotones(
+            boton("chat", false) { mostrarChat() },
+            boton("settings", false) { mostrarAjustes() }
+        )
 
-        salida = texto(t("lumiHola"))
+        salida = texto("🛡️ ${t("lumiHola")}")
         salida.setTextIsSelectable(true)
         contenedor.addView(salida)
 
@@ -197,13 +284,13 @@ class MainActivity : Activity() {
     }
 
     private fun volver() {
-        salida.text = t("lumiHola")
+        salida.text = "🛡️ ${t("lumiHola")}"
         limpiarAcciones()
     }
 
     private fun mostrarChat() {
         val historial = TextView(this).apply {
-            text = "${t("chat_lumi")}: ${t("lumiHola")}"
+            text = "🛡️ ${t("chat_lumi")}: ${t("lumiHola")}"
             setTextColor(Color.WHITE)
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
             setTextIsSelectable(true)
@@ -254,6 +341,14 @@ class MainActivity : Activity() {
             p.contains("anunc") || p.contains("ads") || p.contains("advert") ||
                 p.contains("pubblic") || p.contains("publicid") -> t("resp_anuncios")
             p.contains("bater") || p.contains("batter") || p.contains("battery") -> t("resp_bateria")
+            p.contains("espacio") || p.contains("spazio") || p.contains("space") ||
+                p.contains("liberar") || p.contains("libera") || p.contains("free") -> t("resp_espacio")
+            p.contains("actualiz") || p.contains("aggiorn") || p.contains("update") -> t("resp_actualizar")
+            p.contains("rendim") || p.contains("prestaz") || p.contains("perform") ||
+                p.contains("aceler") || p.contains("acceler") || p.contains("speed") -> t("resp_rendimiento")
+            p.contains("temper") || p.contains("calor") || p.contains("caldo") ||
+                p.contains("enfr") || p.contains("raffredd") || p.contains("cool") ||
+                p.contains("hot") -> t("resp_temperatura")
             p.contains("regla") || p.contains("regol") || p.contains("rule") -> t("resp_reglas")
             else -> t("resp_default")
         }
@@ -283,46 +378,119 @@ class MainActivity : Activity() {
             if (a.permisos.isNotEmpty()) sb.append("  ${t("perms")}: ${a.permisos.joinToString(", ")}\n")
             if (a.accesibilidad) sb.append("  ⚠ ${t("accessibility")}\n")
             if (a.instalador == "desconocida") sb.append("  ⚠ ${t("unknown_source")}\n")
+            if (a.conocida) sb.append("  ✓ ${t("trusted")}\n")
             sb.append('\n')
         }
         if (apps.isEmpty()) sb.append(t("apps_empty"))
         salida.text = sb.toString()
         limpiarAcciones()
+        accion("solve") { elegirApp { mostrarSoluciones(it) } }
         accion("details") { elegirApp() }
         accion("open_play_protect") { abrirPlayProtect() }
         accion("back") { volver() }
     }
 
-    private fun elegirApp() {
+    private fun elegirApp(alElegir: (AppRiesgo) -> Unit = { detalleApp(it) }) {
         if (apps.isEmpty()) return
         val nombres = apps.take(30).map { "${it.nombre} · ${t(it.nivel)}" }.toTypedArray()
         AlertDialog.Builder(this)
             .setTitle(t("apps_header"))
-            .setItems(nombres) { _, which -> detalleApp(apps[which]) }
+            .setItems(nombres) { _, which -> alElegir(apps[which]) }
             .show()
     }
 
     private fun detalleApp(app: AppRiesgo) {
-        val texto = """
-            ${app.nombre} (${app.paquete})
-            ${app.version}
-            ${t("risk")}: ${t(app.nivel)} (${app.puntuacion})
-            ${t("sha256")}: ${app.sha.ifEmpty { "—" }}
-            ${t("signer")}: ${app.firmante}
-            ${t("installer")}: ${app.instalador}
-            ${t("perms")}: ${app.permisos.joinToString(", ").ifEmpty { "—" }}
-        """.trimIndent()
-        AlertDialog.Builder(this)
-            .setTitle(app.nombre)
-            .setMessage(texto)
-            .setNeutralButton(t("open_play_protect")) { _, _ -> abrirPlayProtect() }
-            .setPositiveButton(t("uninstall")) { _, _ ->
-                try {
-                    startActivity(Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:${app.paquete}")))
-                } catch (e: Exception) { toast(t("error")) }
-            }
-            .setNegativeButton(t("cancel"), null)
-            .show()
+        val texto = TextView(this).apply {
+            text = """
+                ${app.nombre} (${app.paquete})
+                ${app.version}
+                ${t("risk")}: ${t(app.nivel)} (${app.puntuacion})
+                ${t("sha256")}: ${app.sha.ifEmpty { "—" }}
+                ${t("signer")}: ${app.firmante}
+                ${t("installer")}: ${app.instalador}
+                ${t("perms")}: ${app.permisos.joinToString(", ").ifEmpty { "—" }}
+                ${if (app.conocida) "✓ ${t("trusted")}" else ""}
+            """.trimIndent()
+            setTextColor(Color.WHITE)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+            setTextIsSelectable(true)
+        }
+        val dialog = Dialog(this)
+        val vista = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(20), dp(16), dp(20), dp(16))
+            addView(ScrollView(context).apply { addView(texto) })
+            addView(boton("solve", false) { dialog.dismiss(); mostrarSoluciones(app) })
+            addView(boton("open_store", false) { abrirTienda(app.paquete) })
+            addView(boton("system_perms", false) { abrirPermisos(app.paquete) })
+            addView(boton(if (app.conocida) "untrust" else "trust", false) {
+                Analizador.alternarConocida(context, app.paquete)
+                toast(t(if (app.conocida) "untrusted" else "trusted_done"))
+                dialog.dismiss()
+                escanearApps()
+            })
+            addView(boton("uninstall", false) { dialog.dismiss(); pedirDesinstalacion(app) })
+            addView(boton("cancel", false) { dialog.dismiss() })
+        }
+        dialog.setTitle(app.nombre)
+        dialog.setContentView(vista)
+        dialog.show()
+    }
+
+    private fun consejos(app: AppRiesgo): String {
+        val sb = StringBuilder("${t("solve_header")}: ${app.nombre}\n\n")
+        if (app.instalador == "desconocida") sb.append("• ${t("solve_unknown")}\n\n")
+        if (app.permisos.isNotEmpty()) sb.append("• ${t("solve_perms")}\n\n")
+        if (app.accesibilidad) sb.append("• ${t("solve_access")}\n\n")
+        if (app.sha.isNotEmpty() || app.firmante != "—") sb.append("• ${t("solve_sign")}\n\n")
+        if (app.conocida) sb.append("• ${t("solve_trusted")}\n\n")
+        sb.append("• ${t("solve_generic")}\n\n")
+        sb.append(t("solve_end"))
+        return sb.toString()
+    }
+
+    private fun mostrarSoluciones(app: AppRiesgo) {
+        salida.text = consejos(app)
+        limpiarAcciones()
+        accion("open_store") { abrirTienda(app.paquete) }
+        accion("system_perms") { abrirPermisos(app.paquete) }
+        accion(if (app.conocida) "untrust" else "trust") {
+            Analizador.alternarConocida(this, app.paquete)
+            toast(t(if (app.conocida) "untrusted" else "trusted_done"))
+            escanearApps()
+        }
+        accion("uninstall") { pedirDesinstalacion(app) }
+        accion("open_play_protect") { abrirPlayProtect() }
+        accion("back_apps") { mostrarApps() }
+    }
+
+    private fun pedirDesinstalacion(app: AppRiesgo) {
+        try {
+            startActivity(Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:${app.paquete}")))
+        } catch (e: Exception) { toast(t("error")) }
+    }
+
+    private fun abrirPermisos(paquete: String) {
+        try {
+            startActivity(
+                Intent(
+                    android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                    Uri.parse("package:$paquete")
+                )
+            )
+        } catch (e: Exception) { toast(t("error")) }
+    }
+
+    private fun abrirTienda(paquete: String? = null) {
+        val id = paquete ?: "com.android.vending"
+        try {
+            startActivity(
+                Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$id"))
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
+        } catch (e: Exception) {
+            abrirUrl("https://play.google.com/store/apps/details?id=$id")
+        }
     }
 
     private fun abrirPlayProtect() {
@@ -338,6 +506,46 @@ class MainActivity : Activity() {
             } catch (e: Exception) { }
         }
         abrirUrl("https://support.google.com/googleplay/answer/2812853")
+    }
+
+    private fun temperatura(): String {
+        @Suppress("DEPRECATION")
+        val b = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED)) ?: return t("unknown")
+        val decimas = b.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, Int.MIN_VALUE)
+        return if (decimas > 0) "${decimas / 10.0} °C" else t("unknown")
+    }
+
+    private fun mostrarRendimiento() {
+        val gestor = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val memoria = ActivityManager.MemoryInfo().also { gestor.getMemoryInfo(it) }
+        val datos = StatFs(applicationContext.filesDir.path)
+        salida.text = """
+            ${t("perf_header")}
+            ${t("perf_ram")}: ${Utilidades.tamano(memoria.availMem)} / ${Utilidades.tamano(memoria.totalMem)}
+            ${t("perf_storage")}: ${Utilidades.tamano(datos.availableBytes)}
+            ${t("perf_battery")}: ${temperatura()}
+
+            ${t("perf_note")}
+        """.trimIndent()
+        limpiarAcciones()
+        accion("free_space") { elegirCarpeta() }
+        accion("update_apps") { abrirTienda() }
+        accion("scan_apps") { escanearApps() }
+        accion("quarantine") { mostrarCuarentena() }
+        accion("back") { volver() }
+    }
+
+    private fun mostrarTemperatura() {
+        salida.text = """
+            ${t("temp_header")}
+            ${t("battery_level")}: ${temperatura()}
+
+            ${t("temp_note")}
+        """.trimIndent()
+        limpiarAcciones()
+        accion("battery") { mostrarBateria() }
+        accion("performance") { mostrarRendimiento() }
+        accion("back") { volver() }
     }
 
     private fun elegirCarpeta() {
@@ -432,16 +640,17 @@ class MainActivity : Activity() {
             ${t("battery_header")}
             ${t("battery_level")}: ${if (porcentaje >= 0) "$porcentaje%" else t("unknown")}
             ${if (cargando) t("charging") else t("discharging")}
+            ${t("temp_short")}: ${temperatura()}
             ${if (ahorro) t("saving_on") else t("saving_off")}
 
             ${t("battery_note")}
         """.trimIndent()
-        hablar("lumiDemo")
         limpiarAcciones()
         accion("saving_toggle") {
             prefs().edit().putBoolean("ahorro", !ahorro).apply()
             mostrarBateria()
         }
+        accion("temperature") { mostrarTemperatura() }
         accion("back") { volver() }
     }
 
