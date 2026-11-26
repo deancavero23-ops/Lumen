@@ -3,6 +3,10 @@
 
     <!-- Necesario para listar las apps instaladas: función central de un analizador de seguridad. -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <!-- Solo se usa para consultar el DNS público de los dominios permitidos; la app no envía datos a Lumen. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
@@ -24,5 +28,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Bloqueo global opcional de anuncios: solo filtra DNS y se activa con el diálogo del sistema. -->
+        <service
+            android:name=".BloqueoVpn"
+            android:exported="false"
+            android:permission="android.permission.BIND_VPN_SERVICE"
+            android:foregroundServiceType="specialUse">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Filtro DNS local de anuncios" />
+        </service>
     </application>
 </manifest>

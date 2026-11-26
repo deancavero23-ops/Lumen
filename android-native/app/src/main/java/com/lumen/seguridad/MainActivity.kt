@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
+import android.net.VpnService
 import android.os.BatteryManager
 import android.os.Build
 import android.os.Bundle
@@ -284,6 +285,10 @@ class MainActivity : Activity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 43) {
+            if (resultCode == RESULT_OK) iniciarVpn() else toast(t("vpn_denied"))
+            return
+        }
         if (requestCode != 42 || resultCode != RESULT_OK) return
         val uri = data?.data ?: return
         Limpieza.guardarArbol(this, uri)
@@ -381,9 +386,11 @@ class MainActivity : Activity() {
 
     private fun mostrarAjustes() {
         val voz = prefs().getBoolean("voz", true)
+        val vpn = prefs().getBoolean("vpn", false)
         val opciones = arrayOf(
             t("language"),
             "${t("voice_on")}: ${if (voz) t("ok") else t("cancel")}",
+            "${t("vpn")}: ${if (vpn) t("vpn_on") else t("vpn_off")}",
             t("web"), t("apk"), t("qr"), t("windows"),
             t("rules_note"), t("back")
         )
@@ -393,15 +400,55 @@ class MainActivity : Activity() {
                 when (which) {
                     0 -> elegirIdioma()
                     1 -> prefs().edit().putBoolean("voz", !voz).apply()
-                    2 -> abrirUrl("https://deancavero23-ops.github.io/Lumen/")
-                    3 -> abrirUrl("https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk")
-                    4 -> mostrarQr()
-                    5 -> abrirUrl("https://github.com/deancavero23-ops/Lumen/releases/latest")
-                    6 -> toast(t("rules_note"))
+                    2 -> configurarVpn()
+                    3 -> abrirUrl("https://deancavero23-ops.github.io/Lumen/")
+                    4 -> abrirUrl("https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk")
+                    5 -> mostrarQr()
+                    6 -> abrirUrl("https://github.com/deancavero23-ops/Lumen/releases/latest")
+                    7 -> toast(t("rules_note"))
                     else -> volver()
                 }
             }
             .show()
+    }
+
+    private fun configurarVpn() {
+        val activo = prefs().getBoolean("vpn", false)
+        AlertDialog.Builder(this)
+            .setTitle(t("vpn"))
+            .setMessage(t("vpn_note"))
+            .setPositiveButton(if (activo) t("vpn_disable") else t("vpn_enable")) { _, _ ->
+                if (activo) detenerVpn() else pedirPermisoVpn()
+            }
+            .setNegativeButton(t("cancel"), null)
+            .show()
+    }
+
+    private fun pedirPermisoVpn() {
+        val permiso = VpnService.prepare(this)
+        if (permiso != null) startActivityForResult(permiso, 43) else iniciarVpn()
+    }
+
+    private fun iniciarVpn() {
+        try {
+            val servicio = Intent(this, BloqueoVpn::class.java)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(servicio)
+            } else {
+                @Suppress("DEPRECATION")
+                startService(servicio)
+            }
+            prefs().edit().putBoolean("vpn", true).apply()
+            toast(t("vpn_active"))
+        } catch (e: Exception) {
+            toast(t("vpn_error"))
+        }
+    }
+
+    private fun detenerVpn() {
+        stopService(Intent(this, BloqueoVpn::class.java))
+        prefs().edit().putBoolean("vpn", false).apply()
+        toast(t("vpn_stopped"))
     }
 
     private fun elegirIdioma() {

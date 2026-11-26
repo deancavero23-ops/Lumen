@@ -6,15 +6,15 @@ Esta APK **sí hace cosas reales**, a diferencia de la demo TWA descrita en [AND
 
 ## Descargar
 
-**[Descargar Lumen-Seguridad-1.0.0.apk](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.0.0/Lumen-Seguridad-1.0.0.apk)** · [SHA-256 publicado](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.0.0/SHA256-SEGURIDAD.txt)
+**[Descargar Lumen-Seguridad-1.1.0.apk](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.1.0/Lumen-Seguridad-1.1.0.apk)** · [SHA-256 publicado](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.1.0/SHA256-SEGURIDAD.txt)
 
 ![QR para descargar Lumen Seguridad](img/qr-android-seguridad.png)
 
-- Huella SHA-256 del APK publicado: `523a56696f1d0dd8708260194552cfaab41aa8233763d28bc50f29c1aadb2f0c`.
+- Huella SHA-256 del APK publicado: disponible en `SHA256-SEGURIDAD.txt` dentro de la Release y en el enlace de arriba.
 - Requiere **Android 7.0 (API 24) o superior**.
 - Se instala por **sideload**: al abrir la APK, Android pedirá permitir **fuentes desconocidas**. Acepta solo si confías en este repositorio.
 - La firma es propia (`android-native/lumen-seguridad.keystore`, alias `lumen`). **No es la misma firma** que la APK demo, por lo que Android las tratará como apps distintas y podrás tener las dos instaladas.
-- Para verificar la descarga: `certutil -hashfile Lumen-Seguridad-1.0.0.apk SHA256` en Windows o `sha256sum Lumen-Seguridad-1.0.0.apk` en Linux.
+- Para verificar la descarga: `certutil -hashfile Lumen-Seguridad-1.1.0.apk SHA256` en Windows o `sha256sum Lumen-Seguridad-1.1.0.apk` en Linux.
 
 ## Lo que sí hace
 
@@ -26,6 +26,7 @@ Esta APK **sí hace cosas reales**, a diferencia de la demo TWA descrita en [AND
 | **Escaneo de archivos** | Con el selector de carpetas del sistema (SAF), recorre hasta 5.000 archivos y marca temporales, `.log`, vacíos, APK con más de 30 días y duplicados por nombre y tamaño. | Lee **solo la carpeta que eliges**. No toca los datos privados de otras apps. |
 | **Cuarentena restaurable** | Mueve los archivos marcados a `LumenCuarentena` dentro de esa misma carpeta y guarda su ruta original en `cuarentena.json`. Cada elemento se puede restaurar con un toque. | Si el proveedor de archivos no permite mover, intenta copiar y borrar. Nada se elimina de forma definitiva. |
 | **Batería real** | Lee nivel y estado de carga con `BatteryManager`. El "modo ahorro de Lumi" es una preferencia de la app. | No cambia ajustes del sistema ni limita procesos de otras apps. |
+| **Bloqueo global de anuncios (opcional)** | VPN local que responde `0.0.0.0` a los dominios publicitarios en las consultas DNS de **todas las apps**. Se activa solo desde **Ajustes → Bloqueo global de anuncios** y Android muestra su diálogo de permiso. | Filtra **solo DNS**: no abre ni lee el resto del tráfico, no funciona con DNS sobre TLS (DoT) y cualquiera puede desactivarlo desde Ajustes o desde la notificación. |
 | **Desinstalar con confirmación** | Abre el diálogo del sistema con `ACTION_UNINSTALL_PACKAGE`. | La app nunca desinstala por sí sola; el usuario confirma siempre. |
 | **Lumi y voces** | Mascota dibujada en código y 15 audios femeninos incluidos (`es`, `it`, `en`). Si falla el audio, usa TTS prefiriendo voces femeninas. | Se puede silenciar en Ajustes. |
 | **Idiomas** | Español, italiano e inglés, detectados del sistema y cambiables en Ajustes. | — |
@@ -37,14 +38,28 @@ Esta APK **sí hace cosas reales**, a diferencia de la demo TWA descrita en [AND
 - No limpia la caché de otras apps: Android aísla los datos de cada aplicación.
 - No borra archivos directamente con `MANAGE_EXTERNAL_STORAGE`: usa el selector del sistema.
 - No desinstala apps del sistema ni las de otros usuarios.
-- No bloquea anuncios dentro de otras apps ni a nivel global (no hay `VpnService` en esta versión). El bloqueo de la PWA actúa solo dentro de Lumen.
+- No bloquea anuncios dentro de la PWA ni de la app demo: ese bloqueo actúa solo dentro de Lumen. El bloqueo global es **opcional**, se basa solo en DNS y no inspecciona el contenido de las conexiones.
 - No escanea en segundo plano ni envía resultados a ningún servidor.
 - No garantiza la ausencia de malware: solo compara contra reglas locales y muestra señales de riesgo.
 
 ## Permisos
 
 - `QUERY_ALL_PACKAGES`: imprescindible para listar y analizar las apps instaladas, que es la función central de un analizador de seguridad. Al distribuirse por sideload no necesita el formulario de permisos sensibles de Google Play. Si algún día se publica en Play, habrá que justificarlo ante Google.
-- No pide `INTERNET`, `READ/WRITE_EXTERNAL_STORAGE`, `MANAGE_EXTERNAL_STORAGE`, accesibilidad ni permisos de SMS/contactos. El acceso a archivos se concede carpeta por carpeta desde el selector del sistema.
+- `INTERNET`: se usa **únicamente** para reenviar a un DNS público (Cloudflare o Google) las consultas de dominios que no son publicidad. La app excluye su propio tráfico del VPN para evitar bucles. No hay telemetría ni servidor de Lumen.
+- `FOREGROUND_SERVICE` y `FOREGROUND_SERVICE_SPECIAL_USE`: necesarios para mantener el filtro DNS activo con notificación persistente mientras tú lo dejes encendido.
+- No pide `READ/WRITE_EXTERNAL_STORAGE`, `MANAGE_EXTERNAL_STORAGE`, accesibilidad ni permisos de SMS/contactos. El acceso a archivos se concede carpeta por carpeta desde el selector del sistema.
+- Android muestra un **diálogo propio de VPN** la primera vez. Si lo rechazas, el bloqueo queda desactivado y el resto de la app sigue funcionando.
+
+## Bloqueo global de anuncios (VPN opcional)
+
+En **Ajustes → Bloqueo global de anuncios** aparece el estado y un diálogo con la explicación. Al pulsar **Activar bloqueo global (VPN)**:
+
+1. Android muestra su diálogo de sistema «Permitir conexión VPN». Sin ese permiso no se activa nada.
+2. Lumen crea una interfaz VPN local (`10.0.0.2/24`) y establece `10.0.0.1` como DNS del dispositivo.
+3. Las consultas DNS llegan a Lumen: si el dominio pertenece a una lista publicitaria conocida, responde `0.0.0.0`; si no, las reenvía a `1.1.1.1` o `8.8.8.8`.
+4. Una notificación persistente permite volver a la app. En Ajustes se puede **Desactivar bloqueo global** en cualquier momento.
+
+Es un filtro DNS, **no un túnel completo**: no lee páginas web, contraseñas ni mensajes. No bloquea anuncios servidos desde el mismo dominio que el contenido, ni los que usen DNS sobre TLS. Tampoco sustituye a un bloqueador de contenidos dentro del navegador.
 
 ## Compilar
 
@@ -62,6 +77,7 @@ android-native/app/src/main/java/com/lumen/seguridad/
   Analizador.kt   paquetes, hashes, certificados y puntuación de riesgo
   Limpieza.kt     escaneo SAF, cuarentena y restauración
   Voz.kt          audios femeninos + TTS de respaldo
+  BloqueoVpn.kt   filtro DNS opcional con VpnService
   Textos.kt       es / it / en
   LumiView.kt     mascota dibujada
   MainActivity.kt interfaz y flujos
