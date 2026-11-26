@@ -3,10 +3,10 @@
 
 const D = {
   es: {
-    demoChip: 'Versión demo · Android', language: 'Idioma', greeting: '¡Hola! Soy Lumi 👋',
+    demoChip: 'Versión demo · Android', language: 'Idioma', greeting: '¡Hola! Soy Lumi',
     subtitle: 'Pulsa el botón para ver cómo funciona Lumen. No cambio nada de tu móvil.',
-    scanBtn: 'Revisar mi Android', talkBtn: '💬 Hablar con Lumi', estadoInicial: 'Preparado cuando quieras.',
-    escaneando: 'Revisando… no toco nada de tu móvil.', listo: '¡Listo! Ya tengo el informe.',
+    scanBtn: 'Revisar mi Android', talkBtn: 'Hablar con Lumi', estadoInicial: 'Preparado cuando quieras.',
+    escaneando: 'Revisando… no toco nada de tu móvil.', listo: 'Listo. Ya tengo el informe.',
     doneTitle: 'Esto es lo que Lumen encontró', itemsCleaned: 'elementos limpios', spaceFreed: 'espacio liberado',
     programas: 'programas revisados', demoWarning: 'Modo demostración: datos de ejemplo, sin borrar nada.',
     resumenTitle: 'Lo que Lumen haría por ti', resumen1: 'Quitar archivos que ya no sirven',
@@ -19,14 +19,29 @@ const D = {
     importante: 'Importante', opcional: 'Opcional', applyBtn: 'Aplicar cambios', privacyTitle: 'Privacidad',
     privacyDesc: 'Ajustes explicados con palabras sencillas (demo).', privacy1: 'Anuncios personalizados',
     privacy2: 'Ubicación en segundo plano', privacy3: 'Registro de diagnóstico', off: 'Apagado',
-    privacyNote: 'Lumen no envía datos: no hay telemetría ni anuncios.', settingsTitle: 'Ajustes',
-    voice: 'Que Lumi hable en voz alta', voiceHint: 'Usa la voz de tu móvil. Necesitas pulsar a Lumi para activarla.',
+    privacyNote: 'Lumen no envía datos: no hay telemetría ni anuncios.',
+    anunciosTitle: 'Anuncios y rastreo', anunciosDesc: 'Bloqueo real dentro de Lumen: sin scripts ni conexiones de publicidad.',
+    bloquearAnuncios: 'Bloquear anuncios en Lumen', bloquearAnunciosHint: 'Se aplica con una política de contenido y un filtro del service worker. No afecta a otras apps.',
+    anunciosActivo: 'Bloqueo activo dentro de Lumen', anunciosInactivo: 'Bloqueo desactivado dentro de Lumen',
+    probarBloqueo: 'Probar el bloqueo', bloqueoProbado: 'Bloqueo comprobado: Lumen no carga anuncios.',
+    anunciosAviso: 'Una PWA no puede quitar los anuncios del navegador ni de otras aplicaciones: eso solo lo hace el sistema o la app correspondiente.',
+    bateriaTitle: 'Batería', bateriaDesc: 'Estado del móvil y consejos para cuidarlo.',
+    bateriaNoDisp: 'Estado no disponible', bateriaHint: 'Los navegadores pueden no mostrar el nivel exacto.',
+    bateriaCargando: 'Cargando', bateriaDescargando: 'Con batería', bateriaBaja: 'Batería baja: modo ahorro sugerido',
+    ahorro: 'Modo ahorro de batería', ahorroHint: 'Reduce animaciones, parpadeos y trabajo en segundo plano. También se activa solo con poca batería o con la app en segundo plano.',
+    ahorroActivo: 'Modo ahorro activado', ahorroOff: 'Modo ahorro desactivado',
+    consejosTitle: 'Consejos de Lumi', consejo1: 'Baja el brillo o usa el modo oscuro.',
+    consejo2: 'Desactiva la sincronización que no uses.', consejo3: 'Limitar la ubicación ahorra batería.',
+    consejo4: 'Evita dejar juegos pesados en segundo plano.',
+    bateriaAviso: 'Lumen solo lee el estado de la batería: no cambia ajustes del sistema.',
+    settingsTitle: 'Ajustes', voice: 'Que Lumi hable en voz alta', voiceHint: 'Usa la voz de tu móvil. Necesitas pulsar a Lumi para activarla.',
     install: 'Instalar en el móvil', installHint: 'Abre esta página en Chrome → menú → «Añadir a pantalla de inicio».',
     openWeb: 'Ver la web completa', github: 'Código en GitHub', windowsVersion: 'Versión para Windows',
     credits: 'Lumen se basa en RetroLimpia, de Retropunk94 · GPL-3.0-or-later · No es la versión oficial.',
-    tabInicio: 'Inicio', tabLimpieza: 'Limpieza', tabArranque: 'Arranque', tabPrivacidad: 'Privacidad', tabAjustes: 'Ajustes',
+    tabInicio: 'Inicio', tabLimpieza: 'Limpieza', tabArranque: 'Arranque', tabPrivacidad: 'Privacidad',
+    tabBateria: 'Batería', tabAjustes: 'Ajustes',
     lumiHola: '¡Hola! Soy Lumi. Tócame cuando quieras charlar.',
-    lumi1: 'Aquí estoy, vigilando que todo brille. ✨',
+    lumi1: 'Aquí estoy, vigilando que todo brille.',
     lumi2: 'No borro nada de verdad: esto es una demostración.',
     lumi3: '¿Quieres que revisemos tu móvil juntos?',
     lumiScan: 'Estoy mirando… tranquilo, no cambio nada.',
@@ -35,10 +50,10 @@ const D = {
     instalado: 'Se abrió el diálogo de instalación.'
   },
   it: {
-    demoChip: 'Versione demo · Android', language: 'Lingua', greeting: 'Ciao! Sono Lumi 👋',
+    demoChip: 'Versione demo · Android', language: 'Lingua', greeting: 'Ciao! Sono Lumi',
     subtitle: 'Premi il pulsante per vedere come funziona Lumen. Non cambio nulla sul tuo telefono.',
-    scanBtn: 'Controlla il mio Android', talkBtn: '💬 Parla con Lumi', estadoInicial: 'Pronto quando vuoi.',
-    escaneando: 'Sto controllando… non tocco niente del tuo telefono.', listo: 'Fatto! Ho il report.',
+    scanBtn: 'Controlla il mio Android', talkBtn: 'Parla con Lumi', estadoInicial: 'Pronto quando vuoi.',
+    escaneando: 'Sto controllando… non tocco niente del tuo telefono.', listo: 'Fatto. Ho il report.',
     doneTitle: 'Ecco cosa ha trovato Lumen', itemsCleaned: 'elementi puliti', spaceFreed: 'spazio liberato',
     programas: 'programmi controllati', demoWarning: 'Modalità demo: dati di esempio, nessuna cancellazione.',
     resumenTitle: 'Cosa farebbe Lumen per te', resumen1: 'Rimuovere i file inutili',
@@ -51,14 +66,29 @@ const D = {
     importante: 'Importante', opcional: 'Opzionale', applyBtn: 'Applica le modifiche', privacyTitle: 'Privacy',
     privacyDesc: 'Impostazioni spiegate con parole semplici (demo).', privacy1: 'Annunci personalizzati',
     privacy2: 'Posizione in background', privacy3: 'Registro diagnostico', off: 'Disattivato',
-    privacyNote: 'Lumen non invia dati: nessuna telemetria né annunci.', settingsTitle: 'Impostazioni',
-    voice: 'Lumi parla ad alta voce', voiceHint: 'Usa la voce del telefono. Devi toccare Lumi per attivarla.',
+    privacyNote: 'Lumen non invia dati: nessuna telemetria né annunci.',
+    anunciosTitle: 'Annunci e tracciamento', anunciosDesc: 'Blocco reale dentro Lumen: nessuno script o connessione pubblicitaria.',
+    bloquearAnuncios: 'Blocca gli annunci in Lumen', bloquearAnunciosHint: 'Si applica con una policy dei contenuti e un filtro del service worker. Non riguarda le altre app.',
+    anunciosActivo: 'Blocco attivo dentro Lumen', anunciosInactivo: 'Blocco disattivato dentro Lumen',
+    probarBloqueo: 'Prova il blocco', bloqueoProbado: 'Blocco verificato: Lumen non carica annunci.',
+    anunciosAviso: 'Una PWA non può rimuovere gli annunci del browser o di altre app: può farlo solo il sistema o l’app corrispondente.',
+    bateriaTitle: 'Batteria', bateriaDesc: 'Stato del telefono e consigli per custodirla.',
+    bateriaNoDisp: 'Stato non disponibile', bateriaHint: 'I browser potrebbero non mostrare il livello esatto.',
+    bateriaCargando: 'In carica', bateriaDescargando: 'Con batteria', bateriaBaja: 'Batteria bassa: consigliato il risparmio',
+    ahorro: 'Modalità risparmio batteria', ahorroHint: 'Riduce animazioni, lampeggi e lavoro in background. Si attiva anche da sola con poca batteria o con l’app in secondo piano.',
+    ahorroActivo: 'Risparmio attivato', ahorroOff: 'Risparmio disattivato',
+    consejosTitle: 'Consigli di Lumi', consejo1: 'Abbassa la luminosità o usa la modalità scura.',
+    consejo2: 'Disattiva la sincronizzazione che non usi.', consejo3: 'Limitare la posizione risparmia batteria.',
+    consejo4: 'Evita di lasciare giochi pesanti in background.',
+    bateriaAviso: 'Lumen legge solo lo stato della batteria: non modifica le impostazioni del sistema.',
+    settingsTitle: 'Impostazioni', voice: 'Lumi parla ad alta voce', voiceHint: 'Usa la voce del telefono. Devi toccare Lumi per attivarla.',
     install: 'Installa sul telefono', installHint: 'Apri questa pagina in Chrome → menu → «Aggiungi a schermata Home».',
     openWeb: 'Vedi il sito completo', github: 'Codice su GitHub', windowsVersion: 'Versione per Windows',
     credits: 'Lumen deriva da RetroLimpia di Retropunk94 · GPL-3.0-or-later · Non è la versione ufficiale.',
-    tabInicio: 'Inizio', tabLimpieza: 'Pulizia', tabArranque: 'Avvio', tabPrivacidad: 'Privacy', tabAjustes: 'Impostazioni',
+    tabInicio: 'Inizio', tabLimpieza: 'Pulizia', tabArranque: 'Avvio', tabPrivacidad: 'Privacy',
+    tabBateria: 'Batteria', tabAjustes: 'Impostazioni',
     lumiHola: 'Ciao! Sono Lumi. Toccami quando vuoi parlare.',
-    lumi1: 'Sono qui, controllo che tutto brilli. ✨',
+    lumi1: 'Sono qui, controllo che tutto brilli.',
     lumi2: 'Non cancello nulla davvero: è una dimostrazione.',
     lumi3: 'Vuoi che controlliamo insieme il tuo telefono?',
     lumiScan: 'Sto guardando… tranquillo, non cambio niente.',
@@ -67,10 +97,10 @@ const D = {
     instalado: 'Si è aperta la finestra di installazione.'
   },
   en: {
-    demoChip: 'Demo version · Android', language: 'Language', greeting: "Hi! I'm Lumi 👋",
+    demoChip: 'Demo version · Android', language: 'Language', greeting: "Hi! I'm Lumi",
     subtitle: "Press the button to see how Lumen works. I won't change anything on your phone.",
-    scanBtn: 'Check my Android', talkBtn: '💬 Talk to Lumi', estadoInicial: 'Ready when you are.',
-    escaneando: 'Checking… I am not touching your phone.', listo: "Done! I've got the report.",
+    scanBtn: 'Check my Android', talkBtn: 'Talk to Lumi', estadoInicial: 'Ready when you are.',
+    escaneando: 'Checking… I am not touching your phone.', listo: "Done. I've got the report.",
     doneTitle: "Here's what Lumen found", itemsCleaned: 'items cleaned', spaceFreed: 'space freed',
     programas: 'apps reviewed', demoWarning: 'Demo mode: sample data, nothing is deleted.',
     resumenTitle: 'What Lumen would do for you', resumen1: "Remove files you don't need",
@@ -83,17 +113,32 @@ const D = {
     importante: 'Important', opcional: 'Optional', applyBtn: 'Apply changes', privacyTitle: 'Privacy',
     privacyDesc: 'Settings explained in plain words (demo).', privacy1: 'Personalized ads',
     privacy2: 'Background location', privacy3: 'Diagnostic log', off: 'Off',
-    privacyNote: 'Lumen sends no data: no telemetry, no ads.', settingsTitle: 'Settings',
-    voice: 'Let Lumi speak out loud', voiceHint: "Uses your phone's voice. Tap Lumi to activate it.",
+    privacyNote: 'Lumen sends no data: no telemetry, no ads.',
+    anunciosTitle: 'Ads and tracking', anunciosDesc: 'Real blocking inside Lumen: no ad scripts or connections.',
+    bloquearAnuncios: 'Block ads in Lumen', bloquearAnunciosHint: 'Applied with a content policy and a service worker filter. It does not affect other apps.',
+    anunciosActivo: 'Blocking active inside Lumen', anunciosInactivo: 'Blocking off inside Lumen',
+    probarBloqueo: 'Test the block', bloqueoProbado: 'Block verified: Lumen loads no ads.',
+    anunciosAviso: 'A PWA cannot remove ads from the browser or other apps: only the system or the matching app can do that.',
+    bateriaTitle: 'Battery', bateriaDesc: 'Phone status and tips to take care of it.',
+    bateriaNoDisp: 'Status unavailable', bateriaHint: 'Browsers may not show the exact level.',
+    bateriaCargando: 'Charging', bateriaDescargando: 'On battery', bateriaBaja: 'Low battery: power saving suggested',
+    ahorro: 'Battery saver mode', ahorroHint: 'Reduces animations, blinking and background work. It also turns on automatically on low battery or when the app is in the background.',
+    ahorroActivo: 'Power saving on', ahorroOff: 'Power saving off',
+    consejosTitle: "Lumi's tips", consejo1: 'Lower brightness or use dark mode.',
+    consejo2: 'Turn off sync you do not use.', consejo3: 'Limiting location saves battery.',
+    consejo4: 'Avoid leaving heavy games in the background.',
+    bateriaAviso: 'Lumen only reads battery status: it does not change system settings.',
+    settingsTitle: 'Settings', voice: 'Let Lumi speak out loud', voiceHint: "Uses your phone's voice. Tap Lumi to activate it.",
     install: 'Install on phone', installHint: "Open this page in Chrome → menu → 'Add to Home screen'.",
     openWeb: 'Open full website', github: 'Code on GitHub', windowsVersion: 'Windows version',
     credits: 'Lumen is based on RetroLimpia by Retropunk94 · GPL-3.0-or-later · Not the official version.',
-    tabInicio: 'Home', tabLimpieza: 'Cleanup', tabArranque: 'Startup', tabPrivacidad: 'Privacy', tabAjustes: 'Settings',
+    tabInicio: 'Home', tabLimpieza: 'Cleanup', tabArranque: 'Startup', tabPrivacidad: 'Privacy',
+    tabBateria: 'Battery', tabAjustes: 'Settings',
     lumiHola: "Hi! I'm Lumi. Tap me whenever you want to chat.",
-    lumi1: "I'm here, making sure everything shines. ✨",
+    lumi1: "I'm here, making sure everything shines.",
     lumi2: "I don't really delete anything: this is a demo.",
     lumi3: 'Shall we check your phone together?',
-    lumiScan: 'Taking a look… don\'t worry, I change nothing.',
+    lumiScan: "Taking a look… don't worry, I change nothing.",
     lumiDone: 'Done. I found a few things that could be cleaned.',
     lumiDemo: 'This is just a demo: your phone is safe.',
     instalado: 'The install dialog was opened.'
@@ -107,8 +152,18 @@ let lang = localStorage.getItem('lumen-idioma') || (navigator.language || '').sl
 if (!D[lang]) lang = 'es';
 let burbujaTimer = null;
 let promptInstalar = null;
+let blinkTimer = null;
+let ahorroManual = localStorage.getItem('lumen-ahorro') === '1';
+const bateriaInfo = { supported: false, level: 1, charging: true };
+let bateria = null;
 
 function t(k) { return (D[lang] && D[lang][k]) || D.es[k] || k; }
+
+function ahorroActivo() {
+  return ahorroManual || document.hidden || (bateriaInfo.supported && !bateriaInfo.charging && bateriaInfo.level <= 0.2);
+}
+
+function aplicarAhorro() { document.body.classList.toggle('ahorro', ahorroActivo()); }
 
 function aplicarIdioma() {
   document.documentElement.lang = lang;
@@ -116,6 +171,11 @@ function aplicarIdioma() {
   $('#idioma').value = lang;
   $('#idioma2').value = lang;
   localStorage.setItem('lumen-idioma', lang);
+  const chkAnuncios = $('#bloqueoAnuncios');
+  if (chkAnuncios && $('#estadoBloqueo')) {
+    $('#estadoBloqueo').textContent = t(chkAnuncios.checked ? 'anunciosActivo' : 'anunciosInactivo');
+  }
+  pintarBateria();
 }
 
 function cambiarIdioma(l) { lang = D[l] ? l : 'es'; aplicarIdioma(); }
@@ -128,14 +188,15 @@ function toast(texto) {
   el._t = setTimeout(() => el.classList.remove('ver'), 2800);
 }
 
-function hablar(texto, ms = 3600) {
+function hablar(texto, ms) {
   const b = $('#burbuja');
   const lumi = $('#lumi');
+  const duracion = ms || (ahorroActivo() ? 2400 : 3600);
   b.textContent = texto;
   b.hidden = false;
   lumi.classList.add('hablando');
   clearTimeout(burbujaTimer);
-  burbujaTimer = setTimeout(() => { b.hidden = true; lumi.classList.remove('hablando'); }, ms);
+  burbujaTimer = setTimeout(() => { b.hidden = true; lumi.classList.remove('hablando'); }, duracion);
 
   if ($('#voz').checked && 'speechSynthesis' in window) {
     try {
@@ -145,17 +206,27 @@ function hablar(texto, ms = 3600) {
       u.rate = 0.98;
       const voz = speechSynthesis.getVoices().find((v) => v.lang.toLowerCase().startsWith(lang));
       if (voz) u.voice = voz;
+      u.onend = () => lumi.classList.remove('hablando');
       speechSynthesis.speak(u);
     } catch (_) { /* el móvil puede no tener voces instaladas */ }
   }
 }
 
 function parpadear() {
+  if (ahorroActivo() || document.hidden) return;
   const l = $('#lumi');
   l.classList.add('parpadeo');
   setTimeout(() => l.classList.remove('parpadeo'), 220);
 }
-setInterval(parpadear, 5200);
+
+function gestionarParpadeo() {
+  if (document.hidden) {
+    clearInterval(blinkTimer);
+    blinkTimer = null;
+  } else if (!blinkTimer) {
+    blinkTimer = setInterval(parpadear, 5200);
+  }
+}
 
 function fraseAleatoria() {
   const claves = ['lumiHola', 'lumi1', 'lumi2', 'lumi3', 'lumiDemo'];
@@ -168,8 +239,28 @@ function inicializarTabs() {
     btn.classList.add('activo');
     $$('.tab').forEach((s) => s.classList.remove('activa'));
     $('#tab-' + btn.dataset.tab).classList.add('activa');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: ahorroActivo() ? 'auto' : 'smooth' });
   }));
+}
+
+function inicializarLumi() {
+  const l = $('#lumi');
+  const pupilas = l.querySelector('.pupilas');
+  const hablarAhora = () => hablar(fraseAleatoria());
+
+  l.addEventListener('pointermove', (e) => {
+    if (ahorroActivo()) return;
+    const r = l.getBoundingClientRect();
+    const dx = Math.max(-6, Math.min(6, ((e.clientX - (r.left + r.width / 2)) / r.width) * 14));
+    const dy = Math.max(-5, Math.min(5, ((e.clientY - (r.top + r.height / 2)) / r.height) * 12));
+    pupilas.style.transform = `translate(${dx}px, ${dy}px)`;
+  });
+  l.addEventListener('pointerleave', () => { pupilas.style.transform = ''; });
+  l.addEventListener('click', hablarAhora);
+  l.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); hablarAhora(); } });
+  $('#hablar').addEventListener('click', hablarAhora);
+
+  if (!ahorroActivo()) setTimeout(() => hablar(t('lumiHola'), 4200), 900);
 }
 
 function inicializarDemo() {
@@ -184,9 +275,12 @@ function inicializarDemo() {
     $('#lumi').classList.add('scanning');
     hablar(t('lumiScan'), 2600);
 
+    const retardo = ahorroActivo() ? 320 : 130;
+    const salto = ahorroActivo() ? 14 : 4;
     let p = 0;
     const tmr = setInterval(() => {
-      p += 4 + Math.floor(Math.random() * 7);
+      if (document.hidden) return;
+      p += salto + Math.floor(Math.random() * 7);
       if (p >= 100) {
         p = 100;
         clearInterval(tmr);
@@ -204,7 +298,7 @@ function inicializarDemo() {
         }, 350);
       }
       $('#barra').style.width = p + '%';
-    }, 130);
+    }, retardo);
   });
 
   $$('[data-demo]').forEach((b) => b.addEventListener('click', () => {
@@ -213,13 +307,49 @@ function inicializarDemo() {
   }));
 }
 
-function inicializarLumi() {
-  const l = $('#lumi');
-  const hablarAhora = () => { hablar(fraseAleatoria()); };
-  l.addEventListener('click', hablarAhora);
-  l.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); hablarAhora(); } });
-  $('#hablar').addEventListener('click', hablarAhora);
-  setTimeout(() => hablar(t('lumiHola'), 4200), 900);
+function pintarBateria() {
+  const nivel = $('#bateriaNivel');
+  const barra = $('#bateriaBarra');
+  const detalle = $('#bateriaDetalle');
+  if (!nivel || !barra || !detalle) return;
+  if (!bateriaInfo.supported) {
+    nivel.textContent = t('bateriaNoDisp');
+    detalle.textContent = t('bateriaHint');
+    barra.style.width = '0%';
+    return;
+  }
+  const pct = Math.round(bateriaInfo.level * 100);
+  nivel.textContent = pct + '%';
+  barra.style.width = pct + '%';
+  detalle.textContent = bateriaInfo.charging ? t('bateriaCargando') : (pct <= 20 ? t('bateriaBaja') : t('bateriaDescargando'));
+}
+
+async function inicializarBateria() {
+  const chk = $('#ahorro');
+  chk.checked = ahorroManual;
+  chk.addEventListener('change', () => {
+    ahorroManual = chk.checked;
+    localStorage.setItem('lumen-ahorro', ahorroManual ? '1' : '0');
+    aplicarAhorro();
+    gestionarParpadeo();
+    toast(t(ahorroActivo() ? 'ahorroActivo' : 'ahorroOff'));
+  });
+
+  if (navigator.getBattery) {
+    try {
+      bateria = await navigator.getBattery();
+      bateriaInfo.supported = true;
+      const actualizar = () => {
+        bateriaInfo.level = bateria.level;
+        bateriaInfo.charging = bateria.charging;
+        pintarBateria();
+        aplicarAhorro();
+      };
+      ['levelchange', 'chargingchange', 'chargingtimechange', 'dischargingtimechange'].forEach((ev) => bateria.addEventListener(ev, actualizar));
+      actualizar();
+    } catch (_) { pintarBateria(); }
+  } else { pintarBateria(); }
+  aplicarAhorro();
 }
 
 function inicializarInstalacion() {
@@ -238,9 +368,37 @@ function inicializarInstalacion() {
   window.addEventListener('appinstalled', () => toast(t('instalado')));
 }
 
+function configurarSW() {
+  if (!('serviceWorker' in navigator)) return;
+  navigator.serviceWorker.ready.then((reg) => {
+    if (reg.active) reg.active.postMessage({ tipo: 'config', bloquearAnuncios: $('#bloqueoAnuncios').checked });
+  }).catch(() => {});
+}
+
+function inicializarAnuncios() {
+  const chk = $('#bloqueoAnuncios');
+  const estado = $('#estadoBloqueo');
+  chk.checked = localStorage.getItem('lumen-anuncios') !== '0';
+  estado.textContent = t(chk.checked ? 'anunciosActivo' : 'anunciosInactivo');
+
+  chk.addEventListener('change', () => {
+    localStorage.setItem('lumen-anuncios', chk.checked ? '1' : '0');
+    estado.textContent = t(chk.checked ? 'anunciosActivo' : 'anunciosInactivo');
+    configurarSW();
+    toast(t(chk.checked ? 'anunciosActivo' : 'anunciosInactivo'));
+    hablar(t(chk.checked ? 'anunciosActivo' : 'anunciosInactivo'));
+  });
+
+  $('#probarBloqueo').addEventListener('click', () => {
+    toast(t('bloqueoProbado'));
+    hablar(t('bloqueoProbado'));
+  });
+  configurarSW();
+}
+
 function registrarSW() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('../sw.js').catch(() => {});
+    navigator.serviceWorker.register('../sw.js').then(configurarSW).catch(() => {});
   }
 }
 
@@ -249,9 +407,13 @@ document.addEventListener('DOMContentLoaded', () => {
   $$('#idioma,#idioma2').forEach((s) => s.addEventListener('change', () => cambiarIdioma(s.value)));
   $('#voz').checked = localStorage.getItem('lumen-voz') === '1';
   $('#voz').addEventListener('change', () => localStorage.setItem('lumen-voz', $('#voz').checked ? '1' : '0'));
+  document.addEventListener('visibilitychange', () => { aplicarAhorro(); gestionarParpadeo(); });
   inicializarTabs();
   inicializarLumi();
   inicializarDemo();
+  inicializarBateria();
+  inicializarAnuncios();
   inicializarInstalacion();
+  gestionarParpadeo();
   registrarSW();
 });

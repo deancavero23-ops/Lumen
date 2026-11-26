@@ -1,5 +1,5 @@
-/* Lumen PWA: caché de la app para que funcione sin conexión. */
-const CACHE = 'lumen-app-v1-0-0';
+/* Lumen PWA: caché offline y filtro de publicidad dentro de la app. */
+const CACHE = 'lumen-app-v2-0-0';
 // El scope del service worker es /Lumen/ en GitHub Pages y / en una prueba local.
 const BASE = self.registration.scope;
 const RUTAS = [
@@ -9,6 +9,13 @@ const RUTAS = [
   'logo.svg', 'index.html'
 ];
 const ARCHIVOS = RUTAS.map((r) => new URL(r, BASE).href);
+
+let bloquearAnuncios = true;
+const ANUNCIOS = /(^|\.)(doubleclick\.net|googleadservices\.com|googlesyndication\.com|adservice\.google\.[a-z.]+|google-analytics\.com|analytics\.google\.com|googletagmanager\.com|connect\.facebook\.net|facebook\.net|amazon-adsystem\.com|adnxs\.com|criteo\.com|taboola\.com|outbrain\.com|scorecardresearch\.com|quantserve\.com|pubmatic\.com|rubiconproject\.com|openx\.net)(:|$|\/)/i;
+
+self.addEventListener('message', (e) => {
+  if (e.data && e.data.tipo === 'config') bloquearAnuncios = e.data.bloquearAnuncios !== false;
+});
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ARCHIVOS)).then(() => self.skipWaiting()));
@@ -20,7 +27,15 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
   const req = e.request;
-  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+
+  if (bloquearAnuncios && ANUNCIOS.test(url.hostname)) {
+    e.respondWith(new Response('', { status: 204, statusText: 'Bloqueado por Lumen' }));
+    return;
+  }
+  if (url.origin !== self.location.origin) return;
+
   e.respondWith(
     caches.match(req).then((guardado) => {
       const red = fetch(req).then((res) => {

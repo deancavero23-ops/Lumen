@@ -10,7 +10,9 @@ LUMEN 1.0.0 — CÓMO PROBARLO
 1b) ANDROID (PWA)
    Demo instalable: https://deancavero23-ops.github.io/Lumen/app/
    Se añade desde Chrome a la pantalla de inicio. Lumi habla (globo y voz
-   opcional) y hay textos en es/it/en. No limpia el móvil: es una demo.
+   opcional) y hay textos en es/it/en. Incluye modo ahorro de batería y
+   bloqueo de anuncios dentro de la PWA (no quita anuncios del navegador
+   ni de otras apps). No limpia el móvil: es una demo.
 
 2) INSTALAR Y PROBAR SIN RIESGO
    Necesitas Node.js 20 o newer en Windows. Desde esta carpeta:

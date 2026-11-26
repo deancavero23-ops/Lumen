@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b0b0c">
 <meta name="color-scheme" content="dark">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Lumen">
@@ -16,6 +17,32 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<!-- Iconos SVG: sustituyen a los emojis en toda la interfaz -->
+<svg class="svg-defs" aria-hidden="true" focusable="false">
+  <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M10 20v-5.5h4V20"/></symbol>
+  <symbol id="i-escoba" viewBox="0 0 24 24"><path d="m14.5 4.5 5 5"/><path d="M13 6 6 13l5 5 7-7z"/><path d="M6 18c-1.5 1.4-2 3-2 3s1.7-.3 3-1.7"/></symbol>
+  <symbol id="i-cohete" viewBox="0 0 24 24"><path d="M12 2c3.5 1.8 5.5 5 5.5 9l-2.5 3h-6L6.5 11C6.5 7 8.5 3.8 12 2Z"/><circle cx="12" cy="9" r="2"/><path d="m9 17-2 4 4-2 4 2-2-4"/></symbol>
+  <symbol id="i-candado" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2.5"/><path d="M8.5 10V7a3.5 3.5 0 0 1 7 0v3"/><circle cx="12" cy="15.5" r="1.3"/></symbol>
+  <symbol id="i-ajustes" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.8v2.4M12 18.8v2.4M4.6 7l2 1.2M17.4 15.8l2 1.2M4.6 17l2-1.2M17.4 8.2l2-1.2"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5.5h16v11H9l-5 4z"/><circle cx="9" cy="11" r="1"/><circle cx="12.5" cy="11" r="1"/><circle cx="16" cy="11" r="1"/></symbol>
+  <symbol id="i-caja" viewBox="0 0 24 24"><path d="m3 8 9-4 9 4-9 4z"/><path d="M3 8v9l9 4 9-4V8"/><path d="M12 12v9"/></symbol>
+  <symbol id="i-sync" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 15"/><path d="M4 20v-5h5"/></symbol>
+  <symbol id="i-nube" viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .4-8A6 6 0 0 0 6 9.5 4.3 4.3 0 0 0 7 18Z"/></symbol>
+  <symbol id="i-anuncio" viewBox="0 0 24 24"><path d="M4 10v4h3l5 4V6l-5 4z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M18.5 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+  <symbol id="i-ubicacion" viewBox="0 0 24 24"><path d="M12 21s6-5.2 6-11a6 6 0 0 0-12 0c0 5.8 6 11 6 11Z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+  <symbol id="i-registro" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 12h7M9 16h7"/></symbol>
+  <symbol id="i-mundo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+  <symbol id="i-descarga" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7.5 11 4.5 4.5 4.5-4.5"/><path d="M4 20h16"/></symbol>
+  <symbol id="i-codigo" viewBox="0 0 24 24"><path d="m8.5 8-4 4 4 4M15.5 8l4 4-4 4M13.5 5l-3 14"/></symbol>
+  <symbol id="i-estrella" viewBox="0 0 24 24"><path d="m12 3 2.7 5.7 6.3.9-4.5 4.4 1 6.2-5.5-3-5.5 3 1-6.2L3 9.6l6.3-.9z"/></symbol>
+  <symbol id="i-enlace" viewBox="0 0 24 24"><path d="M10 13a4 4 0 0 0 5.7 0l3-3A4 4 0 0 0 13 4.3l-1.7 1.7"/><path d="M14 11a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 19.7l1.7-1.7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></symbol>
+  <symbol id="i-bateria" viewBox="0 0 24 24"><rect x="2.5" y="7" width="17" height="10" rx="2.5"/><path d="M22 10v4"/><path d="M6 10v4M10 10v4M14 10v4"/></symbol>
+  <symbol id="i-hoja" viewBox="0 0 24 24"><path d="M20 4C11 4 5 8 5 15a5 5 0 0 0 5 5c7 0 10-6 10-16Z"/><path d="M4 20c2-4 5-7 10-9"/></symbol>
+  <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+</svg>
+
 <div class="app">
 
   <header class="topbar">
@@ -39,26 +66,49 @@
       <div class="hero-card">
         <div class="burbuja" id="burbuja" hidden></div>
         <div class="lumi-wrap">
-          <svg id="lumi" class="lumi" viewBox="0 0 120 120" role="button" tabindex="0" aria-label="Lumi: tocar para hablar">
-            <rect x="4" y="4" width="112" height="112" rx="28" fill="#e50914"/>
-            <g class="brillo"><circle cx="34" cy="28" r="7" fill="#fff" opacity=".22"/><circle cx="47" cy="22" r="3" fill="#fff" opacity=".32"/></g>
-            <g class="ojos">
-              <ellipse class="ojo" cx="42" cy="53" rx="13" ry="16" fill="#fff"/>
-              <ellipse class="ojo" cx="78" cy="53" rx="13" ry="16" fill="#fff"/>
-              <circle class="pupila" cx="45" cy="55" r="6" fill="#141416"/>
-              <circle class="pupila" cx="81" cy="55" r="6" fill="#141416"/>
-              <circle cx="47" cy="52" r="2.4" fill="#fff"/>
-              <circle cx="83" cy="52" r="2.4" fill="#fff"/>
+          <svg id="lumi" class="lumi" viewBox="0 0 140 140" role="button" tabindex="0" aria-label="Lumi: tocar para hablar">
+            <defs>
+              <linearGradient id="fondoLumi" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ff2b36"/><stop offset="1" stop-color="#b0050e"/>
+              </linearGradient>
+              <linearGradient id="brilloLumi" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <rect x="7" y="7" width="126" height="126" rx="34" fill="url(#fondoLumi)"/>
+            <path class="reflejo" d="M20 38c8-16 24-24 42-24 14 0 26 4 36 12-14-6-28-7-42-3-14 4-25 11-36 15Z" fill="url(#brilloLumi)"/>
+            <g class="manos">
+              <rect class="mano mano-izq" x="1" y="72" width="17" height="30" rx="8.5" fill="#ff5962"/>
+              <rect class="mano mano-der" x="122" y="72" width="17" height="30" rx="8.5" fill="#ff5962"/>
             </g>
-            <g class="rubor"><ellipse cx="27" cy="72" rx="8" ry="4" fill="#fff" opacity=".35"/><ellipse cx="93" cy="72" rx="8" ry="4" fill="#fff" opacity=".35"/></g>
-            <path class="sonrisa" d="M50 79 Q60 89 70 79" stroke="#141416" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-            <path class="chispa" d="M96 20 l2.5 6.5 6.5 2.5 -6.5 2.5 -2.5 6.5 -2.5 -6.5 -6.5 -2.5 6.5 -2.5z" fill="#fff"/>
+            <g class="ojos">
+              <ellipse class="ojo-blanco" cx="48" cy="60" rx="17" ry="20" fill="#fff"/>
+              <ellipse class="ojo-blanco" cx="92" cy="60" rx="17" ry="20" fill="#fff"/>
+              <g class="pupilas">
+                <circle cx="51" cy="62" r="8" fill="#17171a"/>
+                <circle cx="95" cy="62" r="8" fill="#17171a"/>
+                <circle cx="54" cy="58" r="3" fill="#fff" opacity=".95"/>
+                <circle cx="98" cy="58" r="3" fill="#fff" opacity=".95"/>
+                <circle cx="48" cy="66" r="1.5" fill="#fff" opacity=".65"/>
+                <circle cx="92" cy="66" r="1.5" fill="#fff" opacity=".65"/>
+              </g>
+            </g>
+            <g class="rubor">
+              <ellipse cx="29" cy="85" rx="10" ry="5" fill="#ff9a9a" opacity=".55"/>
+              <ellipse cx="111" cy="85" rx="10" ry="5" fill="#ff9a9a" opacity=".55"/>
+            </g>
+            <g class="boca">
+              <path class="sonrisa" d="M58 91 Q70 102 82 91" stroke="#17171a" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+              <path class="sonrisa-grande" d="M55 88 Q70 110 85 88 Q70 96 55 88Z" fill="#17171a"/>
+            </g>
+            <path class="chispa" d="M112 22 l2.8 7.2 7.2 2.8 -7.2 2.8 -2.8 7.2 -2.8 -7.2 -7.2 -2.8 7.2 -2.8z" fill="#fff"/>
+            <circle class="brillito" cx="30" cy="30" r="3" fill="#fff" opacity=".45"/>
           </svg>
         </div>
-        <h1 data-i18n="greeting">¡Hola! Soy Lumi 👋</h1>
+        <h1 data-i18n="greeting">¡Hola! Soy Lumi</h1>
         <p data-i18n="subtitle">Pulsa el botón para ver cómo funciona Lumen. No cambio nada de tu móvil.</p>
         <button class="btn primary" id="escanear" data-i18n="scanBtn">Revisar mi Android</button>
-        <button class="btn ghost small" id="hablar" data-i18n="talkBtn">💬 Hablar con Lumi</button>
+        <button class="btn ghost small" id="hablar"><svg class="ico"><use href="#i-chat"/></svg><span data-i18n="talkBtn">Hablar con Lumi</span></button>
         <div class="progreso" id="progreso" hidden><i id="barra"></i></div>
         <p class="estado" id="estado" data-i18n="estadoInicial">Preparado cuando quieras.</p>
       </div>
@@ -75,10 +125,10 @@
 
       <div class="card lista">
         <h2 data-i18n="resumenTitle">Lo que Lumen haría por ti</h2>
-        <div class="fila"><span>🧹</span><span data-i18n="resumen1">Quitar archivos que ya no sirven</span></div>
-        <div class="fila"><span>📦</span><span data-i18n="resumen2">Quitar programas que sobran sin dejar restos</span></div>
-        <div class="fila"><span>🔒</span><span data-i18n="resumen3">Apagar anuncios y rastreos</span></div>
-        <div class="fila"><span>🎮</span><span data-i18n="resumen4">Preparar el equipo para jugar</span></div>
+        <div class="fila"><svg class="ico"><use href="#i-escoba"/></svg><span data-i18n="resumen1">Quitar archivos que ya no sirven</span></div>
+        <div class="fila"><svg class="ico"><use href="#i-caja"/></svg><span data-i18n="resumen2">Quitar programas que sobran sin dejar restos</span></div>
+        <div class="fila"><svg class="ico"><use href="#i-anuncio"/></svg><span data-i18n="resumen3">Apagar anuncios y rastreos</span></div>
+        <div class="fila"><svg class="ico"><use href="#i-cohete"/></svg><span data-i18n="resumen4">Preparar el equipo para jugar</span></div>
       </div>
     </section>
 
@@ -91,7 +141,7 @@
         <label class="check"><input type="checkbox" checked><span data-i18n="itemTemp">Archivos temporales</span><small>38 MB</small></label>
         <label class="check"><input type="checkbox"><span data-i18n="itemThumbs">Miniaturas antiguas</span><small>12 MB</small></label>
         <label class="check"><input type="checkbox" checked><span data-i18n="itemLogs">Registros antiguos</span><small>7 MB</small></label>
-        <button class="btn primary ancho" data-demo data-i18n="cleanBtn">Limpiar seleccionado</button>
+        <button class="btn primary ancho" data-demo><svg class="ico"><use href="#i-escoba"/></svg><span data-i18n="cleanBtn">Limpiar seleccionado</span></button>
       </div>
     </section>
 
@@ -100,10 +150,10 @@
       <div class="card">
         <h2 data-i18n="bootTitle">Arranque</h2>
         <p class="muted" data-i18n="bootDesc">Programas que se abren solos (demo).</p>
-        <div class="fila"><span>↗</span><span data-i18n="boot1">Sincronización en segundo plano</span><b data-i18n="recomendado">Recomendado</b></div>
-        <div class="fila"><span>↗</span><span data-i18n="boot2">Actualizador automático</span><b data-i18n="importante">Importante</b></div>
-        <div class="fila"><span>↗</span><span data-i18n="boot3">Atajo de la nube</span><b data-i18n="opcional">Opcional</b></div>
-        <button class="btn primary ancho" data-demo data-i18n="applyBtn">Aplicar cambios</button>
+        <div class="fila"><svg class="ico"><use href="#i-sync"/></svg><span data-i18n="boot1">Sincronización en segundo plano</span><b data-i18n="recomendado">Recomendado</b></div>
+        <div class="fila"><svg class="ico"><use href="#i-descarga"/></svg><span data-i18n="boot2">Actualizador automático</span><b data-i18n="importante">Importante</b></div>
+        <div class="fila"><svg class="ico"><use href="#i-nube"/></svg><span data-i18n="boot3">Atajo de la nube</span><b data-i18n="opcional">Opcional</b></div>
+        <button class="btn primary ancho" data-demo><svg class="ico"><use href="#i-check"/></svg><span data-i18n="applyBtn">Aplicar cambios</span></button>
       </div>
     </section>
 
@@ -112,10 +162,44 @@
       <div class="card">
         <h2 data-i18n="privacyTitle">Privacidad</h2>
         <p class="muted" data-i18n="privacyDesc">Ajustes explicados con palabras sencillas (demo).</p>
-        <div class="fila"><span>📊</span><span data-i18n="privacy1">Anuncios personalizados</span><b data-i18n="off">Apagado</b></div>
-        <div class="fila"><span>📍</span><span data-i18n="privacy2">Ubicación en segundo plano</span><b data-i18n="off">Apagado</b></div>
-        <div class="fila"><span>🧾</span><span data-i18n="privacy3">Registro de diagnóstico</span><b data-i18n="off">Apagado</b></div>
+        <div class="fila"><svg class="ico"><use href="#i-anuncio"/></svg><span data-i18n="privacy1">Anuncios personalizados</span><b data-i18n="off">Apagado</b></div>
+        <div class="fila"><svg class="ico"><use href="#i-ubicacion"/></svg><span data-i18n="privacy2">Ubicación en segundo plano</span><b data-i18n="off">Apagado</b></div>
+        <div class="fila"><svg class="ico"><use href="#i-registro"/></svg><span data-i18n="privacy3">Registro de diagnóstico</span><b data-i18n="off">Apagado</b></div>
         <p class="aviso" data-i18n="privacyNote">Lumen no envía datos: no hay telemetría ni anuncios.</p>
+      </div>
+
+      <div class="card" id="card-anuncios">
+        <h2 data-i18n="anunciosTitle">Anuncios y rastreo</h2>
+        <p class="muted" data-i18n="anunciosDesc">Bloqueo real dentro de Lumen: sin scripts ni conexiones de publicidad.</p>
+        <label class="check"><input type="checkbox" id="bloqueoAnuncios" checked><svg class="ico"><use href="#i-candado"/></svg><span data-i18n="bloquearAnuncios">Bloquear anuncios en Lumen</span></label>
+        <p class="muted" data-i18n="bloquearAnunciosHint">Se aplica con una política de contenido y un filtro del service worker. No afecta a otras apps.</p>
+        <div class="fila"><svg class="ico"><use href="#i-check"/></svg><span id="estadoBloqueo" data-i18n="anunciosActivo">Bloqueo activo dentro de Lumen</span></div>
+        <button class="btn ghost small ancho" id="probarBloqueo"><svg class="ico"><use href="#i-escoba"/></svg><span data-i18n="probarBloqueo">Probar el bloqueo</span></button>
+        <p class="aviso" data-i18n="anunciosAviso">Una PWA no puede quitar los anuncios del navegador ni de otras aplicaciones: eso solo lo hace el sistema o la app correspondiente.</p>
+      </div>
+    </section>
+
+    <!-- BATERÍA -->
+    <section class="tab" id="tab-bateria">
+      <div class="card">
+        <h2 data-i18n="bateriaTitle">Batería</h2>
+        <p class="muted" data-i18n="bateriaDesc">Estado del móvil y consejos para cuidarlo.</p>
+        <div class="bateria-card">
+          <div class="bateria-icon"><svg class="ico"><use href="#i-bateria"/></svg></div>
+          <div class="grow">
+            <b id="bateriaNivel" data-i18n="bateriaNoDisp">Estado no disponible</b>
+            <div class="bateria-barra"><i id="bateriaBarra"></i></div>
+            <small id="bateriaDetalle" data-i18n="bateriaHint">Los navegadores pueden no mostrar el nivel exacto.</small>
+          </div>
+        </div>
+        <label class="check"><input type="checkbox" id="ahorro"><svg class="ico"><use href="#i-hoja"/></svg><span data-i18n="ahorro">Modo ahorro de batería</span></label>
+        <p class="muted" data-i18n="ahorroHint">Reduce animaciones, parpadeos y trabajo en segundo plano. También se activa solo con poca batería o con la app en segundo plano.</p>
+        <h3 data-i18n="consejosTitle">Consejos de Lumi</h3>
+        <div class="fila"><svg class="ico"><use href="#i-sol"/></svg><span data-i18n="consejo1">Baja el brillo o usa el modo oscuro.</span></div>
+        <div class="fila"><svg class="ico"><use href="#i-sync"/></svg><span data-i18n="consejo2">Desactiva la sincronización que no uses.</span></div>
+        <div class="fila"><svg class="ico"><use href="#i-ubicacion"/></svg><span data-i18n="consejo3">Limitar la ubicación ahorra batería.</span></div>
+        <div class="fila"><svg class="ico"><use href="#i-nube"/></svg><span data-i18n="consejo4">Evita dejar juegos pesados en segundo plano.</span></div>
+        <p class="aviso" data-i18n="bateriaAviso">Lumen solo lee el estado de la batería: no cambia ajustes del sistema.</p>
       </div>
     </section>
 
@@ -129,14 +213,14 @@
           <option value="it">Italiano</option>
           <option value="en">English</option>
         </select>
-        <label class="check"><input type="checkbox" id="voz"><span data-i18n="voice">Que Lumi hable en voz alta</span></label>
+        <label class="check"><input type="checkbox" id="voz"><svg class="ico"><use href="#i-chat"/></svg><span data-i18n="voice">Que Lumi hable en voz alta</span></label>
         <p class="muted" data-i18n="voiceHint">Usa la voz de tu móvil. Necesitas pulsar a Lumi para activarla.</p>
-        <button class="btn primary ancho" id="instalar" data-i18n="install">Instalar en el móvil</button>
+        <button class="btn primary ancho" id="instalar"><svg class="ico"><use href="#i-descarga"/></svg><span data-i18n="install">Instalar en el móvil</span></button>
         <p class="muted" id="estadoInstalacion" data-i18n="installHint">Abre esta página en Chrome → menú → «Añadir a pantalla de inicio».</p>
         <div class="links">
-          <a href="https://deancavero23-ops.github.io/Lumen/" data-i18n="openWeb">Ver la web completa</a>
-          <a href="https://github.com/deancavero23-ops/Lumen" data-i18n="github">Código en GitHub</a>
-          <a href="https://github.com/deancavero23-ops/Lumen/releases/latest" data-i18n="windowsVersion">Versión para Windows</a>
+          <a href="https://deancavero23-ops.github.io/Lumen/"><svg class="ico"><use href="#i-mundo"/></svg><span data-i18n="openWeb">Ver la web completa</span></a>
+          <a href="https://github.com/deancavero23-ops/Lumen"><svg class="ico"><use href="#i-codigo"/></svg><span data-i18n="github">Código en GitHub</span></a>
+          <a href="https://github.com/deancavero23-ops/Lumen/releases/latest"><svg class="ico"><use href="#i-descarga"/></svg><span data-i18n="windowsVersion">Versión para Windows</span></a>
         </div>
         <p class="aviso" data-i18n="credits">Lumen se basa en RetroLimpia, de Retropunk94 · GPL-3.0-or-later · No es la versión oficial.</p>
         <p class="version">v1.0.0</p>
@@ -145,11 +229,12 @@
   </main>
 
   <nav class="bottom" aria-label="Navegación">
-    <button class="activo" data-tab="inicio"><span>🏠</span><small data-i18n="tabInicio">Inicio</small></button>
-    <button data-tab="limpieza"><span>🧹</span><small data-i18n="tabLimpieza">Limpieza</small></button>
-    <button data-tab="arranque"><span>🚀</span><small data-i18n="tabArranque">Arranque</small></button>
-    <button data-tab="privacidad"><span>🔒</span><small data-i18n="tabPrivacidad">Privacidad</small></button>
-    <button data-tab="ajustes"><span>⚙️</span><small data-i18n="tabAjustes">Ajustes</small></button>
+    <button class="activo" data-tab="inicio"><svg class="ico"><use href="#i-casa"/></svg><small data-i18n="tabInicio">Inicio</small></button>
+    <button data-tab="limpieza"><svg class="ico"><use href="#i-escoba"/></svg><small data-i18n="tabLimpieza">Limpieza</small></button>
+    <button data-tab="arranque"><svg class="ico"><use href="#i-cohete"/></svg><small data-i18n="tabArranque">Arranque</small></button>
+    <button data-tab="privacidad"><svg class="ico"><use href="#i-candado"/></svg><small data-i18n="tabPrivacidad">Privacidad</small></button>
+    <button data-tab="bateria"><svg class="ico"><use href="#i-bateria"/></svg><small data-i18n="tabBateria">Batería</small></button>
+    <button data-tab="ajustes"><svg class="ico"><use href="#i-ajustes"/></svg><small data-i18n="tabAjustes">Ajustes</small></button>
   </nav>
 </div>
 <div id="toast" role="status" aria-live="polite"></div>

@@ -18,20 +18,22 @@ Dentro de la app, en **Ajustes → Instalar en el móvil**, también se ofrece e
 - **Lumi interactúa**: toca la mascota y aparece un globo con mensajes; cambia de expresión mientras revisa y al terminar.
 - Si activas **“Que Lumi hable en voz alta”** en Ajustes, los mensajes se dicen con la voz del móvil (Web Speech API; depende de las voces instaladas).
 - Idiomas **español, italiano e inglés**, detectados desde el móvil y cambiables en Ajustes.
-- Pantallas de Inicio, Limpieza, Arranque, Privacidad y Ajustes con datos de ejemplo.
+- Pantallas de Inicio, Limpieza, Arranque, Privacidad, Batería y Ajustes con datos de ejemplo.
+- **Cuidado de batería:** lee el estado real del móvil cuando el navegador lo permite y activa un modo ahorro que reduce animaciones, parpadeos y trabajo en segundo plano.
+- **Bloqueo de anuncios real dentro de Lumen:** una política de contenido impide scripts y conexiones de terceros, y el service worker descarta dominios publicitarios conocidos. Se puede activar o desactivar en **Privacidad**.
 - Funciona **sin conexión** gracias al service worker (`docs/sw.js`).
 
 ## Límite importante
 
-Es una **demo**: no limpia el móvil, no desinstala apps, no toca permisos ni actualiza nada. Android no permite ese tipo de acciones desde una PWA (y Google Play las prohíbe salvo casos muy concretos). Las funciones reales de Lumen siguen siendo exclusivas de la versión de Windows.
+Es una **demo**: no limpia el móvil, no desinstala apps, no toca permisos ni actualiza nada. Tampoco puede quitar los anuncios del navegador ni de otras aplicaciones: el bloqueo actúa **solo dentro de Lumen**. Android no permite ese tipo de acciones desde una PWA (y Google Play las prohíbe salvo casos muy concretos). Las funciones reales de Lumen siguen siendo exclusivas de la versión de Windows.
 
 ## Archivos
 
-- `docs/app/index.html` — interfaz
-- `docs/app/styles.css` — estilos
-- `docs/app/app.js` — idiomas, Lumi, voz y demo
+- `docs/app/index.html` — interfaz y política de contenido (bloqueo de scripts y conexiones externas)
+- `docs/app/styles.css` — estilos y modo ahorro
+- `docs/app/app.js` — idiomas, Lumi, voz, batería, bloqueo de anuncios y demo
 - `docs/manifest.webmanifest` — definición de la PWA
-- `docs/sw.js` — caché offline
+- `docs/sw.js` — caché offline y filtro de dominios publicitarios
 - `docs/img/pwa-*.png` — iconos 192, 512 y maskable
 
 Créditos: Lumen se basa en RetroLimpia, de Retropunk94 (GPL-3.0-or-later). No es la versión oficial.
