@@ -1,6 +1,6 @@
 # Política de privacidad de Lumen 🛡️
 
-**Última actualización: 26 de noviembre de 2026 · Aplica a Lumen Seguridad 1.2.0 y a la web/app de Lumen.**
+**Última actualización: 26 de noviembre de 2026 · Aplica a Lumen Seguridad 1.2.1 y a la web/app de Lumen.**
 
 Lumen respeta tu privacidad. No hay cuentas, no hay telemetría y no hay servidor propio de Lumen. Todo el análisis se hace en tu dispositivo. Lumi y su voz funcionan con archivos de audio locales.
 

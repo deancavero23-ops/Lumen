@@ -1,6 +1,6 @@
 # Ficha de Lumen Seguridad para Google Play 🛡️
 
-Textos listos para copiar en Play Console. Mantienen el nombre **Lumen Seguridad**, el logo rojo con la L negra y chispa blanca, a Lumi y el emoji 🛡️. El AAB es [`Lumen-Seguridad-1.2.0-play.aab`](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.0/Lumen-Seguridad-1.2.0-play.aab) y la guía de permisos está en [GOOGLE-PLAY.md](GOOGLE-PLAY.md).
+Textos listos para copiar en Play Console. Mantienen el nombre **Lumen Seguridad**, el logo rojo con la L negra y chispa blanca, a Lumi y el emoji 🛡️. El AAB es [`Lumen-Seguridad-1.2.1-play.aab`](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.1/Lumen-Seguridad-1.2.1-play.aab) y la guía de permisos está en [GOOGLE-PLAY.md](GOOGLE-PLAY.md).
 
 ## Datos base
 
@@ -36,7 +36,7 @@ Lumen Seguridad es una segunda opinión local para tu Android. No sustituye a Pl
 
 🛡️ **Bloqueo global de anuncios (opcional)** — Filtro DNS local con `VpnService`: a los dominios publicitarios responde `0.0.0.0` y reenvía el resto a un DNS público. Android pide permiso y tú puedes desactivarlo cuando quieras. No lee páginas, contraseñas ni mensajes.
 
-🔋 **Batería real y Lumi** — Lee el nivel y el estado de carga con `BatteryManager`, y la mascota Lumi te habla con voces femeninas grabadas en español, italiano e inglés (con TTS de respaldo).
+🔋 **Batería real y Lumi** — Lee el nivel y el estado de carga con `BatteryManager`, y la mascota Lumi te habla con voces femeninas grabadas en español, italiano e inglés (con TTS de respaldo). Con **«Escribir a Lumi»** puedes hacerle preguntas y obtener respuestas locales sobre apps, archivos, anuncios, batería y reglas.
 
 📄 **Reglas actualizables** — Desde Ajustes puedes descargar hashes y firmantes desde la Release pública de GitHub, con verificación SHA-256, o volver a las reglas incluidas. Nunca se descarga nada automáticamente.
 
@@ -52,7 +52,7 @@ Lumen Seguridad es una seconda opinione locale per Android. Non sostituisce Play
 
 🛡️ **Blocco annunci globale (opzionale)** — Filtro DNS locale con `VpnService`: ai domini pubblicitari risponde `0.0.0.0` e inoltra il resto a un DNS pubblico. Android chiede il permesso e puoi disattivarlo quando vuoi. Non legge pagine, password o messaggi.
 
-🔋 **Batteria reale e Lumi** — Legge livello e stato di carica con `BatteryManager`; Lumi parla con voci femminili registrate in spagnolo, italiano e inglese (con TTS di riserva).
+🔋 **Batteria reale e Lumi** — Legge livello e stato di carica con `BatteryManager`; Lumi parla con voci femminili registrate in spagnolo, italiano e inglese (con TTS di riserva). Con **«Scrivi a Lumi»** puoi farle domande e ricevere risposte locali su app, file, annunci, batteria e regole.
 
 📄 **Regole aggiornabili** — Da Impostazioni puoi scaricare hash e firmatari dalla Release pubblica su GitHub con verifica SHA-256, oppure tornare alle regole incluse. Nessun download automatico.
 
@@ -68,19 +68,19 @@ Lumen Seguridad is a local second opinion for Android. It does not replace Play 
 
 🛡️ **Optional global ad blocking** — Local DNS filter using `VpnService`: known ad domains get `0.0.0.0` and everything else is forwarded to a public resolver. Android asks for permission and you can switch it off anytime. It does not read pages, passwords or messages.
 
-🔋 **Real battery info and Lumi** — Reads level and charging state with `BatteryManager`. Lumi speaks with recorded female voices in Spanish, Italian and English (TTS fallback).
+🔋 **Real battery info and Lumi** — Reads level and charging state with `BatteryManager`. Lumi speaks with recorded female voices in Spanish, Italian and English (TTS fallback). With **"Chat with Lumi"** you can type questions and get local answers about apps, files, ads, battery and rules.
 
 📄 **Updatable rules** — In Settings you can download hashes and signers from the public GitHub Release with SHA-256 verification, or restore the bundled rules. Nothing is downloaded automatically.
 
 Available in Spanish, Italian and English. Android 7.0 or newer. Free, open source (GPL-3.0-or-later) and based on RetroLimpia by Retropunk94. Not the official version. More info: https://deancavero23-ops.github.io/Lumen/
 
-## Novedades de la versión 1.2.0 (cuadro «Qué hay de nuevo»)
+## Novedades de la versión 1.2.1 (cuadro «Qué hay de nuevo»)
 
-**Español:** Añade «Actualizar reglas desde GitHub» con verificación SHA-256 y la opción de restaurar las reglas incluidas. Ya incluía VPN DNS opcional y análisis local de apps.
+**Español:** Añade «Escribir a Lumi», un chat local con respuestas sobre apps, archivos, anuncios, batería y reglas. Corrige la reproducción de voz para que no bloquee la app y quita la etiqueta de «demo» de la app nativa.
 
-**Italiano:** Aggiunge «Aggiorna regole da GitHub» con verifica SHA-256 e il ripristino delle regole incluse. Già includeva VPN DNS opzionale e analisi locale delle app.
+**Italiano:** Aggiunge «Scrivi a Lumi», una chat locale con risposte su app, file, annunci, batteria e regole. Corregge la riproduzione vocale che poteva bloccare l’app e rimuove l’etichetta «demo» dall’app nativa.
 
-**English:** Adds "Update rules from GitHub" with SHA-256 verification and restore of bundled rules. Already included the optional DNS VPN and local app analysis.
+**English:** Adds "Chat with Lumi", a local chat with answers about apps, files, ads, battery and rules. Fixes voice playback so it no longer freezes the app and removes the "demo" label from the native app.
 
 ## Material gráfico
 

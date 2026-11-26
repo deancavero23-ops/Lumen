@@ -6,17 +6,18 @@ Esta APK **sí hace cosas reales**, a diferencia de la demo TWA descrita en [AND
 
 ## Descargar
 
-**[Descargar Lumen-Seguridad-1.2.0.apk](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.2.0/Lumen-Seguridad-1.2.0.apk)** · [SHA-256 publicado](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.2.0/SHA256-SEGURIDAD.txt)
+**[Descargar Lumen-Seguridad-1.2.1.apk](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.2.1/Lumen-Seguridad-1.2.1.apk)** · [SHA-256 publicado](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.2.1/SHA256-SEGURIDAD.txt)
 
 ![QR para descargar Lumen Seguridad](img/qr-android-seguridad.png)
 
 Si prefieres que el QR abra la página con las instrucciones en vez del APK directo, usa este otro: ![QR de la página de descarga](img/qr-descarga-android.png)
 
-- Huella SHA-256 del APK publicado: `bc036e6a58f4c89322e331e521c732cba2e3ab6257081986e72c49e74ba063e2`.
+- Huella SHA-256 del APK publicado: pendiente de la compilación 1.2.1 (se publica en `SHA256-SEGURIDAD.txt`).
 - Requiere **Android 7.0 (API 24) o superior**.
 - Se instala por **sideload**: al abrir la APK, Android pedirá permitir **fuentes desconocidas**. Acepta solo si confías en este repositorio.
 - La firma es propia (`android-native/lumen-seguridad.keystore`, alias `lumen`). **No es la misma firma** que la APK demo, por lo que Android las tratará como apps distintas y podrás tener las dos instaladas.
-- Para verificar la descarga: `certutil -hashfile Lumen-Seguridad-1.2.0.apk SHA256` en Windows o `sha256sum Lumen-Seguridad-1.2.0.apk` en Linux.
+- Para verificar la descarga: `certutil -hashfile Lumen-Seguridad-1.2.1.apk SHA256` en Windows o `sha256sum Lumen-Seguridad-1.2.1.apk` en Linux.
+- **¿Te sale «demo»?** En Ajustes debe poner `v1.2.1`. Si pone `v1.0.0` o el icono no es el de Lumen Seguridad 🛡️, instalaste la APK demo (solo interfaz). Descarga `Lumen-Seguridad-1.2.1.apk` desde el enlace de arriba o su QR.
 
 ## Lo que sí hace
 
@@ -30,7 +31,7 @@ Si prefieres que el QR abra la página con las instrucciones en vez del APK dire
 | **Batería real** | Lee nivel y estado de carga con `BatteryManager`. El "modo ahorro de Lumi" es una preferencia de la app. | No cambia ajustes del sistema ni limita procesos de otras apps. |
 | **Bloqueo global de anuncios (opcional)** | VPN local que responde `0.0.0.0` a los dominios publicitarios en las consultas DNS de **todas las apps**. Se activa solo desde **Ajustes → Bloqueo global de anuncios** y Android muestra su diálogo de permiso. | Filtra **solo DNS**: no abre ni lee el resto del tráfico, no funciona con DNS sobre TLS (DoT) y cualquiera puede desactivarlo desde Ajustes o desde la notificación. |
 | **Desinstalar con confirmación** | Abre el diálogo del sistema con `ACTION_UNINSTALL_PACKAGE`. | La app nunca desinstala por sí sola; el usuario confirma siempre. |
-| **Lumi y voces** | Mascota dibujada en código y 15 audios femeninos incluidos (`es`, `it`, `en`). Si falla el audio, usa TTS prefiriendo voces femeninas. | Se puede silenciar en Ajustes. |
+| **Lumi, voces y chat** | Mascota dibujada en código y 15 audios femeninos incluidos (`es`, `it`, `en`). Si falla el audio, usa TTS prefiriendo voces femeninas. **«Escribir a Lumi» abre un chat local** con respuestas sobre apps, archivos, anuncios, batería y reglas. | El audio se prepara de forma asíncrona para no bloquear la interfaz. Se puede silenciar en Ajustes. El chat no consulta Internet ni modelos externos. |
 | **Idiomas** | Español, italiano e inglés, detectados del sistema y cambiables en Ajustes. | — |
 | **Privacidad** | Sin telemetría, sin servidor propio, sin accesibilidad y sin permisos de almacenamiento amplio. | Las reglas se guardan solo en el dispositivo. La descarga es manual y no envía nada a Lumen. |
 | **Reglas actualizables** | **Ajustes → Actualizar reglas desde GitHub** descarga `reglas.json` y su `.sha256` desde la Release `reglas-v1`, comprueba la huella y la guarda dentro de la app. **Ajustes → Reglas de seguridad** muestra el origen y permite volver a las incluidas. | No se descarga nada automáticamente. Si falla la red o el SHA-256 no coincide, se conservan las reglas anteriores. La fuente de confianza es este repositorio de GitHub; el hash evita cambios en tránsito, no compromisos del repositorio. |

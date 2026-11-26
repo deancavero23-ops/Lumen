@@ -2,6 +2,7 @@ package com.lumen.seguridad
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -17,11 +18,13 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
+import java.util.Locale
 
 class MainActivity : Activity() {
 
@@ -76,6 +79,7 @@ class MainActivity : Activity() {
 
     override fun onDestroy() {
         desregistrarMonitor()
+        Voz.detener()
         super.onDestroy()
     }
 
@@ -171,6 +175,7 @@ class MainActivity : Activity() {
         contenedor.addView(boton("quarantine", false) { mostrarCuarentena() })
         contenedor.addView(boton("battery", false) { mostrarBateria() })
         contenedor.addView(boton("speak", false) { hablar("lumiHola") })
+        contenedor.addView(boton("chat", false) { mostrarChat() })
         contenedor.addView(boton("settings", false) { mostrarAjustes() })
 
         salida = texto(t("lumiHola"))
@@ -194,6 +199,64 @@ class MainActivity : Activity() {
     private fun volver() {
         salida.text = t("lumiHola")
         limpiarAcciones()
+    }
+
+    private fun mostrarChat() {
+        val historial = TextView(this).apply {
+            text = "${t("chat_lumi")}: ${t("lumiHola")}"
+            setTextColor(Color.WHITE)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+            setTextIsSelectable(true)
+        }
+        val campo = EditText(this).apply {
+            hint = t("chat_hint")
+            setTextColor(Color.WHITE)
+            setHintTextColor(Color.parseColor("#80848C"))
+        }
+        val enviar = Button(this).apply {
+            text = t("chat_send")
+            setTextColor(Color.WHITE)
+            background = fondoBoton(true)
+        }
+        val vista = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(20), dp(16), dp(20), dp(16))
+            addView(historial)
+            addView(campo)
+            addView(enviar)
+        }
+        val dialog = Dialog(this).apply {
+            setTitle(t("chat"))
+            setContentView(vista)
+        }
+        enviar.setOnClickListener {
+            val pregunta = campo.text.toString().trim()
+            if (pregunta.isEmpty()) return@setOnClickListener
+            val respuesta = respuestaLumi(pregunta)
+            historial.append("\n\n${t("chat_you")}: $pregunta\n${t("chat_lumi")}: $respuesta")
+            campo.text.clear()
+            Voz.decir(this, respuesta)
+        }
+        dialog.show()
+    }
+
+    private fun respuestaLumi(pregunta: String): String {
+        val p = pregunta.lowercase(Locale.ROOT)
+        return when {
+            p.contains("hola") || p.contains("ciao") || p.contains("buongiorno") ||
+                p.contains("hello") -> t("resp_hola")
+            p.contains("gracias") || p.contains("grazie") || p.contains("thanks") -> t("resp_gracias")
+            p.contains("virus") || p.contains("malware") || p.contains("segur") ||
+                p.contains("sicur") || p.contains("secur") -> t("resp_virus")
+            p.contains("limpi") || p.contains("cach") || p.contains("basura") ||
+                p.contains("puliz") || p.contains("clean") || p.contains("archiv") ||
+                p.contains("file") -> t("resp_limpieza")
+            p.contains("anunc") || p.contains("ads") || p.contains("advert") ||
+                p.contains("pubblic") || p.contains("publicid") -> t("resp_anuncios")
+            p.contains("bater") || p.contains("batter") || p.contains("battery") -> t("resp_bateria")
+            p.contains("regla") || p.contains("regol") || p.contains("rule") -> t("resp_reglas")
+            else -> t("resp_default")
+        }
     }
 
     private fun escanearApps() {

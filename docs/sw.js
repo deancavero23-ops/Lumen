@@ -1,5 +1,5 @@
 /* Lumen PWA: caché offline y filtro de publicidad dentro de la app. */
-const CACHE = 'lumen-app-v15-0-0';
+const CACHE = 'lumen-app-v16-0-0';
 // El scope del service worker es /Lumen/ en GitHub Pages y / en una prueba local.
 const BASE = self.registration.scope;
 const RUTAS = [
