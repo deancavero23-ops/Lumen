@@ -195,14 +195,16 @@ object Limpieza {
 
         docs.forEach { doc ->
             val padre = DocumentsContract.buildDocumentUriUsingTree(treeUri, doc.parentId)
+            var nuevo: Uri? = null
             val ok = try {
-                DocumentsContract.moveDocument(cr, doc.uri, padre, padreCuarentena)
-                true
+                nuevo = DocumentsContract.moveDocument(cr, doc.uri, padre, padreCuarentena)
+                nuevo != null
             } catch (e: Exception) {
                 try {
                     val copia = DocumentsContract.copyDocument(cr, doc.uri, padreCuarentena)
                     val borrado = DocumentsContract.deleteDocument(cr, doc.uri)
                     if (copia != null && borrado) {
+                        nuevo = copia
                         fallback = true
                         true
                     } else false
@@ -211,7 +213,7 @@ object Limpieza {
             if (ok) {
                 guardados.add(
                     CuarentenaItem(
-                        doc.uri.toString(), doc.nombre, doc.parentId,
+                        (nuevo ?: doc.uri).toString(), doc.nombre, doc.parentId,
                         idCuarentena, treeUri.toString()
                     )
                 )
