@@ -19,7 +19,8 @@
 3. Ve a **Producción → Crear versión** y sube el `.aab`.
 4. En el formulario de permisos sensibles declara `QUERY_ALL_PACKAGES` con el texto de abajo.
 5. En **Privacidad y protección de datos (Data safety)** usa las respuestas de abajo.
-6. Publica primero en un **test interno** para comprobar el diálogo de VPN en un móvil real y después pasa a producción.
+6. En el campo **URL de la política de privacidad** pon: `https://deancavero23-ops.github.io/Lumen/PRIVACIDAD.md`.
+7. Publica primero en un **test interno** para comprobar el diálogo de VPN en un móvil real y después pasa a producción.
 
 ## Declaración de `QUERY_ALL_PACKAGES`
 
