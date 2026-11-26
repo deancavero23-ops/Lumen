@@ -34,7 +34,7 @@ const D = {
     consejo2: 'Desactiva la sincronización que no uses.', consejo3: 'Limitar la ubicación ahorra batería.',
     consejo4: 'Evita dejar juegos pesados en segundo plano.',
     bateriaAviso: 'Lumen solo lee el estado de la batería: no cambia ajustes del sistema.',
-    settingsTitle: 'Ajustes', voice: 'Que Lumi hable en voz alta', voiceHint: 'Usa la voz de tu móvil. Necesitas pulsar a Lumi para activarla.',
+    settingsTitle: 'Ajustes', voice: 'Que Lumi hable en voz alta', voiceHint: 'Usa una voz femenina del móvil si la tiene. Pulsa a Lumi o «Hablar» para activarla.',
     install: 'Instalar en el móvil', installHint: 'Si la abriste desde la cámara, pulsa ⋮ → Abrir en Chrome. Luego ⋮ → «Añadir a pantalla de inicio» / «Instalar app».',
     noApk: 'No es un APK: se instala desde Chrome como app web.',
     sinVoz: 'Lumi te escribió el mensaje: tu móvil no tiene voces instaladas.',
@@ -83,7 +83,7 @@ const D = {
     consejo2: 'Disattiva la sincronizzazione che non usi.', consejo3: 'Limitare la posizione risparmia batteria.',
     consejo4: 'Evita di lasciare giochi pesanti in background.',
     bateriaAviso: 'Lumen legge solo lo stato della batteria: non modifica le impostazioni del sistema.',
-    settingsTitle: 'Impostazioni', voice: 'Lumi parla ad alta voce', voiceHint: 'Usa la voce del telefono. Devi toccare Lumi per attivarla.',
+    settingsTitle: 'Impostazioni', voice: 'Lumi parla ad alta voce', voiceHint: 'Usa una voce femminile del telefono, se presente. Tocca Lumi o «Parla» per attivarla.',
     install: 'Installa sul telefono', installHint: 'Se hai aperto la pagina dalla fotocamera, premi ⋮ → Apri in Chrome. Poi ⋮ → «Aggiungi a schermata Home» / «Installa app».',
     noApk: 'Non è un APK: si installa da Chrome come app web.',
     sinVoz: 'Lumi ti ha scritto il messaggio: il telefono non ha voci installate.',
@@ -132,7 +132,7 @@ const D = {
     consejo2: 'Turn off sync you do not use.', consejo3: 'Limiting location saves battery.',
     consejo4: 'Avoid leaving heavy games in the background.',
     bateriaAviso: 'Lumen only reads battery status: it does not change system settings.',
-    settingsTitle: 'Settings', voice: 'Let Lumi speak out loud', voiceHint: "Uses your phone's voice. Tap Lumi to activate it.",
+    settingsTitle: 'Settings', voice: 'Let Lumi speak out loud', voiceHint: "Uses a female voice from your phone when available. Tap Lumi or 'Talk' to activate it.",
     install: 'Install on phone', installHint: "If you opened it from the camera, tap ⋮ → Open in Chrome. Then ⋮ → 'Add to Home screen' / 'Install app'.",
     noApk: 'This is not an APK: install it from Chrome as a web app.',
     sinVoz: 'Lumi wrote the message: your phone has no installed voices.',
@@ -194,6 +194,15 @@ function toast(texto) {
   el._t = setTimeout(() => el.classList.remove('ver'), 2800);
 }
 
+function elegirVoz() {
+  if (!('speechSynthesis' in window)) return null;
+  const voces = speechSynthesis.getVoices();
+  const femeninas = ['female', 'mujer', 'woman', 'samantha', 'victoria', 'zira', 'karen', 'moira', 'tessa', 'fiona', 'serena', 'allison', 'ava', 'susan', 'lucia', 'paola', 'chiara'];
+  return voces.find((v) => femeninas.some((n) => v.name.toLowerCase().includes(n)))
+    || voces.find((v) => v.lang.toLowerCase().startsWith(lang))
+    || null;
+}
+
 function hablar(texto, ms, forzarVoz) {
   const b = $('#burbuja');
   const lumi = $('#lumi');
@@ -214,8 +223,9 @@ function hablar(texto, ms, forzarVoz) {
     u.lang = idiomas[lang];
     u.rate = 0.98;
     const voces = speechSynthesis.getVoices();
-    const voz = voces.find((v) => v.lang.toLowerCase().startsWith(lang));
+    const voz = elegirVoz();
     if (voz) u.voice = voz;
+    u.pitch = 1.15;
     u.onend = () => lumi.classList.remove('hablando');
     speechSynthesis.speak(u);
     if (!voces.length) toast(t('sinVoz'));
