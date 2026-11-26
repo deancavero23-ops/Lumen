@@ -1,6 +1,6 @@
 # Lumen para Android (APK + PWA, demo)
 
-> **Aviso importante:** es una **demo**. Ni el APK ni la PWA limpian Android, borran archivos, desinstalan apps ni quitan anuncios de otras aplicaciones. Muestran la interfaz de Lumen, Lumi con voz femenina y simulaciones. Las funciones reales están en la versión de Windows.
+> **Aviso importante:** es una **demo**. Ni el APK ni la PWA limpian Android, borran archivos, desinstalan apps ni quitan anuncios de otras aplicaciones. Muestran la interfaz de Lumen, Lumi con voz femenina y simulaciones. Las funciones reales de limpieza están en la versión de Windows; el análisis real del móvil está en [Lumen Seguridad](SEGURIDAD-ANDROID.md).
 >
 > Si buscas una APK que **sí analice el móvil**, usa [Lumen Seguridad](SEGURIDAD-ANDROID.md): app nativa Kotlin, escrita desde cero, con análisis de apps, cuarentena restaurable y batería real. Es otra APK distinta y se instala junto a esta.
 
