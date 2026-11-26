@@ -138,12 +138,15 @@ object Limpieza {
                 }
             }
         }
+        val padre = DocumentsContract.buildDocumentUriUsingTree(
+            treeUri, DocumentsContract.getTreeDocumentId(treeUri)
+        )
         return try {
-            cr.createDocument(
-                treeUri,
+            DocumentsContract.createDocument(
+                cr,
+                padre,
                 DocumentsContract.Document.MIME_TYPE_DIR,
-                CARPETA_CUARENTENA,
-                null
+                CARPETA_CUARENTENA
             )
         } catch (e: Exception) { null }
     }

@@ -8,7 +8,9 @@ Gratis · Código abierto (GPL-3.0) · Sin telemetría · Todo se puede deshacer
 
 🌐 **Web oficial: [deancavero23-ops.github.io/Lumen](https://deancavero23-ops.github.io/Lumen/)**
 
-📱 **Android (demo): [descargar APK](https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk)** · No limpia el móvil: muestra la interfaz de Lumen con Lumi, voz femenina grabada y simulaciones de batería y anuncios. Las funciones reales están en Windows. [QR del APK](docs/img/qr-android-apk.png) · También puedes [abrir la PWA](https://deancavero23-ops.github.io/Lumen/app/) o [escanear su QR](docs/img/qr-android-pwa.png). [Instrucciones](docs/ANDROID.md).
+📱 **Android (demo): [descargar APK](https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk)** · No limpia el móvil: muestra la interfaz de Lumen con Lumi, voz femenina grabada y simulaciones de batería y anuncios. [QR del APK](docs/img/qr-android-apk.png) · También puedes [abrir la PWA](https://deancavero23-ops.github.io/Lumen/app/) o [escanear su QR](docs/img/qr-android-pwa.png). [Instrucciones](docs/ANDROID.md).
+
+🛡️ **Android nativo (Lumen Seguridad): [descargar APK](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.0.0/Lumen-Seguridad-1.0.0.apk)** · Aplicación Kotlin escrita desde cero: analiza las apps instaladas (SHA-256, firmante, permisos sensibles, accesibilidad), escanea las carpetas que tú eliges, mueve candidatos a una cuarentena restaurable, lee la batería de verdad e incluye a Lumi con voces femeninas en los tres idiomas. No reemplaza a Play Protect, no limpia la caché de otras apps y no borra nada sin tu confirmación. [QR](docs/img/qr-android-seguridad.png) · [Qué hace y qué no puede hacer](docs/SEGURIDAD-ANDROID.md).
 
 **Idiomas: Español · Italiano · Inglés** (se detecta el idioma de Windows y se puede cambiar en Ajustes).
 
