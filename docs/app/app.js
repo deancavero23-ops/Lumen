@@ -37,6 +37,7 @@ const D = {
     settingsTitle: 'Ajustes', voice: 'Que Lumi hable en voz alta', voiceHint: 'Usa la voz de tu móvil. Necesitas pulsar a Lumi para activarla.',
     install: 'Instalar en el móvil', installHint: 'Si la abriste desde la cámara, pulsa ⋮ → Abrir en Chrome. Luego ⋮ → «Añadir a pantalla de inicio» / «Instalar app».',
     noApk: 'No es un APK: se instala desde Chrome como app web.',
+    sinVoz: 'Lumi te escribió el mensaje: tu móvil no tiene voces instaladas.',
     openWeb: 'Ver la web completa', github: 'Código en GitHub', windowsVersion: 'Versión para Windows',
     credits: 'Lumen se basa en RetroLimpia, de Retropunk94 · GPL-3.0-or-later · No es la versión oficial.',
     tabInicio: 'Inicio', tabLimpieza: 'Limpieza', tabArranque: 'Arranque', tabPrivacidad: 'Privacidad',
@@ -85,6 +86,7 @@ const D = {
     settingsTitle: 'Impostazioni', voice: 'Lumi parla ad alta voce', voiceHint: 'Usa la voce del telefono. Devi toccare Lumi per attivarla.',
     install: 'Installa sul telefono', installHint: 'Se hai aperto la pagina dalla fotocamera, premi ⋮ → Apri in Chrome. Poi ⋮ → «Aggiungi a schermata Home» / «Installa app».',
     noApk: 'Non è un APK: si installa da Chrome come app web.',
+    sinVoz: 'Lumi ti ha scritto il messaggio: il telefono non ha voci installate.',
     openWeb: 'Vedi il sito completo', github: 'Codice su GitHub', windowsVersion: 'Versione per Windows',
     credits: 'Lumen deriva da RetroLimpia di Retropunk94 · GPL-3.0-or-later · Non è la versione ufficiale.',
     tabInicio: 'Inizio', tabLimpieza: 'Pulizia', tabArranque: 'Avvio', tabPrivacidad: 'Privacy',
@@ -133,6 +135,7 @@ const D = {
     settingsTitle: 'Settings', voice: 'Let Lumi speak out loud', voiceHint: "Uses your phone's voice. Tap Lumi to activate it.",
     install: 'Install on phone', installHint: "If you opened it from the camera, tap ⋮ → Open in Chrome. Then ⋮ → 'Add to Home screen' / 'Install app'.",
     noApk: 'This is not an APK: install it from Chrome as a web app.',
+    sinVoz: 'Lumi wrote the message: your phone has no installed voices.',
     openWeb: 'Open full website', github: 'Code on GitHub', windowsVersion: 'Windows version',
     credits: 'Lumen is based on RetroLimpia by Retropunk94 · GPL-3.0-or-later · Not the official version.',
     tabInicio: 'Home', tabLimpieza: 'Cleanup', tabArranque: 'Startup', tabPrivacidad: 'Privacy',
@@ -191,7 +194,7 @@ function toast(texto) {
   el._t = setTimeout(() => el.classList.remove('ver'), 2800);
 }
 
-function hablar(texto, ms) {
+function hablar(texto, ms, forzarVoz) {
   const b = $('#burbuja');
   const lumi = $('#lumi');
   const duracion = ms || (ahorroActivo() ? 2400 : 3600);
@@ -201,18 +204,22 @@ function hablar(texto, ms) {
   clearTimeout(burbujaTimer);
   burbujaTimer = setTimeout(() => { b.hidden = true; lumi.classList.remove('hablando'); }, duracion);
 
-  if ($('#voz').checked && 'speechSynthesis' in window) {
-    try {
-      speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(texto);
-      u.lang = idiomas[lang];
-      u.rate = 0.98;
-      const voz = speechSynthesis.getVoices().find((v) => v.lang.toLowerCase().startsWith(lang));
-      if (voz) u.voice = voz;
-      u.onend = () => lumi.classList.remove('hablando');
-      speechSynthesis.speak(u);
-    } catch (_) { /* el móvil puede no tener voces instaladas */ }
-  }
+  const quiereVoz = $('#voz').checked || forzarVoz;
+  if (!quiereVoz) return;
+  if (!('speechSynthesis' in window)) { toast(t('sinVoz')); return; }
+
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(texto);
+    u.lang = idiomas[lang];
+    u.rate = 0.98;
+    const voces = speechSynthesis.getVoices();
+    const voz = voces.find((v) => v.lang.toLowerCase().startsWith(lang));
+    if (voz) u.voice = voz;
+    u.onend = () => lumi.classList.remove('hablando');
+    speechSynthesis.speak(u);
+    if (!voces.length) toast(t('sinVoz'));
+  } catch (_) { toast(t('sinVoz')); }
 }
 
 function parpadear() {
@@ -249,7 +256,7 @@ function inicializarTabs() {
 function inicializarLumi() {
   const l = $('#lumi');
   const pupilas = l.querySelector('.pupilas');
-  const hablarAhora = () => hablar(fraseAleatoria());
+  const hablarAhora = () => hablar(fraseAleatoria(), null, true);
 
   l.addEventListener('pointermove', (e) => {
     if (ahorroActivo()) return;

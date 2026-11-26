@@ -32,7 +32,7 @@ Si sigue sin aparecer, actualiza Chrome, sal del modo incógnito y comprueba que
 
 - Misma identidad: logo rojo con “L” negra y chispa blanca, colores negro/rojo/gris/blanco.
 - **Lumi interactúa**: toca la mascota y aparece un globo con mensajes; cambia de expresión mientras revisa y al terminar.
-- Si activas **“Que Lumi hable en voz alta”** en Ajustes, los mensajes se dicen con la voz del móvil (Web Speech API; depende de las voces instaladas).
+- El botón **“Hablar con Lumi”** (y tocar la mascota) siempre intenta hablar con la voz del móvil. Si activas **“Que Lumi hable en voz alta”** en Ajustes, también hablan los mensajes automáticos. Si no hay voces instaladas, Lumi muestra el mensaje escrito y un aviso.
 - Idiomas **español, italiano e inglés**, detectados desde el móvil y cambiables en Ajustes.
 - Pantallas de Inicio, Limpieza, Arranque, Privacidad, Batería y Ajustes con datos de ejemplo.
 - **Cuidado de batería:** lee el estado real del móvil cuando el navegador lo permite y activa un modo ahorro que reduce animaciones, parpadeos y trabajo en segundo plano.
