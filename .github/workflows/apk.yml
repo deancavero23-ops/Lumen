@@ -49,6 +49,10 @@ jobs:
           printf '{"jdkPath":"%s","androidSdkPath":"%s"}\n' "$JAVA_HOME" "$ANDROID_HOME" > "$HOME/.bubblewrap/config.json"
           cat "$HOME/.bubblewrap/config.json"
 
+      - name: Hacer ejecutable el wrapper de Gradle
+        working-directory: android
+        run: chmod +x gradlew
+
       - name: Compilar APK firmado
         working-directory: android
         env:
