@@ -18,6 +18,16 @@ Escanea el código con la cámara del móvil o con Chrome. Se abrirá directamen
 
 Dentro de la app, en **Ajustes → Instalar en el móvil**, también se ofrece el diálogo de instalación cuando Chrome lo permite.
 
+## Si el QR no te instala nada
+
+El QR **no descarga un APK**: abre la página de la PWA. Para que aparezca la opción de instalar:
+
+1. Si la abrió la cámara, WhatsApp, Instagram u otra app, pulsa el menú **⋮ → Abrir en Chrome**.
+2. Espera un segundo y pulsa de nuevo **⋮ → Instalar app** o **Añadir a pantalla de inicio**.
+3. Confirma **Instalar / Añadir**. Aparecerá el icono rojo de Lumen en la pantalla de inicio.
+
+Si sigue sin aparecer, actualiza Chrome, sal del modo incógnito y comprueba que la dirección termina exactamente en `/app/`. El QR verificado apunta a `https://deancavero23-ops.github.io/Lumen/app/`.
+
 ## Qué hace
 
 - Misma identidad: logo rojo con “L” negra y chispa blanca, colores negro/rojo/gris/blanco.
