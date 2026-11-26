@@ -22,6 +22,10 @@ Gratis · Código abierto (GPL-3.0) · Sin telemetría · Todo se puede deshacer
 
 Ve a **[Releases](../../releases/latest)** y descarga **`Lumen-Instalador-x.y.z.exe`**. Se instala como cualquier programa y, a partir de ahí, se actualiza solo.
 
+![QR para descargar Lumen en Windows](docs/img/qr-windows.png)
+
+**QR directo al instalador:** [Lumen-Instalador-1.0.0.exe](https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-Instalador-1.0.0.exe) · [PNG del QR](docs/img/qr-windows.png)
+
 > **¿Windows dice "Windows protegió su PC"?** Es normal y no significa que tenga un virus: el programa no tiene una firma digital de pago. Pulsa **Más información → Ejecutar de todas formas**. [Aquí te explicamos por qué pasa y cómo comprobarlo tú mismo](docs/POR-QUE-AVISA-WINDOWS.md).
 
 ## Qué hace
