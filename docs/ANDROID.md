@@ -4,7 +4,11 @@ Lumen tiene un **APK instalable**: es un envoltorio propio (Trusted Web Activity
 
 ## Descargar el APK
 
-**[Descargar Lumen-1.0.0.apk](https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk)**
+**[Descargar Lumen-1.0.0.apk](https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk)** · [Verificar SHA-256](https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/SHA256-APK.txt)
+
+![QR para descargar el APK de Lumen](img/qr-android-apk.png)
+
+Escanea este QR con el móvil para abrir la descarga del APK. Huella del archivo: `8ea511db1fb5e3fe1e79f5dfa16e37779b8f41b92dc80d559d9208ffa56cb5b7`.
 
 - Necesita **Android 7.0 o superior** con **Chrome** instalado.
 - Al abrir el APK fuera de Google Play, Android pedirá permitir **fuentes desconocidas**: acepta solo si confías en este repositorio.
@@ -12,11 +16,11 @@ Lumen tiene un **APK instalable**: es un envoltorio propio (Trusted Web Activity
 
 **URL de la PWA:** https://deancavero23-ops.github.io/Lumen/app/
 
-## QR para abrirla al instante
+## QR de la PWA (sin APK)
 
-![QR para abrir Lumen Android](img/qr-android-pwa.png)
+![QR para abrir la PWA de Lumen](img/qr-android-pwa.png)
 
-Escanea el código con la cámara del móvil o con Chrome. Se abrirá directamente la app; luego usa el menú de Chrome → **Añadir a pantalla de inicio**. El mismo QR está publicado en la web principal.
+Este otro QR abre la versión web. Se abrirá directamente la app; luego usa el menú de Chrome → **Añadir a pantalla de inicio**. El mismo QR está publicado en la web principal.
 
 ## Instalarla en el móvil
 
@@ -28,7 +32,7 @@ Dentro de la app, en **Ajustes → Instalar en el móvil**, también se ofrece e
 
 ## Si el QR no te instala nada
 
-El QR **no descarga un APK**: abre la página de la PWA. Para que aparezca la opción de instalar:
+El **QR de la PWA** no descarga un APK: abre la página web. Para que aparezca la opción de instalar:
 
 1. Si la abrió la cámara, WhatsApp, Instagram u otra app, pulsa el menú **⋮ → Abrir en Chrome**.
 2. Espera un segundo y pulsa de nuevo **⋮ → Instalar app** o **Añadir a pantalla de inicio**.
@@ -59,6 +63,7 @@ Es una **demo**: no limpia el móvil, no desinstala apps, no toca permisos ni ac
 - `docs/manifest.webmanifest` — definición de la PWA
 - `docs/sw.js` — caché offline y filtro de dominios publicitarios
 - `docs/img/pwa-*.png` — iconos 192, 512 y maskable
+- `docs/img/qr-android-apk.png` — QR verificado de descarga del APK
 - `docs/app/audio/*.wav` — voces femeninas grabadas para Lumi
 - `android/` — proyecto del APK (Bubblewrap/TWA) y certificado de firma
 

@@ -10,7 +10,8 @@ LUMEN 1.0.0 — CÓMO PROBARLO
 1b) ANDROID (APK + PWA)
    APK: https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk
    Demo instalable: https://deancavero23-ops.github.io/Lumen/app/
-   QR listo para escanear: docs/img/qr-android-pwa.png
+   QR del APK: docs/img/qr-android-apk.png
+   QR de la PWA: docs/img/qr-android-pwa.png
    El APK es un envoltorio de la PWA con Chrome. Lumi tiene audios de voz
    femenina en es/it/en y hay textos en es/it/en. Incluye modo ahorro de
    batería y bloqueo de anuncios dentro de la PWA (no quita anuncios del
