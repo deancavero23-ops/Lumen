@@ -8,6 +8,8 @@ Gratis · Código abierto (GPL-3.0) · Sin telemetría · Todo se puede deshacer
 
 🌐 **Web oficial: [deancavero23-ops.github.io/Lumen](https://deancavero23-ops.github.io/Lumen/)**
 
+📱 **Android (PWA demo): [abrir e instalar desde Chrome](https://deancavero23-ops.github.io/Lumen/app/)** · con Lumi interactiva y voz opcional. [Instrucciones](docs/ANDROID.md).
+
 **Idiomas: Español · Italiano · Inglés** (se detecta el idioma de Windows y se puede cambiar en Ajustes).
 
 > **Proyecto derivado:** Lumen está basado en [RetroLimpia](https://github.com/retropunk94/RetroLimpia), de Retropunk94, publicado bajo GPL-3.0-or-later. Lumen es una versión modificada e independiente: no es la versión oficial. Mantiene la licencia GPL y los créditos originales.

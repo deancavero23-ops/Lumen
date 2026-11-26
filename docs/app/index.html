@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0b0c">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Lumen">
+<meta name="description" content="Lumen para Android: demo instalable con la misma identidad, Lumi y textos en español, italiano e inglés.">
+<title>Lumen — Android</title>
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" type="image/png" href="../img/pwa-192.png">
+<link rel="apple-touch-icon" href="../img/icon-180.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="marca">
+      <img src="../img/icon-180.png" alt="" width="34" height="34">
+      <div><b>Lu<span>men</span></b><small data-i18n="demoChip">Versión demo · Android</small></div>
+    </div>
+    <label class="idioma">
+      <span class="sr" data-i18n="language">Idioma</span>
+      <select id="idioma" aria-label="Idioma">
+        <option value="es">Español</option>
+        <option value="it">Italiano</option>
+        <option value="en">English</option>
+      </select>
+    </label>
+  </header>
+
+  <main>
+    <!-- INICIO -->
+    <section class="tab activa" id="tab-inicio">
+      <div class="hero-card">
+        <div class="burbuja" id="burbuja" hidden></div>
+        <div class="lumi-wrap">
+          <svg id="lumi" class="lumi" viewBox="0 0 120 120" role="button" tabindex="0" aria-label="Lumi: tocar para hablar">
+            <rect x="4" y="4" width="112" height="112" rx="28" fill="#e50914"/>
+            <g class="brillo"><circle cx="34" cy="28" r="7" fill="#fff" opacity=".22"/><circle cx="47" cy="22" r="3" fill="#fff" opacity=".32"/></g>
+            <g class="ojos">
+              <ellipse class="ojo" cx="42" cy="53" rx="13" ry="16" fill="#fff"/>
+              <ellipse class="ojo" cx="78" cy="53" rx="13" ry="16" fill="#fff"/>
+              <circle class="pupila" cx="45" cy="55" r="6" fill="#141416"/>
+              <circle class="pupila" cx="81" cy="55" r="6" fill="#141416"/>
+              <circle cx="47" cy="52" r="2.4" fill="#fff"/>
+              <circle cx="83" cy="52" r="2.4" fill="#fff"/>
+            </g>
+            <g class="rubor"><ellipse cx="27" cy="72" rx="8" ry="4" fill="#fff" opacity=".35"/><ellipse cx="93" cy="72" rx="8" ry="4" fill="#fff" opacity=".35"/></g>
+            <path class="sonrisa" d="M50 79 Q60 89 70 79" stroke="#141416" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <path class="chispa" d="M96 20 l2.5 6.5 6.5 2.5 -6.5 2.5 -2.5 6.5 -2.5 -6.5 -6.5 -2.5 6.5 -2.5z" fill="#fff"/>
+          </svg>
+        </div>
+        <h1 data-i18n="greeting">¡Hola! Soy Lumi 👋</h1>
+        <p data-i18n="subtitle">Pulsa el botón para ver cómo funciona Lumen. No cambio nada de tu móvil.</p>
+        <button class="btn primary" id="escanear" data-i18n="scanBtn">Revisar mi Android</button>
+        <button class="btn ghost small" id="hablar" data-i18n="talkBtn">💬 Hablar con Lumi</button>
+        <div class="progreso" id="progreso" hidden><i id="barra"></i></div>
+        <p class="estado" id="estado" data-i18n="estadoInicial">Preparado cuando quieras.</p>
+      </div>
+
+      <div class="card" id="resultado" hidden>
+        <h2 data-i18n="doneTitle">Esto es lo que Lumen encontró</h2>
+        <div class="stats">
+          <div><b id="nArchivos">0</b><span data-i18n="itemsCleaned">elementos limpios</span></div>
+          <div><b id="nEspacio">0 MB</b><span data-i18n="spaceFreed">espacio liberado</span></div>
+          <div><b id="nApps">0</b><span data-i18n="programas">programas revisados</span></div>
+        </div>
+        <p class="aviso" data-i18n="demoWarning">Modo demostración: datos de ejemplo, sin borrar nada.</p>
+      </div>
+
+      <div class="card lista">
+        <h2 data-i18n="resumenTitle">Lo que Lumen haría por ti</h2>
+        <div class="fila"><span>🧹</span><span data-i18n="resumen1">Quitar archivos que ya no sirven</span></div>
+        <div class="fila"><span>📦</span><span data-i18n="resumen2">Quitar programas que sobran sin dejar restos</span></div>
+        <div class="fila"><span>🔒</span><span data-i18n="resumen3">Apagar anuncios y rastreos</span></div>
+        <div class="fila"><span>🎮</span><span data-i18n="resumen4">Preparar el equipo para jugar</span></div>
+      </div>
+    </section>
+
+    <!-- LIMPIEZA -->
+    <section class="tab" id="tab-limpieza">
+      <div class="card">
+        <h2 data-i18n="cleanTitle">Limpieza</h2>
+        <p class="muted" data-i18n="cleanDesc">Archivos que se pueden quitar con un toque (demo).</p>
+        <label class="check"><input type="checkbox" checked><span data-i18n="itemCache">Caché de aplicaciones</span><small>124 MB</small></label>
+        <label class="check"><input type="checkbox" checked><span data-i18n="itemTemp">Archivos temporales</span><small>38 MB</small></label>
+        <label class="check"><input type="checkbox"><span data-i18n="itemThumbs">Miniaturas antiguas</span><small>12 MB</small></label>
+        <label class="check"><input type="checkbox" checked><span data-i18n="itemLogs">Registros antiguos</span><small>7 MB</small></label>
+        <button class="btn primary ancho" data-demo data-i18n="cleanBtn">Limpiar seleccionado</button>
+      </div>
+    </section>
+
+    <!-- ARRANQUE -->
+    <section class="tab" id="tab-arranque">
+      <div class="card">
+        <h2 data-i18n="bootTitle">Arranque</h2>
+        <p class="muted" data-i18n="bootDesc">Programas que se abren solos (demo).</p>
+        <div class="fila"><span>↗</span><span data-i18n="boot1">Sincronización en segundo plano</span><b data-i18n="recomendado">Recomendado</b></div>
+        <div class="fila"><span>↗</span><span data-i18n="boot2">Actualizador automático</span><b data-i18n="importante">Importante</b></div>
+        <div class="fila"><span>↗</span><span data-i18n="boot3">Atajo de la nube</span><b data-i18n="opcional">Opcional</b></div>
+        <button class="btn primary ancho" data-demo data-i18n="applyBtn">Aplicar cambios</button>
+      </div>
+    </section>
+
+    <!-- PRIVACIDAD -->
+    <section class="tab" id="tab-privacidad">
+      <div class="card">
+        <h2 data-i18n="privacyTitle">Privacidad</h2>
+        <p class="muted" data-i18n="privacyDesc">Ajustes explicados con palabras sencillas (demo).</p>
+        <div class="fila"><span>📊</span><span data-i18n="privacy1">Anuncios personalizados</span><b data-i18n="off">Apagado</b></div>
+        <div class="fila"><span>📍</span><span data-i18n="privacy2">Ubicación en segundo plano</span><b data-i18n="off">Apagado</b></div>
+        <div class="fila"><span>🧾</span><span data-i18n="privacy3">Registro de diagnóstico</span><b data-i18n="off">Apagado</b></div>
+        <p class="aviso" data-i18n="privacyNote">Lumen no envía datos: no hay telemetría ni anuncios.</p>
+      </div>
+    </section>
+
+    <!-- AJUSTES -->
+    <section class="tab" id="tab-ajustes">
+      <div class="card">
+        <h2 data-i18n="settingsTitle">Ajustes</h2>
+        <p class="muted" data-i18n="language">Idioma</p>
+        <select id="idioma2" aria-label="Idioma">
+          <option value="es">Español</option>
+          <option value="it">Italiano</option>
+          <option value="en">English</option>
+        </select>
+        <label class="check"><input type="checkbox" id="voz"><span data-i18n="voice">Que Lumi hable en voz alta</span></label>
+        <p class="muted" data-i18n="voiceHint">Usa la voz de tu móvil. Necesitas pulsar a Lumi para activarla.</p>
+        <button class="btn primary ancho" id="instalar" data-i18n="install">Instalar en el móvil</button>
+        <p class="muted" id="estadoInstalacion" data-i18n="installHint">Abre esta página en Chrome → menú → «Añadir a pantalla de inicio».</p>
+        <div class="links">
+          <a href="https://deancavero23-ops.github.io/Lumen/" data-i18n="openWeb">Ver la web completa</a>
+          <a href="https://github.com/deancavero23-ops/Lumen" data-i18n="github">Código en GitHub</a>
+          <a href="https://github.com/deancavero23-ops/Lumen/releases/latest" data-i18n="windowsVersion">Versión para Windows</a>
+        </div>
+        <p class="aviso" data-i18n="credits">Lumen se basa en RetroLimpia, de Retropunk94 · GPL-3.0-or-later · No es la versión oficial.</p>
+        <p class="version">v1.0.0</p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom" aria-label="Navegación">
+    <button class="activo" data-tab="inicio"><span>🏠</span><small data-i18n="tabInicio">Inicio</small></button>
+    <button data-tab="limpieza"><span>🧹</span><small data-i18n="tabLimpieza">Limpieza</small></button>
+    <button data-tab="arranque"><span>🚀</span><small data-i18n="tabArranque">Arranque</small></button>
+    <button data-tab="privacidad"><span>🔒</span><small data-i18n="tabPrivacidad">Privacidad</small></button>
+    <button data-tab="ajustes"><span>⚙️</span><small data-i18n="tabAjustes">Ajustes</small></button>
+  </nav>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
