@@ -12,7 +12,7 @@ Esta APK **sí hace cosas reales**, a diferencia de la demo TWA descrita en [AND
 
 Si prefieres que el QR abra la página con las instrucciones en vez del APK directo, usa este otro: ![QR de la página de descarga](img/qr-descarga-android.png)
 
-- Huella SHA-256 del APK publicado: pendiente de la compilación 1.2.2 (se publica en `SHA256-SEGURIDAD.txt`).
+- Huella SHA-256 del APK publicado: `6dc5b6d3567ff3940eaa08c13109349a6fcc05a120d7af96534d5f00e71390c9`.
 - Requiere **Android 7.0 (API 24) o superior**.
 - Se instala por **sideload**: al abrir la APK, Android pedirá permitir **fuentes desconocidas**. Acepta solo si confías en este repositorio.
 - La firma es propia (`android-native/lumen-seguridad.keystore`, alias `lumen`). **No es la misma firma** que la APK demo, por lo que Android las tratará como apps distintas y podrás tener las dos instaladas.
