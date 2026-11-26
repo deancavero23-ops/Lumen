@@ -1,6 +1,8 @@
-# Lumen para Android (APK + PWA)
+# Lumen para Android (APK + PWA, demo)
 
-Lumen tiene un **APK instalable**: es un envoltorio propio (Trusted Web Activity) de la misma PWA. No copia código de CCleaner ni promete limpiar Android: usa la identidad, Lumi, los tres idiomas y el bloqueo de anuncios dentro de la app.
+> **Aviso importante:** es una **demo**. Ni el APK ni la PWA limpian Android, borran archivos, desinstalan apps ni quitan anuncios de otras aplicaciones. Muestran la interfaz de Lumen, Lumi con voz femenina y simulaciones. Las funciones reales están en la versión de Windows.
+
+Lumen tiene un **APK instalable**: es un envoltorio propio (Trusted Web Activity) de la misma PWA. No copia código de CCleaner: usa la identidad, Lumi, los tres idiomas y el bloqueo de anuncios dentro de la app.
 
 ## Descargar el APK
 

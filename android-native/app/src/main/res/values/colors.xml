@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lumen_fondo">#0B0B0C</color>
+    <color name="lumen_panel">#17181B</color>
+    <color name="lumen_rojo">#E11D2E</color>
+    <color name="lumen_gris">#9AA0A6</color>
+    <color name="lumen_blanco">#FFFFFF</color>
+</resources>

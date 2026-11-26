@@ -8,7 +8,7 @@ Gratis · Código abierto (GPL-3.0) · Sin telemetría · Todo se puede deshacer
 
 🌐 **Web oficial: [deancavero23-ops.github.io/Lumen](https://deancavero23-ops.github.io/Lumen/)**
 
-📱 **Android: [descargar APK](https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk)** · Envoltorio de la PWA con Lumi, voz femenina grabada, cuidado de batería y bloqueo de anuncios dentro de la app. [QR de descarga del APK](docs/img/qr-android-apk.png) · También puedes [abrir la PWA](https://deancavero23-ops.github.io/Lumen/app/) o [escanear su QR](docs/img/qr-android-pwa.png). [Instrucciones](docs/ANDROID.md).
+📱 **Android (demo): [descargar APK](https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk)** · No limpia el móvil: muestra la interfaz de Lumen con Lumi, voz femenina grabada y simulaciones de batería y anuncios. Las funciones reales están en Windows. [QR del APK](docs/img/qr-android-apk.png) · También puedes [abrir la PWA](https://deancavero23-ops.github.io/Lumen/app/) o [escanear su QR](docs/img/qr-android-pwa.png). [Instrucciones](docs/ANDROID.md).
 
 **Idiomas: Español · Italiano · Inglés** (se detecta el idioma de Windows y se puede cambiar en Ajustes).
 

@@ -10,3 +10,9 @@ android/local.properties
 android/app-release-*.apk
 android/app-release-*.aab
 android/decompressed/
+android-native/.gradle/
+android-native/build/
+android-native/app/build/
+android-native/local.properties
+android-native/app-release-*.apk
+android-native/SHA256-SEGURIDAD.txt

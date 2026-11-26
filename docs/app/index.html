@@ -48,7 +48,7 @@
   <header class="topbar">
     <div class="marca">
       <img src="../img/icon-180.png" alt="" width="34" height="34">
-      <div><b>Lu<span>men</span></b><small data-i18n="demoChip">Versión demo · Android</small></div>
+      <div><b>Lu<span>men</span></b><small data-i18n="demoChip">Demo · no limpia tu móvil</small></div>
     </div>
     <label class="idioma">
       <span class="sr" data-i18n="language">Idioma</span>
@@ -106,15 +106,16 @@
           </svg>
         </div>
         <h1 data-i18n="greeting">¡Hola! Soy Lumi</h1>
-        <p data-i18n="subtitle">Pulsa el botón para ver cómo funciona Lumen. No cambio nada de tu móvil.</p>
-        <button class="btn primary" id="escanear" data-i18n="scanBtn">Revisar mi Android</button>
+        <p data-i18n="subtitle">Pulsa para ver una simulación. No borro ni cambio nada de tu móvil.</p>
+        <p class="aviso" data-i18n="demoAviso">Aviso: es una demo. No limpia ni borra nada en Android; las funciones reales están en la versión de Windows.</p>
+        <button class="btn primary" id="escanear" data-i18n="scanBtn">Simular revisión</button>
         <button class="btn ghost small" id="hablar"><svg class="ico"><use href="#i-chat"/></svg><span data-i18n="talkBtn">Hablar con Lumi</span></button>
         <div class="progreso" id="progreso" hidden><i id="barra"></i></div>
         <p class="estado" id="estado" data-i18n="estadoInicial">Preparado cuando quieras.</p>
       </div>
 
       <div class="card" id="resultado" hidden>
-        <h2 data-i18n="doneTitle">Esto es lo que Lumen encontró</h2>
+        <h2 data-i18n="doneTitle">Simulación: esto es lo que Lumen encontró</h2>
         <div class="stats">
           <div><b id="nArchivos">0</b><span data-i18n="itemsCleaned">elementos limpios</span></div>
           <div><b id="nEspacio">0 MB</b><span data-i18n="spaceFreed">espacio liberado</span></div>
@@ -124,7 +125,7 @@
       </div>
 
       <div class="card lista">
-        <h2 data-i18n="resumenTitle">Lo que Lumen haría por ti</h2>
+        <h2 data-i18n="resumenTitle">Lo que Lumen haría en Windows</h2>
         <div class="fila"><svg class="ico"><use href="#i-escoba"/></svg><span data-i18n="resumen1">Quitar archivos que ya no sirven</span></div>
         <div class="fila"><svg class="ico"><use href="#i-caja"/></svg><span data-i18n="resumen2">Quitar programas que sobran sin dejar restos</span></div>
         <div class="fila"><svg class="ico"><use href="#i-anuncio"/></svg><span data-i18n="resumen3">Apagar anuncios y rastreos</span></div>
@@ -217,7 +218,7 @@
         <p class="muted" data-i18n="voiceHint">Usa la voz de tu móvil. Necesitas pulsar a Lumi para activarla.</p>
         <button class="btn primary ancho" id="instalar"><svg class="ico"><use href="#i-descarga"/></svg><span data-i18n="install">Instalar en el móvil</span></button>
         <p class="muted" id="estadoInstalacion" data-i18n="installHint">Si la abriste desde la cámara, pulsa ⋮ → Abrir en Chrome. Luego ⋮ → «Añadir a pantalla de inicio» / «Instalar app».</p>
-        <p class="aviso" data-i18n="noApk">No es un APK: se instala desde Chrome como app web.</p>
+        <p class="aviso" data-i18n="noApk">Demo: ni la PWA ni el APK limpian Android. Las funciones reales están en Windows.</p>
         <div class="links">
           <a href="https://deancavero23-ops.github.io/Lumen/"><svg class="ico"><use href="#i-mundo"/></svg><span data-i18n="openWeb">Ver la web completa</span></a>
           <a href="https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk"><svg class="ico"><use href="#i-descarga"/></svg><span data-i18n="apkDownload">Descargar el APK</span></a>

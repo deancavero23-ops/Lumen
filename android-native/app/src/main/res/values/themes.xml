@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LumenTheme" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:colorBackground">@color/lumen_fondo</item>
+        <item name="android:textColorPrimary">@color/lumen_blanco</item>
+        <item name="android:textColorSecondary">@color/lumen_gris</item>
+        <item name="android:windowBackground">@color/lumen_fondo</item>
+        <item name="android:navigationBarColor">@color/lumen_fondo</item>
+        <item name="android:statusBarColor">@color/lumen_fondo</item>
+    </style>
+</resources>
