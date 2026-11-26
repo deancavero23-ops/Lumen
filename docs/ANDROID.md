@@ -1,8 +1,16 @@
-# Lumen para Android (PWA)
+# Lumen para Android (APK + PWA)
 
-Es una **PWA instalable**: se abre en Chrome y se añade a la pantalla de inicio como una app más, sin APK ni Google Play.
+Lumen tiene un **APK instalable**: es un envoltorio propio (Trusted Web Activity) de la misma PWA. No copia código de CCleaner ni promete limpiar Android: usa la identidad, Lumi, los tres idiomas y el bloqueo de anuncios dentro de la app.
 
-**URL:** https://deancavero23-ops.github.io/Lumen/app/
+## Descargar el APK
+
+**[Descargar Lumen-1.0.0.apk](https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk)**
+
+- Necesita Android con **Chrome** instalado.
+- Al abrir el APK fuera de Google Play, Android pedirá permitir **fuentes desconocidas**: acepta solo si confías en este repositorio.
+- El APK se actualizará con el contenido publicado en la web; la primera vez descarga los audios de Lumi.
+
+**URL de la PWA:** https://deancavero23-ops.github.io/Lumen/app/
 
 ## QR para abrirla al instante
 
@@ -32,7 +40,7 @@ Si sigue sin aparecer, actualiza Chrome, sal del modo incógnito y comprueba que
 
 - Misma identidad: logo rojo con “L” negra y chispa blanca, colores negro/rojo/gris/blanco.
 - **Lumi interactúa**: toca la mascota y aparece un globo con mensajes; cambia de expresión mientras revisa y al terminar.
-- El botón **“Hablar con Lumi”** (y tocar la mascota) siempre intenta hablar, prefiriendo una **voz femenina** del móvil y con tono algo más agudo. Si activas **“Que Lumi hable en voz alta”** en Ajustes, también hablan los mensajes automáticos. Si no hay voces instaladas, Lumi muestra el mensaje escrito y un aviso.
+- El botón **“Hablar con Lumi”** (y tocar la mascota) reproduce **audios femeninos grabados** en español, italiano e inglés. Si falta el audio, usa la voz del móvil prefiriendo una femenina y con tono más agudo. Si activas **“Que Lumi hable en voz alta”** en Ajustes, también hablan los mensajes automáticos.
 - Idiomas **español, italiano e inglés**, detectados desde el móvil y cambiables en Ajustes.
 - Pantallas de Inicio, Limpieza, Arranque, Privacidad, Batería y Ajustes con datos de ejemplo.
 - **Cuidado de batería:** lee el estado real del móvil cuando el navegador lo permite y activa un modo ahorro que reduce animaciones, parpadeos y trabajo en segundo plano.
@@ -51,5 +59,7 @@ Es una **demo**: no limpia el móvil, no desinstala apps, no toca permisos ni ac
 - `docs/manifest.webmanifest` — definición de la PWA
 - `docs/sw.js` — caché offline y filtro de dominios publicitarios
 - `docs/img/pwa-*.png` — iconos 192, 512 y maskable
+- `docs/app/audio/*.wav` — voces femeninas grabadas para Lumi
+- `android/` — proyecto del APK (Bubblewrap/TWA) y certificado de firma
 
 Créditos: Lumen se basa en RetroLimpia, de Retropunk94 (GPL-3.0-or-later). No es la versión oficial.

@@ -7,13 +7,14 @@ LUMEN 1.0.0 — CÓMO PROBARLO
    Si cambias de usuario: powershell -ExecutionPolicy Bypass -File tools/preparar-publicacion.ps1 -Usuario NUEVO_USUARIO
    Pasos para publicar y aparecer en Google: PUBLICAR.md
 
-1b) ANDROID (PWA)
+1b) ANDROID (APK + PWA)
+   APK: https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk
    Demo instalable: https://deancavero23-ops.github.io/Lumen/app/
    QR listo para escanear: docs/img/qr-android-pwa.png
-   Se añade desde Chrome a la pantalla de inicio. Lumi habla (globo y voz
-   opcional) y hay textos en es/it/en. Incluye modo ahorro de batería y
-   bloqueo de anuncios dentro de la PWA (no quita anuncios del navegador
-   ni de otras apps). No limpia el móvil: es una demo.
+   El APK es un envoltorio de la PWA con Chrome. Lumi tiene audios de voz
+   femenina en es/it/en y hay textos en es/it/en. Incluye modo ahorro de
+   batería y bloqueo de anuncios dentro de la PWA (no quita anuncios del
+   navegador ni de otras apps). No limpia el móvil: es una demo.
 
 2) INSTALAR Y PROBAR SIN RIESGO
    Necesitas Node.js 20 o newer en Windows. Desde esta carpeta:

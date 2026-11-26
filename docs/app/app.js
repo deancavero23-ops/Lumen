@@ -154,6 +154,11 @@ const D = {
 const $ = (q) => document.querySelector(q);
 const $$ = (q) => Array.from(document.querySelectorAll(q));
 const idiomas = { es: 'es-ES', it: 'it-IT', en: 'en-US' };
+const CLAVES_AUDIO = new Set([
+  'lumiHola', 'lumi1', 'lumi2', 'lumi3', 'lumiScan', 'lumiDone', 'lumiDemo',
+  'anunciosActivo', 'anunciosInactivo', 'bloqueoProbado', 'ahorroActivo', 'ahorroOff', 'sinVoz'
+]);
+let audioActual = null;
 let lang = localStorage.getItem('lumen-idioma') || (navigator.language || '').slice(0, 2);
 if (!D[lang]) lang = 'es';
 let burbujaTimer = null;
@@ -203,20 +208,16 @@ function elegirVoz() {
     || null;
 }
 
-function hablar(texto, ms, forzarVoz) {
-  const b = $('#burbuja');
-  const lumi = $('#lumi');
-  const duracion = ms || (ahorroActivo() ? 2400 : 3600);
-  b.textContent = texto;
-  b.hidden = false;
-  lumi.classList.add('hablando');
-  clearTimeout(burbujaTimer);
-  burbujaTimer = setTimeout(() => { b.hidden = true; lumi.classList.remove('hablando'); }, duracion);
+function rutaAudio(texto) {
+  if (!D[lang]) return null;
+  for (const clave of CLAVES_AUDIO) {
+    if (D[lang][clave] === texto) return `audio/${lang}-${clave}.wav`;
+  }
+  return null;
+}
 
-  const quiereVoz = $('#voz').checked || forzarVoz;
-  if (!quiereVoz) return;
+function hablarTts(texto, lumi) {
   if (!('speechSynthesis' in window)) { toast(t('sinVoz')); return; }
-
   try {
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(texto);
@@ -230,6 +231,33 @@ function hablar(texto, ms, forzarVoz) {
     speechSynthesis.speak(u);
     if (!voces.length) toast(t('sinVoz'));
   } catch (_) { toast(t('sinVoz')); }
+}
+
+function hablar(texto, ms, forzarVoz) {
+  const b = $('#burbuja');
+  const lumi = $('#lumi');
+  const duracion = ms || (ahorroActivo() ? 2400 : 3600);
+  b.textContent = texto;
+  b.hidden = false;
+  lumi.classList.add('hablando');
+  clearTimeout(burbujaTimer);
+  burbujaTimer = setTimeout(() => { b.hidden = true; lumi.classList.remove('hablando'); }, duracion);
+
+  const quiereVoz = $('#voz').checked || forzarVoz;
+  if (!quiereVoz) return;
+  if (audioActual) { audioActual.pause(); audioActual = null; }
+
+  const ruta = rutaAudio(texto);
+  if (ruta) {
+    const audio = new Audio(ruta);
+    audioActual = audio;
+    audio.onended = () => { lumi.classList.remove('hablando'); audioActual = null; };
+    const usarTts = () => { audioActual = null; hablarTts(texto, lumi); };
+    audio.onerror = usarTts;
+    audio.play().catch(usarTts);
+    return;
+  }
+  hablarTts(texto, lumi);
 }
 
 function parpadear() {

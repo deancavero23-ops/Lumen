@@ -1,0 +1,41 @@
+{
+  "packageId": "com.lumen.app",
+  "host": "deancavero23-ops.github.io",
+  "name": "Lumen",
+  "launcherName": "Lumen",
+  "appVersion": "1.0.0",
+  "appVersionCode": 1,
+  "display": "standalone",
+  "orientation": "portrait",
+  "themeColor": "#0B0B0C",
+  "themeColorDark": "#0B0B0C",
+  "navigationColor": "#0B0B0C",
+  "navigationColorDark": "#0B0B0C",
+  "navigationDividerColor": "#0B0B0C",
+  "navigationDividerColorDark": "#0B0B0C",
+  "backgroundColor": "#0B0B0C",
+  "enableNotifications": true,
+  "startUrl": "/Lumen/app/",
+  "iconUrl": "https://deancavero23-ops.github.io/Lumen/img/pwa-512.png",
+  "maskableIconUrl": "https://deancavero23-ops.github.io/Lumen/img/pwa-maskable-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "webManifestUrl": "https://deancavero23-ops.github.io/Lumen/manifest.webmanifest",
+  "fullScopeUrl": "https://deancavero23-ops.github.io/Lumen/",
+  "fallbackType": "customtabs",
+  "minSdkVersion": 21,
+  "generatorApp": "bubblewrap-cli",
+  "signingKey": {
+    "path": "./lumen.keystore",
+    "alias": "lumen"
+  },
+  "fingerprints": [
+    {
+      "name": "Lumen APK 1.0",
+      "value": "B2:7B:5D:9A:C2:97:5A:6A:75:0B:36:ED:5B:7D:4D:4D:3F:2F:73:70:25:96:22:D4:B7:76:E9:A5:6E:BC:4F:0A"
+    }
+  ],
+  "features": {},
+  "shortcuts": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": []
+}
