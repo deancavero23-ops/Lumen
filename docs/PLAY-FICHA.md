@@ -1,6 +1,6 @@
 # Ficha de Lumen Seguridad para Google Play 🛡️
 
-Textos listos para copiar en Play Console. Mantienen el nombre **Lumen Seguridad**, el logo rojo con la L negra y chispa blanca, a Lumi y el emoji 🛡️. El AAB es [`Lumen-Seguridad-1.2.2-play.aab`](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.2/Lumen-Seguridad-1.2.2-play.aab) y la guía de permisos está en [GOOGLE-PLAY.md](GOOGLE-PLAY.md).
+Textos listos para copiar en Play Console. Mantienen el nombre **Lumen Seguridad**, el logo rojo con la L negra y chispa blanca, a Lumi y el emoji 🛡️. El AAB es [`Lumen-Seguridad-1.2.3-play.aab`](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.3/Lumen-Seguridad-1.2.3-play.aab) y la guía de permisos está en [GOOGLE-PLAY.md](GOOGLE-PLAY.md).
 
 ## Datos base
 
@@ -74,13 +74,13 @@ Lumen Seguridad is a local second opinion for Android. It does not replace Play 
 
 Available in Spanish, Italian and English. Android 7.0 or newer. Free, open source (GPL-3.0-or-later) and based on RetroLimpia by Retropunk94. Not the official version. More info: https://deancavero23-ops.github.io/Lumen/
 
-## Novedades de la versión 1.2.2 (cuadro «Qué hay de nuevo»)
+## Novedades de la versión 1.2.3 (cuadro «Qué hay de nuevo»)
 
-**Español:** Botones grandes con emoji y colores según estado (🟢 correcto, 🟠 revisar, 🔴 urgente): «Liberar espacio», «Rendimiento», «Temperatura» y «Actualizar». Tras analizar una app, «Qué hacer» ofrece abrirla en Play Store, revisar permisos del sistema, marcarla como conocida o pedir su desinstalación. El 🛡️ aparece en la cabecera con Lumi.
+**Español:** El escudo 🛡️ se dibuja en la app (visible sin fuente de emoji) y al tocarlo se abre un chat con Lumi. La voz usa una voz femenina del idioma elegido y no lee emoji. «Liberar espacio» ahora separa lo seguro de lo que hay que revisar: temporales, logs y vacíos se pueden borrar con confirmación; APK antiguos y duplicados solo se recomienda pasarlos a cuarentena. Botones grandes con colores por estado real.
 
-**Italiano:** Pulsanti grandi con emoji e colori in base allo stato (🟢 ok, 🟠 controllare, 🔴 urgente): «Libera spazio», «Prestazioni», «Temperatura» e «Aggiorna». Dopo l’analisi di un’app, «Cosa fare» permette di aprirla in Play Store, controllare i permessi di sistema, segnarla come conosciuta o chiederne la disinstallazione. Lo 🛡️ appare nell’intestazione con Lumi.
+**Italiano:** Lo scudo 🛡️ è disegnato nell’app (visibile senza font emoji) e toccandolo si apre una chat con Lumi. La voce usa una voce femminile della lingua scelta e non legge gli emoji. «Libera spazio» distingue ciò che è sicuro da ciò che va controllato: temporanei, log e vuoti si possono cancellare con conferma; APK vecchi e duplicati è meglio spostarli in quarantena. Pulsanti grandi con colori in base allo stato reale.
 
-**English:** Large emoji buttons colored by state (🟢 good, 🟠 check, 🔴 urgent): "Free up space", "Performance", "Temperature" and "Update". After scanning an app, "What to do" lets you open it in Play Store, review system permissions, mark it as known or request uninstall. The 🛡️ shows in the header next to Lumi.
+**English:** The 🛡️ shield is drawn inside the app (visible without an emoji font) and tapping it opens a chat with Lumi. Speech uses a female voice in the selected language and skips emoji. "Free up space" now separates safe files from files to review: temporary files, logs and empty files can be deleted with confirmation; old APKs and duplicates are only recommended for quarantine. Large buttons colored by real state.
 
 ## Material gráfico
 

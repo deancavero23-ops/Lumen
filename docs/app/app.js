@@ -205,10 +205,17 @@ function toast(texto) {
 function elegirVoz() {
   if (!('speechSynthesis' in window)) return null;
   const voces = speechSynthesis.getVoices();
-  const femeninas = ['female', 'mujer', 'woman', 'samantha', 'victoria', 'zira', 'karen', 'moira', 'tessa', 'fiona', 'serena', 'allison', 'ava', 'susan', 'lucia', 'paola', 'chiara'];
-  return voces.find((v) => femeninas.some((n) => v.name.toLowerCase().includes(n)))
-    || voces.find((v) => v.lang.toLowerCase().startsWith(lang))
+  const prefijo = idiomas[lang].slice(0, 2).toLowerCase();
+  const delIdioma = voces.filter((v) => v.lang.toLowerCase().startsWith(prefijo));
+  const femeninas = ['female', 'femin', 'mujer', 'woman', 'samantha', 'victoria', 'zira', 'karen', 'moira', 'tessa', 'fiona', 'serena', 'allison', 'ava', 'susan', 'lucia', 'paola', 'chiara'];
+  return delIdioma.find((v) => femeninas.some((n) => v.name.toLowerCase().includes(n)))
+    || delIdioma[0]
     || null;
+}
+
+function hablarLimpio(texto) {
+  // Los motores TTS leen emoji y comillas como palabras raras; Lumen los muestra pero no los pronuncia.
+  return texto.replace(/[^\p{L}\p{N}\s¿?¡!.,;:-]/gu, ' ').replace(/\s+/g, ' ').trim();
 }
 
 function rutaAudio(texto) {
@@ -223,12 +230,12 @@ function hablarTts(texto, lumi) {
   if (!('speechSynthesis' in window)) { toast(t('sinVoz')); return; }
   try {
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(texto);
+    const u = new SpeechSynthesisUtterance(hablarLimpio(texto));
     u.lang = idiomas[lang];
     u.rate = 0.98;
     const voces = speechSynthesis.getVoices();
     const voz = elegirVoz();
-    if (voz) u.voice = voz;
+    if (voz) { u.voice = voz; u.lang = voz.lang; }
     u.pitch = 1.15;
     u.onend = () => lumi.classList.remove('hablando');
     speechSynthesis.speak(u);

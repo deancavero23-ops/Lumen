@@ -45,15 +45,15 @@ jobs:
       - name: Preparar el AAB y su huella
         working-directory: android-native
         run: |
-          cp app/build/outputs/bundle/release/app-release.aab Lumen-Seguridad-1.2.2-play.aab
-          sha256sum Lumen-Seguridad-1.2.2-play.aab > SHA256-PLAY-AAB.txt
+          cp app/build/outputs/bundle/release/app-release.aab Lumen-Seguridad-1.2.3-play.aab
+          sha256sum Lumen-Seguridad-1.2.3-play.aab > SHA256-PLAY-AAB.txt
           cat SHA256-PLAY-AAB.txt
 
       - uses: actions/upload-artifact@v4
         with:
           name: Lumen-Seguridad-Play-AAB
           path: |
-            android-native/Lumen-Seguridad-1.2.2-play.aab
+            android-native/Lumen-Seguridad-1.2.3-play.aab
             android-native/SHA256-PLAY-AAB.txt
 
       - name: Publicar AAB en la Release
@@ -61,5 +61,5 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            android-native/Lumen-Seguridad-1.2.2-play.aab
+            android-native/Lumen-Seguridad-1.2.3-play.aab
             android-native/SHA256-PLAY-AAB.txt

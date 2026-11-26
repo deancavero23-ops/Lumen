@@ -1,16 +1,16 @@
 # Lumen Seguridad en Google Play
 
-> **Estado:** el AAB firmado se genera en GitHub Actions, pero **no lo subimos a Play Console**. Necesitas tu cuenta de desarrollador para publicarlo. El APK de sideload sigue disponible en la [Release de seguridad](https://github.com/deancavero23-ops/Lumen/releases/tag/seguridad-v1.2.2). La ficha de texto y el material gráfico están en [PLAY-FICHA.md](PLAY-FICHA.md).
+> **Estado:** el AAB firmado se genera en GitHub Actions, pero **no lo subimos a Play Console**. Necesitas tu cuenta de desarrollador para publicarlo. El APK de sideload sigue disponible en la [Release de seguridad](https://github.com/deancavero23-ops/Lumen/releases/tag/seguridad-v1.2.3). La ficha de texto y el material gráfico están en [PLAY-FICHA.md](PLAY-FICHA.md).
 
 ## Descargar el AAB
 
-**[Descargar Lumen-Seguridad-1.2.2-play.aab](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.2/Lumen-Seguridad-1.2.2-play.aab)** · [SHA-256](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.2/SHA256-PLAY-AAB.txt)
+**[Descargar Lumen-Seguridad-1.2.3-play.aab](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.3/Lumen-Seguridad-1.2.3-play.aab)** · [SHA-256](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.3/SHA256-PLAY-AAB.txt)
 
-- Huella SHA-256 del AAB publicado: `bb281dda6c8828d6e515263d976f8028359aad34617a80563bd0247ec28e4d1c` (2.875.513 bytes).
+- Huella SHA-256 del AAB publicado: pendiente de la compilación 1.2.3 (se publica en `SHA256-PLAY-AAB.txt`).
 - Package: `com.lumen.seguridad`.
 - Firma: la misma que la APK (`android-native/lumen-seguridad.keystore`, alias `lumen`). Si vas a subir una versión nueva más adelante, **usa el mismo keystore** o Play no aceptará la actualización.
 - Antes de crear la app en Play Console, comprueba que `com.lumen.seguridad` esté disponible en tu cuenta. Si ya existe una app tuya con otro package, dime cuál es y ajusto el `applicationId`.
-- `versionCode` = 5, `versionName` = `1.2.2`. Si ya subiste una versión anterior, este AAB es la actualización. Cada nueva versión en Play debe subir el `versionCode`.
+- `versionCode` = 6, `versionName` = `1.2.3`. Si ya subiste una versión anterior, este AAB es la actualización. Cada nueva versión en Play debe subir el `versionCode`.
 
 ## Publicarlo
 

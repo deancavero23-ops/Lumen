@@ -221,11 +221,18 @@ class MainActivity : Activity() {
             gravity = android.view.Gravity.CENTER_VERTICAL
         }
         val lumi = LumiView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(dp(64), dp(64))
+            layoutParams = LinearLayout.LayoutParams(dp(56), dp(56))
+            contentDescription = t("chat")
+            setOnClickListener { mostrarChat() }
+        }
+        val escudo = EscudoView(this).apply {
+            layoutParams = LinearLayout.LayoutParams(dp(40), dp(40)).apply { leftMargin = dp(8) }
+            contentDescription = t("chat")
+            setOnClickListener { mostrarChat() }
         }
         val titulos = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
         titulos.addView(TextView(this).apply {
-            text = "🛡️ ${t("app_name")}"
+            text = t("app_name")
             setTextColor(Color.WHITE)
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
         })
@@ -235,6 +242,7 @@ class MainActivity : Activity() {
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 11f)
         })
         cabecera.addView(lumi)
+        cabecera.addView(escudo)
         cabecera.addView(titulos)
         contenedor.addView(cabecera)
 
@@ -265,7 +273,7 @@ class MainActivity : Activity() {
             boton("settings", false) { mostrarAjustes() }
         )
 
-        salida = texto("🛡️ ${t("lumiHola")}")
+        salida = texto(t("lumiHola"))
         salida.setTextIsSelectable(true)
         contenedor.addView(salida)
 
@@ -279,36 +287,70 @@ class MainActivity : Activity() {
         if (::acciones.isInitialized) acciones.removeAllViews()
     }
 
-    private fun accion(clave: String, onClick: () -> Unit) {
-        acciones.addView(boton(clave, false, onClick))
+    private fun accion(clave: String, primario: Boolean = false, onClick: () -> Unit) {
+        acciones.addView(boton(clave, primario, onClick))
     }
 
     private fun volver() {
-        salida.text = "🛡️ ${t("lumiHola")}"
+        salida.text = t("lumiHola")
         limpiarAcciones()
     }
 
     private fun mostrarChat() {
         val historial = TextView(this).apply {
-            text = "🛡️ ${t("chat_lumi")}: ${t("lumiHola")}"
+            text = "${t("chat_lumi")}: ${t("chat_bienvenida")}"
             setTextColor(Color.WHITE)
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
             setTextIsSelectable(true)
+        }
+        val scroll = ScrollView(this).apply {
+            addView(historial)
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f
+            )
         }
         val campo = EditText(this).apply {
             hint = t("chat_hint")
             setTextColor(Color.WHITE)
             setHintTextColor(Color.parseColor("#80848C"))
+            imeOptions = android.view.inputmethod.EditorInfo.IME_ACTION_SEND
+            setSingleLine(true)
         }
         val enviar = Button(this).apply {
             text = t("chat_send")
             setTextColor(Color.WHITE)
             background = fondoBoton(true)
         }
+        fun enviarMensaje() {
+            val pregunta = campo.text.toString().trim()
+            if (pregunta.isEmpty()) return
+            val respuesta = respuestaLumi(pregunta)
+            historial.append("\n\n${t("chat_you")}: $pregunta\n${t("chat_lumi")}: $respuesta")
+            campo.text.clear()
+            scroll.post { scroll.fullScroll(ScrollView.FOCUS_DOWN) }
+            Voz.decir(this, respuesta)
+        }
+        val rapido = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
+        listOf("quick_apps", "quick_files", "quick_battery").forEach { clave ->
+            val b = Button(this).apply {
+                text = t(clave)
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 11f)
+                isAllCaps = false
+                setTextColor(Color.WHITE)
+                background = fondoBoton(false)
+            }
+            b.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+            b.setOnClickListener {
+                campo.setText(t(clave))
+                enviarMensaje()
+            }
+            rapido.addView(b)
+        }
         val vista = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(dp(20), dp(16), dp(20), dp(16))
-            addView(historial)
+            addView(rapido)
+            addView(scroll)
             addView(campo)
             addView(enviar)
         }
@@ -316,15 +358,19 @@ class MainActivity : Activity() {
             setTitle(t("chat"))
             setContentView(vista)
         }
-        enviar.setOnClickListener {
-            val pregunta = campo.text.toString().trim()
-            if (pregunta.isEmpty()) return@setOnClickListener
-            val respuesta = respuestaLumi(pregunta)
-            historial.append("\n\n${t("chat_you")}: $pregunta\n${t("chat_lumi")}: $respuesta")
-            campo.text.clear()
-            Voz.decir(this, respuesta)
+        enviar.setOnClickListener { enviarMensaje() }
+        campo.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEND) {
+                enviarMensaje()
+                true
+            } else false
         }
         dialog.show()
+        dialog.window?.setLayout(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+        campo.requestFocus()
     }
 
     private fun respuestaLumi(pregunta: String): String {
@@ -335,8 +381,10 @@ class MainActivity : Activity() {
             p.contains("gracias") || p.contains("grazie") || p.contains("thanks") -> t("resp_gracias")
             p.contains("virus") || p.contains("malware") || p.contains("segur") ||
                 p.contains("sicur") || p.contains("secur") -> t("resp_virus")
+            p.contains("app") || p.contains("aplicacion") || p.contains("applicaz") -> t("resp_apps")
             p.contains("limpi") || p.contains("cach") || p.contains("basura") ||
-                p.contains("puliz") || p.contains("clean") || p.contains("archiv") ||
+                p.contains("borr") || p.contains("puliz") || p.contains("cancell") ||
+                p.contains("clean") || p.contains("delete") || p.contains("archiv") ||
                 p.contains("file") -> t("resp_limpieza")
             p.contains("anunc") || p.contains("ads") || p.contains("advert") ||
                 p.contains("pubblic") || p.contains("publicid") -> t("resp_anuncios")
@@ -571,16 +619,47 @@ class MainActivity : Activity() {
         }.start()
     }
 
+    private fun esSeguro(d: DocInfo) =
+        d.motivo in setOf("reason_temp", "reason_log", "reason_empty")
+
+    private fun consejoArchivo(motivo: String) = when (motivo) {
+        "reason_temp" -> t("advice_temp")
+        "reason_log" -> t("advice_log")
+        "reason_empty" -> t("advice_empty")
+        "reason_old_apk" -> t("advice_old_apk")
+        "reason_duplicate" -> t("advice_duplicate")
+        else -> t("advice_generic")
+    }
+
+    private fun mostrarConsejosArchivos() {
+        val sb = StringBuilder("${t("advice_title")}\n\n")
+        sb.append("${t("advice_safe")}\n\n")
+        sb.append("${t("advice_review")}\n\n")
+        documentos.take(12).forEach { d ->
+            sb.append("${if (esSeguro(d)) "✓" else "!"} ${d.nombre}: ${consejoArchivo(d.motivo)}\n")
+        }
+        if (documentos.isEmpty()) sb.append(t("files_empty"))
+        salida.text = sb.toString()
+        limpiarAcciones()
+        accion("files_back") { mostrarArchivos() }
+    }
+
     private fun mostrarArchivos() {
-        hablar("lumiDone")
-        val sb = StringBuilder(t("files_header")).append('\n').append('\n')
+        val seguros = documentos.count { esSeguro(it) }
+        val revisar = documentos.size - seguros
+        val total = documentos.sumOf { it.tamano }
+        val sb = StringBuilder(t("files_header")).append('\n')
+        sb.append("${t("files_count")}: ${documentos.size} · ${t("files_size")}: ${Utilidades.tamano(total)}\n")
+        sb.append("${t("advice_safe")}: $seguros · ${t("review_label")}: $revisar\n\n")
         documentos.forEach { d ->
-            sb.append("${t(d.motivo)} · ${d.nombre} · ${Utilidades.tamano(d.tamano)} · ${Utilidades.fecha(d.modificado)}\n")
+            val marca = if (esSeguro(d)) "✓" else "!"
+            sb.append("$marca ${t(d.motivo)} · ${d.nombre} · ${Utilidades.tamano(d.tamano)} · ${Utilidades.fecha(d.modificado)}\n")
         }
         if (documentos.isEmpty()) sb.append(t("files_empty"))
         salida.text = sb.toString()
         limpiarAcciones()
         if (documentos.isNotEmpty()) {
+            accion("files_advice") { mostrarConsejosArchivos() }
             accion("move_quarantine") {
                 AlertDialog.Builder(this)
                     .setTitle(t("move_quarantine"))
@@ -589,8 +668,38 @@ class MainActivity : Activity() {
                     .setNegativeButton(t("cancel"), null)
                     .show()
             }
+            if (seguros > 0) {
+                accion("delete_safe") {
+                    AlertDialog.Builder(this)
+                        .setTitle(t("delete_safe"))
+                        .setMessage("${t("confirm_delete")}\n\n${t("deleted_count")}: $seguros")
+                        .setPositiveButton(t("ok")) { _, _ -> borrarArchivos(documentos.filter { esSeguro(it) }) }
+                        .setNegativeButton(t("cancel"), null)
+                        .show()
+                }
+            }
+            accion("delete_selected", primario = true) {
+                AlertDialog.Builder(this)
+                    .setTitle(t("delete_selected"))
+                    .setMessage("${t("confirm_delete")}\n\n${t("deleted_count")}: ${documentos.size}")
+                    .setPositiveButton(t("ok")) { _, _ -> borrarArchivos(documentos) }
+                    .setNegativeButton(t("cancel"), null)
+                    .show()
+            }
         }
         accion("back") { volver() }
+    }
+
+    private fun borrarArchivos(lista: List<DocInfo>) {
+        salida.text = t("deleting")
+        Thread {
+            val n = Limpieza.eliminar(applicationContext, lista)
+            runOnUiThread {
+                toast("${t("deleted")}: $n")
+                documentos = emptyList()
+                mostrarArchivos()
+            }
+        }.start()
     }
 
     private fun moverArchivos() {

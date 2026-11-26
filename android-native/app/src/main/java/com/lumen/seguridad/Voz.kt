@@ -53,20 +53,39 @@ object Voz {
         tts = null
     }
 
+    /** Quita emoji, guillemets y signos que los motores TTS suelen leer en voz alta. */
+    private fun limpio(texto: String): String =
+        texto.replace(Regex("[^\\p{L}\\p{N}\\s¿?¡!.,;:-]"), " ")
+            .replace(Regex("\\s+"), " ")
+            .trim()
+
+    private fun esFemenina(nombre: String): Boolean {
+        val n = nombre.lowercase(Locale.ROOT)
+        return n.contains("female") || n.contains("femin") || n.contains("mujer") ||
+            n.contains("sabina") || n.contains("zira") || n.contains("serena") ||
+            n.contains("samantha") || n.contains("victoria") || n.contains("karen") ||
+            n.contains("lucia") || n.contains("paola") || n.contains("chiara") || n.contains("ava")
+    }
+
     private fun configurarYHablar(motor: TextToSpeech, texto: String, lang: String) {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                val femenina = motor.voices?.firstOrNull { v ->
-                    val nombre = v.name.lowercase(Locale.ROOT)
-                    nombre.contains("female") || nombre.contains("femin") ||
-                        nombre.contains("sabina") || nombre.contains("zira") || nombre.contains("serena")
+                val delIdioma = motor.voices?.filter { voz ->
+                    voz.locale?.language?.equals(lang, ignoreCase = true) == true
+                }.orEmpty()
+                val elegida = delIdioma.firstOrNull { esFemenina(it.name) } ?: delIdioma.firstOrNull()
+                if (elegida != null) {
+                    motor.setVoice(elegida)
+                } else {
+                    motor.setLanguage(Locale(lang))
                 }
-                if (femenina != null) motor.setVoice(femenina) else motor.setLanguage(Locale(lang))
             } else {
                 @Suppress("DEPRECATION")
                 motor.setLanguage(Locale(lang))
             }
-            motor.speak(texto, TextToSpeech.QUEUE_FLUSH, null, "lumi")
+            motor.setPitch(1.05f)
+            motor.setSpeechRate(0.98f)
+            motor.speak(limpio(texto), TextToSpeech.QUEUE_FLUSH, null, "lumi")
         } catch (e: Exception) {
             // El texto ya se muestra en pantalla.
         }

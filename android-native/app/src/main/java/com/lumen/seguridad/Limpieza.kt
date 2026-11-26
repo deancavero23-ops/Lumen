@@ -224,6 +224,18 @@ object Limpieza {
         return movidos to fallback
     }
 
+    /** Borrado definitivo, siempre después de confirmación explícita del usuario. */
+    fun eliminar(context: Context, docs: List<DocInfo>): Int {
+        val cr = context.contentResolver
+        var borrados = 0
+        docs.forEach { doc ->
+            try {
+                if (DocumentsContract.deleteDocument(cr, doc.uri)) borrados++
+            } catch (e: Exception) { }
+        }
+        return borrados
+    }
+
     fun restaurar(context: Context, item: CuarentenaItem): Boolean {
         val cr = context.contentResolver
         return try {
