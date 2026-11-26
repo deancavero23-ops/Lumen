@@ -1,12 +1,12 @@
 /* Lumen PWA: caché offline y filtro de publicidad dentro de la app. */
-const CACHE = 'lumen-app-v2-0-0';
+const CACHE = 'lumen-app-v3-0-0';
 // El scope del service worker es /Lumen/ en GitHub Pages y / en una prueba local.
 const BASE = self.registration.scope;
 const RUTAS = [
   '', 'app/', 'app/index.html', 'app/styles.css', 'app/app.js',
   'manifest.webmanifest', 'img/pwa-192.png', 'img/pwa-512.png',
   'img/pwa-maskable-512.png', 'img/icon-180.png', 'img/audiowide.woff2',
-  'logo.svg', 'index.html'
+  'img/qr-android-pwa.png', 'logo.svg', 'index.html'
 ];
 const ARCHIVOS = RUTAS.map((r) => new URL(r, BASE).href);
 

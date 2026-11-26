@@ -4,6 +4,12 @@ Es una **PWA instalable**: se abre en Chrome y se añade a la pantalla de inicio
 
 **URL:** https://deancavero23-ops.github.io/Lumen/app/
 
+## QR para abrirla al instante
+
+![QR para abrir Lumen Android](img/qr-android-pwa.png)
+
+Escanea el código con la cámara del móvil o con Chrome. Se abrirá directamente la app; luego usa el menú de Chrome → **Añadir a pantalla de inicio**. El mismo QR está publicado en la web principal.
+
 ## Instalarla en el móvil
 
 1. Abre Chrome en el móvil y entra en la URL de arriba.

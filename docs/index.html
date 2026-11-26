@@ -58,6 +58,9 @@ h2 { font-family: 'Audiowide', sans-serif; font-weight: 400; font-size: clamp(26
 .badges span { font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); color: var(--muted); }
 .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .note { color: var(--muted); font-size: 14px; margin-top: 14px; }
+.qr-box { display: flex; align-items: center; gap: 28px; margin-top: 26px; padding: 22px; background: var(--panel); border: 1px solid var(--line); border-radius: 20px; }
+.qr-box img { width: 190px; height: 190px; flex: none; border-radius: 14px; background: #fff; padding: 8px; }
+.qr-box p { color: var(--muted); margin: 8px 0 16px; max-width: 540px; }
 .hero .hero-logo, .hero .poster { width: 100%; max-width: 440px; margin: 0 auto; border-radius: 28px; }
 /* secciones */
 section { padding: 70px 0; }
@@ -98,6 +101,8 @@ footer a { color: var(--muted); }
   .grid3 { grid-template-columns: 1fr; }
   .nav nav { display: none; }
   th:not(:first-child), td:not(:first-child) { width: 90px; padding: 12px 8px; }
+  .qr-box { flex-direction: column; text-align: center; }
+  .qr-box p { margin-left: auto; margin-right: auto; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 </style>
@@ -201,6 +206,19 @@ footer a { color: var(--muted); }
   <details><summary>¿Funciona en un PC viejo o lento?</summary><p>Sí. No gasta procesador mientras no lo usas y, en equipos con poca memoria o pocos núcleos, activa solo un modo ligero. Puedes forzarlo en Ajustes.</p></details>
   <details><summary>¿Se actualiza solo?</summary><p>Sí. Descarga solo lo que cambió, se instala, se vuelve a abrir y te enseña las novedades.</p></details>
   <details><summary>Algo no funciona, ¿qué hago?</summary><p>Dentro del programa tienes <b>🐞 Reportar un problema</b>: abre un borrador de GitHub con el registro anonimizado; tú decides si lo publicas y puedes subir una captura allí. También puedes abrir un issue en <a href="https://github.com/deancavero23-ops/Lumen/issues">GitHub</a>.</p></details>
+</div></section>
+
+<section id="android-qr" class="alt"><div class="wrap">
+  <h2>Lumen también en tu <span class="grad">Android</span></h2>
+  <p class="lead">Escanea este código con la cámara o con Chrome desde el móvil. Se abrirá la versión instalable: después, menú de Chrome → <b>Añadir a pantalla de inicio</b>.</p>
+  <div class="qr-box">
+    <img src="img/qr-android-pwa.png" alt="Código QR para abrir Lumen Android" width="600" height="600" loading="lazy">
+    <div>
+      <h3>QR de la app para Android</h3>
+      <p>Demo con Lumi interactiva, tres idiomas, cuidado de batería y bloqueo de anuncios dentro de la app. No limpia el móvil ni quita anuncios de otras apps.</p>
+      <a class="btn small" href="app/">📱 Abrir la app en Android</a>
+    </div>
+  </div>
 </div></section>
 
 <section class="alt final"><div class="wrap">

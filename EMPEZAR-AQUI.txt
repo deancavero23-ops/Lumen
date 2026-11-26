@@ -9,6 +9,7 @@ LUMEN 1.0.0 — CÓMO PROBARLO
 
 1b) ANDROID (PWA)
    Demo instalable: https://deancavero23-ops.github.io/Lumen/app/
+   QR listo para escanear: docs/img/qr-android-pwa.png
    Se añade desde Chrome a la pantalla de inicio. Lumi habla (globo y voz
    opcional) y hay textos en es/it/en. Incluye modo ahorro de batería y
    bloqueo de anuncios dentro de la PWA (no quita anuncios del navegador
