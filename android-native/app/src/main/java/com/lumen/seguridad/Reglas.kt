@@ -20,7 +20,8 @@ data class InfoReglas(
 
 /**
  * Reglas de análisis descargables desde una Release pública de GitHub.
- * La descarga es siempre manual, se comprueba el SHA-256 publicado y se guarda dentro de la app.
+ * La descarga puede ser manual o automática (una vez al día), siempre comprueba el SHA-256
+ * publicado y guarda el resultado dentro de la app.
  * Si algo falla, se siguen usando las reglas incluidas o las ya descargadas.
  */
 object Reglas {
@@ -102,7 +103,7 @@ object Reglas {
         conexion.connectTimeout = 10_000
         conexion.readTimeout = 15_000
         conexion.instanceFollowRedirects = true
-        conexion.setRequestProperty("User-Agent", "Lumen-Seguridad/1.2.3")
+        conexion.setRequestProperty("User-Agent", "Lumen-Seguridad/1.2.4")
         try {
             val codigo = conexion.responseCode
             if (codigo !in 200..299) throw ErrorReglas("rules_err_red")

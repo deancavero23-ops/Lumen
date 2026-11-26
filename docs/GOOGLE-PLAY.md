@@ -1,16 +1,16 @@
 # Lumen Seguridad en Google Play
 
-> **Estado:** el AAB firmado se genera en GitHub Actions, pero **no lo subimos a Play Console**. Necesitas tu cuenta de desarrollador para publicarlo. El APK de sideload sigue disponible en la [Release de seguridad](https://github.com/deancavero23-ops/Lumen/releases/tag/seguridad-v1.2.3). La ficha de texto y el material gráfico están en [PLAY-FICHA.md](PLAY-FICHA.md).
+> **Estado:** el AAB firmado se genera en GitHub Actions, pero **no lo subimos a Play Console**. Necesitas tu cuenta de desarrollador para publicarlo. El APK de sideload sigue disponible en la [Release de seguridad](https://github.com/deancavero23-ops/Lumen/releases/tag/seguridad-v1.2.4). La ficha de texto y el material gráfico están en [PLAY-FICHA.md](PLAY-FICHA.md).
 
 ## Descargar el AAB
 
-**[Descargar Lumen-Seguridad-1.2.3-play.aab](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.3/Lumen-Seguridad-1.2.3-play.aab)** · [SHA-256](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.3/SHA256-PLAY-AAB.txt)
+**[Descargar Lumen-Seguridad-1.2.4-play.aab](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.4/Lumen-Seguridad-1.2.4-play.aab)** · [SHA-256](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.4/SHA256-PLAY-AAB.txt)
 
-- Huella SHA-256 del AAB publicado: `d673e3dc94aecb19bf89a8baf2a9ba596fdcb0ea1433fc6b4745227994db178c` (2.549.204 bytes).
+- Huella SHA-256 del AAB publicado: pendiente de la compilación 1.2.4 (se publica en `SHA256-PLAY-AAB.txt`).
 - Package: `com.lumen.seguridad`.
 - Firma: la misma que la APK (`android-native/lumen-seguridad.keystore`, alias `lumen`). Si vas a subir una versión nueva más adelante, **usa el mismo keystore** o Play no aceptará la actualización.
 - Antes de crear la app en Play Console, comprueba que `com.lumen.seguridad` esté disponible en tu cuenta. Si ya existe una app tuya con otro package, dime cuál es y ajusto el `applicationId`.
-- `versionCode` = 6, `versionName` = `1.2.3`. Si ya subiste una versión anterior, este AAB es la actualización. Cada nueva versión en Play debe subir el `versionCode`.
+- `versionCode` = 7, `versionName` = `1.2.4`. Si ya subiste una versión anterior, este AAB es la actualización. Cada nueva versión en Play debe subir el `versionCode`.
 
 ## Publicarlo
 
@@ -35,9 +35,9 @@ Justificación adicional si el revisor pide más:
 ## Privacidad y protección de datos
 
 - **Datos recopilados por Lumen:** ninguno. No hay cuentas, telemetría ni servidor propio.
-- **Datos compartidos:** el análisis de apps y archivos se queda en el dispositivo. Hay dos salidas a Internet, ambas bajo control del usuario: (1) si activa el bloqueo de anuncios por VPN, las consultas DNS de los dominios permitidos se reenvían a Cloudflare (`1.1.1.1`) o Google (`8.8.8.8`); (2) si pulsa «Actualizar reglas», se hace una petición HTTPS anónima a GitHub Releases. No se envía la lista de apps, archivos ni identificadores. Lumen no recibe esos datos.
+- **Datos compartidos:** el análisis de apps y archivos se queda en el dispositivo. Hay dos salidas a Internet: (1) si activa el bloqueo de anuncios por VPN, las consultas DNS de los dominios permitidos se reenvían a Cloudflare (`1.1.1.1`) o Google (`8.8.8.8`); (2) una petición HTTPS anónima a GitHub Releases, automática una vez al día para reglas y versiones (se puede desactivar en «Auto») o manual al pulsar «Actualizar reglas». No se envía la lista de apps, archivos ni identificadores. Lumen no recibe esos datos.
 - Si el formulario obliga a marcar una categoría, elige **Actividad de red / Información de navegación** y marca **no vinculado a la identidad**, **solo mientras la VPN está activa** y **finalidad: bloquear dominios publicitarios**.
-- **Permisos que más llaman la atención:** `QUERY_ALL_PACKAGES` (analizador de seguridad), `INTERNET` (reenvío DNS y descarga manual de reglas desde GitHub), `FOREGROUND_SERVICE_SPECIAL_USE` (filtro DNS con notificación). No se pide almacenamiento amplio ni accesibilidad.
+- **Permisos que más llaman la atención:** `QUERY_ALL_PACKAGES` (analizador de seguridad), `INTERNET` (reenvío DNS y comprobación de reglas/versiones en GitHub), `FOREGROUND_SERVICE_SPECIAL_USE` (filtro DNS con notificación). No se pide almacenamiento amplio ni accesibilidad. En el AAB de Play, la app detecta que fue instalada por Play Store y no muestra el aviso de APK: Play gestiona las actualizaciones.
 
 ## Uso de `VpnService`
 

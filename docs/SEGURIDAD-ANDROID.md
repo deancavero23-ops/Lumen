@@ -6,18 +6,18 @@ Esta APK **sí hace cosas reales**, a diferencia de la demo TWA descrita en [AND
 
 ## Descargar
 
-**[Descargar Lumen-Seguridad-1.2.3.apk](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.2.3/Lumen-Seguridad-1.2.3.apk)** · [SHA-256 publicado](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.2.3/SHA256-SEGURIDAD.txt)
+**[Descargar Lumen-Seguridad-1.2.4.apk](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.2.4/Lumen-Seguridad-1.2.4.apk)** · [SHA-256 publicado](https://github.com/deancavero23-ops/Lumen/releases/download/seguridad-v1.2.4/SHA256-SEGURIDAD.txt)
 
 ![QR para descargar Lumen Seguridad](img/qr-android-seguridad.png)
 
 Si prefieres que el QR abra la página con las instrucciones en vez del APK directo, usa este otro: ![QR de la página de descarga](img/qr-descarga-android.png)
 
-- Huella SHA-256 del APK publicado: `af84a8038d14d4f6d8c93a2f0a95306813c9f950c9b6d139aab8ff3864802f90`.
+- Huella SHA-256 del APK publicado: pendiente de la compilación 1.2.4 (se publica en `SHA256-SEGURIDAD.txt`).
 - Requiere **Android 7.0 (API 24) o superior**.
 - Se instala por **sideload**: al abrir la APK, Android pedirá permitir **fuentes desconocidas**. Acepta solo si confías en este repositorio.
 - La firma es propia (`android-native/lumen-seguridad.keystore`, alias `lumen`). **No es la misma firma** que la APK demo, por lo que Android las tratará como apps distintas y podrás tener las dos instaladas.
-- Para verificar la descarga: `certutil -hashfile Lumen-Seguridad-1.2.3.apk SHA256` en Windows o `sha256sum Lumen-Seguridad-1.2.3.apk` en Linux.
-- **¿Te sale «demo»?** En Ajustes debe poner `v1.2.3`. Si pone `v1.0.0` o el texto dice «Demo · no limpia tu móvil», instalaste la APK demo TWA (solo interfaz; ahora también lleva 🛡️). Descarga `Lumen-Seguridad-1.2.3.apk` desde el enlace de arriba o su QR.
+- Para verificar la descarga: `certutil -hashfile Lumen-Seguridad-1.2.4.apk SHA256` en Windows o `sha256sum Lumen-Seguridad-1.2.4.apk` en Linux.
+- **¿Te sale «demo»?** En Ajustes debe poner `v1.2.4`. Si pone `v1.0.0` o el texto dice «Demo · no limpia tu móvil», instalaste la APK demo TWA (solo interfaz; ahora también lleva 🛡️). Descarga `Lumen-Seguridad-1.2.4.apk` desde el enlace de arriba o su QR.
 
 ## Lo que sí hace
 
@@ -39,8 +39,10 @@ Si prefieres que el QR abra la página con las instrucciones en vez del APK dire
 | **Desinstalar con confirmación** | Abre el diálogo del sistema con `ACTION_UNINSTALL_PACKAGE`. | La app nunca desinstala por sí sola; el usuario confirma siempre. |
 | **Lumi, voces y chat** | Mascota y **escudo 🛡️ dibujados en código** (visibles aunque el móvil no tenga fuente de emoji). Tocar Lumi o el escudo abre un **chat local** con respuestas sobre apps, archivos, batería y reglas; se envía con «Enviar» o con Enter. 15 audios femeninos incluidos (`es`, `it`, `en`), regenerados con voces femeninas; si falla el audio, usa TTS del idioma elegido, también femenino cuando está disponible, y **no pronuncia emoji**. | El audio se prepara de forma asíncrona para no bloquear la interfaz. Se puede silenciar en Ajustes. El chat no consulta Internet ni modelos externos. |
 | **Idiomas** | Español, italiano e inglés, detectados del sistema y cambiables en Ajustes. | — |
-| **Privacidad** | Sin telemetría, sin servidor propio, sin accesibilidad y sin permisos de almacenamiento amplio. | Las reglas se guardan solo en el dispositivo. La descarga es manual y no envía nada a Lumen. |
-| **Reglas actualizables** | **Ajustes → Actualizar reglas desde GitHub** descarga `reglas.json` y su `.sha256` desde la Release `reglas-v1`, comprueba la huella y la guarda dentro de la app. **Ajustes → Reglas de seguridad** muestra el origen y permite volver a las incluidas. | No se descarga nada automáticamente. Si falla la red o el SHA-256 no coincide, se conservan las reglas anteriores. La fuente de confianza es este repositorio de GitHub; el hash evita cambios en tránsito, no compromisos del repositorio. |
+| **Privacidad** | Sin telemetría, sin servidor propio, sin accesibilidad y sin permisos de almacenamiento amplio. | Las reglas se guardan solo en el dispositivo. Las peticiones a GitHub son anónimas y no envían tu lista de apps. |
+| **Actualizaciones automáticas** | Al abrir la app, como máximo una vez al día, comprueba reglas nuevas en GitHub Releases (**activado por defecto**) y avisa si hay una versión nueva de Lumen Seguridad. En **🔄 Auto** puedes activar o desactivar cada cosa y ver la última revisión. | No hay servidor de Lumen: solo se consulta GitHub. En Google Play, las actualizaciones de la app las hace Play; en sideload, Lumen abre el enlace y **Android pide confirmación** antes de instalar. |
+| **Reglas actualizables** | **Ajustes → Actualizar reglas desde GitHub** fuerza la descarga de `reglas.json` y su `.sha256` desde la Release `reglas-v1`, comprueba la huella y la guarda dentro de la app. La actualización automática usa el mismo mecanismo. **Reglas de seguridad** muestra el origen y permite volver a las incluidas. | Si falla la red o el SHA-256 no coincide, se conservan las reglas anteriores. La fuente de confianza es este repositorio de GitHub; el hash evita cambios en tránsito, no compromisos del repositorio. |
+| **Consejos dinámicos** | **💡 Consejos** calcula avisos a partir de batería, temperatura y espacio reales, además del estado de la cuarentena y las reglas. Si todo está bien, lo dice; no inventa problemas. | No es un antivirus en la nube ni una puntuación comercial: es orientación basada en datos del dispositivo. |
 
 ## Lo que NO hace (y no puede hacer sin root)
 
@@ -55,7 +57,7 @@ Si prefieres que el QR abra la página con las instrucciones en vez del APK dire
 ## Permisos
 
 - `QUERY_ALL_PACKAGES`: imprescindible para listar y analizar las apps instaladas, que es la función central de un analizador de seguridad. Al distribuirse por sideload no necesita el formulario de permisos sensibles de Google Play. Si algún día se publica en Play, habrá que justificarlo ante Google.
-- `INTERNET`: se usa para reenviar a un DNS público (Cloudflare o Google) las consultas que no son publicidad mientras la VPN está activa, y para descargar las reglas **solo cuando tú pulsas Actualizar reglas**. La app excluye su propio tráfico del VPN para evitar bucles. No hay telemetría ni servidor de Lumen.
+- `INTERNET`: se usa para reenviar a un DNS público (Cloudflare o Google) las consultas que no son publicidad mientras la VPN está activa, y para comprobar/descargar reglas y versiones desde GitHub (automáticamente una vez al día si está activado, o cuando tú pulsas Actualizar reglas). La app excluye su propio tráfico del VPN para evitar bucles. No hay telemetría ni servidor de Lumen.
 - `FOREGROUND_SERVICE` y `FOREGROUND_SERVICE_SPECIAL_USE`: necesarios para mantener el filtro DNS activo con notificación persistente mientras tú lo dejes encendido.
 - No pide `READ/WRITE_EXTERNAL_STORAGE`, `MANAGE_EXTERNAL_STORAGE`, accesibilidad ni permisos de SMS/contactos. El acceso a archivos se concede carpeta por carpeta desde el selector del sistema.
 - Android muestra un **diálogo propio de VPN** la primera vez. Si lo rechazas, el bloqueo queda desactivado y el resto de la app sigue funcionando.
@@ -73,14 +75,20 @@ Es un filtro DNS, **no un túnel completo**: no lee páginas web, contraseñas n
 
 ## Actualizar reglas desde GitHub
 
-Las reglas incluidas (`android-native/app/src/main/assets/reglas.json`) son una base de ejemplo vacía: añade tus propios hashes o firmantes si quieres. Desde **Ajustes → Actualizar reglas desde GitHub**:
+Las reglas incluidas (`android-native/app/src/main/assets/reglas.json`) son una base de ejemplo vacía: añade tus propios hashes o firmantes si quieres. Hay dos formas de actualizarlas:
 
-1. La app muestra qué reglas están activas y pide confirmación.
-2. Descarga `reglas.json` y `reglas.json.sha256` desde la Release [`reglas-v1`](https://github.com/deancavero23-ops/Lumen/releases/tag/reglas-v1).
-3. Calcula el SHA-256 local y lo compara con el publicado. Solo si coinciden valida el formato y guarda el archivo en el almacenamiento privado de la app.
-4. **Ajustes → Reglas de seguridad** muestra el origen, versión, fecha y número de hashes/firmantes, y permite **Restablecer incluidas**.
+- **Automática (activada por defecto):** al abrir la app, como máximo una vez cada 24 horas, se comprueba la Release [`reglas-v1`](https://github.com/deancavero23-ops/Lumen/releases/tag/reglas-v1). Si hay una versión nueva, se descarga, se verifica y se aplica silenciosamente; Lumi avisa cuando cambia.
+- **Manual:** **Ajustes → Actualizar reglas desde GitHub** fuerza la comprobación y pide confirmación.
 
-No hay descargas en segundo plano, ni comprobación de actualizaciones al abrir la app, ni envío de la lista de apps instaladas. El límite de descarga es 1 MB y solo se aceptan URLs de GitHub. La huella publicada de esta primera versión de las reglas es `b09901e3dab6de16ea5e47de9b1683556bff1e304d6f6587313fc401686214a9`.
+En ambos casos:
+
+1. Descarga `reglas.json` y `reglas.json.sha256` desde GitHub Releases.
+2. Calcula el SHA-256 local y lo compara con el publicado. Solo si coinciden valida el formato y guarda el archivo en el almacenamiento privado de la app.
+3. **Ajustes → Reglas de seguridad** muestra el origen, versión, fecha y número de hashes/firmantes, y permite **Restablecer incluidas**.
+
+Nunca se envía la lista de apps instaladas ni se contacta a un servidor de Lumen. El límite de descarga es 1 MB y solo se aceptan URLs de GitHub. La huella publicada de esta primera versión de las reglas es `b09901e3dab6de16ea5e47de9b1683556bff1e304d6f6587313fc401686214a9`.
+
+La misma comprobación diaria consulta el feed público de Releases para avisar de una APK nueva. En sideload, Lumen abre el enlace y **Android pide confirmación antes de instalar**; en la versión de Play, Google Play actualiza la app por sí mismo. Puedes desactivar ambas comprobaciones en **🔄 Auto**.
 
 ## Compilar
 
@@ -99,7 +107,8 @@ android-native/app/src/main/java/com/lumen/seguridad/
   Limpieza.kt     escaneo SAF, cuarentena y restauración
   Voz.kt          audios femeninos + TTS de respaldo
   BloqueoVpn.kt   filtro DNS opcional con VpnService
-  Reglas.kt       descarga manual y verificación SHA-256
+  Reglas.kt       descarga manual/automática y verificación SHA-256
+  AutoActualizacion.kt revisión diaria de reglas y versiones desde GitHub
   Textos.kt       es / it / en
   LumiView.kt     mascota dibujada
   MainActivity.kt interfaz y flujos

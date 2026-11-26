@@ -1,6 +1,6 @@
 # Ficha de Lumen Seguridad para Google Play 🛡️
 
-Textos listos para copiar en Play Console. Mantienen el nombre **Lumen Seguridad**, el logo rojo con la L negra y chispa blanca, a Lumi y el emoji 🛡️. El AAB es [`Lumen-Seguridad-1.2.3-play.aab`](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.3/Lumen-Seguridad-1.2.3-play.aab) y la guía de permisos está en [GOOGLE-PLAY.md](GOOGLE-PLAY.md).
+Textos listos para copiar en Play Console. Mantienen el nombre **Lumen Seguridad**, el logo rojo con la L negra y chispa blanca, a Lumi y el emoji 🛡️. El AAB es [`Lumen-Seguridad-1.2.4-play.aab`](https://github.com/deancavero23-ops/Lumen/releases/download/play-v1.2.4/Lumen-Seguridad-1.2.4-play.aab) y la guía de permisos está en [GOOGLE-PLAY.md](GOOGLE-PLAY.md).
 
 ## Datos base
 
@@ -74,13 +74,13 @@ Lumen Seguridad is a local second opinion for Android. It does not replace Play 
 
 Available in Spanish, Italian and English. Android 7.0 or newer. Free, open source (GPL-3.0-or-later) and based on RetroLimpia by Retropunk94. Not the official version. More info: https://deancavero23-ops.github.io/Lumen/
 
-## Novedades de la versión 1.2.3 (cuadro «Qué hay de nuevo»)
+## Novedades de la versión 1.2.4 (cuadro «Qué hay de nuevo»)
 
-**Español:** El escudo 🛡️ se dibuja en la app (visible sin fuente de emoji) y al tocarlo se abre un chat con Lumi. La voz usa una voz femenina del idioma elegido y no lee emoji. «Liberar espacio» ahora separa lo seguro de lo que hay que revisar: temporales, logs y vacíos se pueden borrar con confirmación; APK antiguos y duplicados solo se recomienda pasarlos a cuarentena. Botones grandes con colores por estado real.
+**Español:** Actualizaciones automáticas: reglas verificadas con SHA-256 una vez al día y aviso de nueva versión, controlables en «🔄 Auto». Nuevo «💡 Consejos» con avisos reales de batería, temperatura y espacio. Escudo 🛡️ dibujado que abre el chat, voces femeninas que no leen emoji y borrado seguro con consejos antes de eliminar.
 
-**Italiano:** Lo scudo 🛡️ è disegnato nell’app (visibile senza font emoji) e toccandolo si apre una chat con Lumi. La voce usa una voce femminile della lingua scelta e non legge gli emoji. «Libera spazio» distingue ciò che è sicuro da ciò che va controllato: temporanei, log e vuoti si possono cancellare con conferma; APK vecchi e duplicati è meglio spostarli in quarantena. Pulsanti grandi con colori in base allo stato reale.
+**Italiano:** Aggiornamenti automatici: regole verificate con SHA-256 una volta al giorno e avviso di nuova versione, gestibili in «🔄 Auto». Nuovi «💡 Consigli» con dati reali su batteria, temperatura e spazio. Scudo 🛡️ disegnato che apre la chat, voci femminili che non leggono gli emoji e cancellazione sicura con consigli prima di eliminare.
 
-**English:** The 🛡️ shield is drawn inside the app (visible without an emoji font) and tapping it opens a chat with Lumi. Speech uses a female voice in the selected language and skips emoji. "Free up space" now separates safe files from files to review: temporary files, logs and empty files can be deleted with confirmation; old APKs and duplicates are only recommended for quarantine. Large buttons colored by real state.
+**English:** Automatic updates: SHA-256-verified rules once a day and a new-version alert, both controllable in "Auto". New "Advice" screen with real battery, temperature and storage warnings. Drawn 🛡️ shield opens the chat, female voices skip emoji, and safe deletion now shows advice before removing files.
 
 ## Material gráfico
 

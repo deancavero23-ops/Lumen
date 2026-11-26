@@ -45,15 +45,15 @@ jobs:
       - name: Preparar el APK y su huella
         working-directory: android-native
         run: |
-          cp app/build/outputs/apk/release/app-release.apk Lumen-Seguridad-1.2.3.apk
-          sha256sum Lumen-Seguridad-1.2.3.apk > SHA256-SEGURIDAD.txt
+          cp app/build/outputs/apk/release/app-release.apk Lumen-Seguridad-1.2.4.apk
+          sha256sum Lumen-Seguridad-1.2.4.apk > SHA256-SEGURIDAD.txt
           cat SHA256-SEGURIDAD.txt
 
       - uses: actions/upload-artifact@v4
         with:
           name: Lumen-Seguridad-apk
           path: |
-            android-native/Lumen-Seguridad-1.2.3.apk
+            android-native/Lumen-Seguridad-1.2.4.apk
             android-native/SHA256-SEGURIDAD.txt
 
       - name: Publicar APK en la Release
@@ -61,5 +61,5 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            android-native/Lumen-Seguridad-1.2.3.apk
+            android-native/Lumen-Seguridad-1.2.4.apk
             android-native/SHA256-SEGURIDAD.txt

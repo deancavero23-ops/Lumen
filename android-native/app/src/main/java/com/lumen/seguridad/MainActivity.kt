@@ -67,6 +67,25 @@ class MainActivity : Activity() {
         registrarMonitor()
         hablar("lumiHola")
         render()
+        AutoActualizacion.revisar(
+            applicationContext,
+            { version ->
+                runOnUiThread {
+                    toast("${t("auto_reglas_ok")}: v$version")
+                    hablar("lumiDone")
+                }
+            },
+            { version, url ->
+                runOnUiThread {
+                    AlertDialog.Builder(this)
+                        .setTitle(t("update_found"))
+                        .setMessage("${t("update_version")}: $version\n\n${t("update_note")}")
+                        .setPositiveButton(t("update_download")) { _, _ -> abrirUrl(url) }
+                        .setNegativeButton(t("cancel"), null)
+                        .show()
+                }
+            }
+        )
     }
 
     override fun onStart() {
@@ -272,6 +291,11 @@ class MainActivity : Activity() {
             boton("chat", false) { mostrarChat() },
             boton("settings", false) { mostrarAjustes() }
         )
+        val automatico = AutoActualizacion.reglasActiva(this) || AutoActualizacion.appActiva(this)
+        filaBotones(
+            boton("consejos", false) { mostrarConsejos() },
+            botonEstado("auto_status", if (automatico) 1 else 0) { mostrarAuto() }
+        )
 
         salida = texto(t("lumiHola"))
         salida.setTextIsSelectable(true)
@@ -331,7 +355,7 @@ class MainActivity : Activity() {
             Voz.decir(this, respuesta)
         }
         val rapido = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
-        listOf("quick_apps", "quick_files", "quick_battery").forEach { clave ->
+        listOf("quick_apps", "quick_files", "quick_battery", "quick_auto").forEach { clave ->
             val b = Button(this).apply {
                 text = t(clave)
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 11f)
@@ -398,6 +422,9 @@ class MainActivity : Activity() {
                 p.contains("enfr") || p.contains("raffredd") || p.contains("cool") ||
                 p.contains("hot") -> t("resp_temperatura")
             p.contains("regla") || p.contains("regol") || p.contains("rule") -> t("resp_reglas")
+            p.contains("consej") || p.contains("consigl") || p.contains("advice") -> t("resp_consejos")
+            p.contains("actualiz") || p.contains("aggiorn") || p.contains("update") ||
+                p.contains("auto") -> t("resp_auto")
             else -> t("resp_default")
         }
     }
@@ -763,6 +790,67 @@ class MainActivity : Activity() {
         accion("back") { volver() }
     }
 
+    /** Consejos calculados con datos reales del dispositivo; nunca inventa una puntuación. */
+    private fun mostrarConsejos() {
+        @Suppress("DEPRECATION")
+        val b = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        val nivel = b?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
+        val escala = b?.getIntExtra(BatteryManager.EXTRA_SCALE, 100) ?: 100
+        val porcentaje = if (nivel >= 0 && escala > 0) nivel * 100 / escala else -1
+        val decimas = b?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, Int.MIN_VALUE) ?: Int.MIN_VALUE
+        val libre = StatFs(applicationContext.filesDir.path).availableBytes
+        val reglas = Reglas.info(this)
+
+        val sb = StringBuilder(t("consejos_title")).append("\n\n")
+        var numero = 0
+        fun consejo(clave: String) {
+            sb.append("• ${t(clave)}\n")
+            numero++
+        }
+        if (porcentaje in 0..19) consejo("consejo_bateria_baja")
+        if (decimas >= 400) consejo("consejo_calor")
+        if (libre < 512L * 1024 * 1024) consejo("consejo_espacio")
+        if (Limpieza.leerCuarentena(this).isNotEmpty()) consejo("consejo_cuarentena")
+        if (reglas.origen != "github" || reglas.version == "?") consejo("consejo_reglas")
+        if (!prefs().getBoolean("vpn", false)) consejo("consejo_vpn")
+        if (numero == 0) sb.append(t("consejo_ok"))
+        salida.text = sb.toString()
+        limpiarAcciones()
+        accion("consejos_escanear") { escanearApps() }
+        accion("consejos_liberar") { elegirCarpeta() }
+        accion("back") { volver() }
+    }
+
+    private fun mostrarAuto() {
+        val reglas = AutoActualizacion.reglasActiva(this)
+        val app = AutoActualizacion.appActiva(this)
+        val ultimo = AutoActualizacion.ultimaRevision(this)
+        val info = Reglas.info(this)
+        val origen = if (info.origen == "github") t("rules_from_github") else t("rules_from_app")
+        salida.text = """
+            ${t("auto_title")}
+
+            ${t("auto_reglas")}: ${if (reglas) t("auto_on") else t("auto_off")}
+            ${t("auto_app")}: ${if (app) t("auto_on") else t("auto_off")}
+            ${t("auto_last")}: ${if (ultimo > 0) Utilidades.fecha(ultimo) else t("unknown")}
+            ${t("rules_version")}: ${info.version} · $origen
+            ${t("auto_version")}: ${BuildConfig.VERSION_NAME}
+
+            ${t("auto_note")}
+        """.trimIndent()
+        limpiarAcciones()
+        accion("auto_reglas") {
+            AutoActualizacion.alternarReglas(this)
+            mostrarAuto()
+        }
+        accion("auto_app") {
+            AutoActualizacion.alternarApp(this)
+            mostrarAuto()
+        }
+        accion("rules_update") { descargarReglas() }
+        accion("back") { volver() }
+    }
+
     private fun prefs() = getSharedPreferences(Textos.PREFS, Context.MODE_PRIVATE)
 
     private fun mostrarAjustes() {
@@ -772,6 +860,7 @@ class MainActivity : Activity() {
             t("language"),
             "${t("voice_on")}: ${if (voz) t("ok") else t("cancel")}",
             "${t("vpn")}: ${if (vpn) t("vpn_on") else t("vpn_off")}",
+            t("consejos"), t("auto_title"),
             t("rules_update"), t("rules"),
             t("web"), t("apk"), t("qr"), t("windows"),
             t("rules_note"), t("back")
@@ -783,13 +872,15 @@ class MainActivity : Activity() {
                     0 -> elegirIdioma()
                     1 -> prefs().edit().putBoolean("voz", !voz).apply()
                     2 -> configurarVpn()
-                    3 -> actualizarReglas()
-                    4 -> mostrarReglas()
-                    5 -> abrirUrl("https://deancavero23-ops.github.io/Lumen/")
-                    6 -> abrirUrl("https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk")
-                    7 -> mostrarQr()
-                    8 -> abrirUrl("https://github.com/deancavero23-ops/Lumen/releases/latest")
-                    9 -> toast(t("rules_note"))
+                    3 -> mostrarConsejos()
+                    4 -> mostrarAuto()
+                    5 -> actualizarReglas()
+                    6 -> mostrarReglas()
+                    7 -> abrirUrl("https://deancavero23-ops.github.io/Lumen/")
+                    8 -> abrirUrl("https://github.com/deancavero23-ops/Lumen/releases/download/v1.0.0/Lumen-1.0.0.apk")
+                    9 -> mostrarQr()
+                    10 -> abrirUrl("https://github.com/deancavero23-ops/Lumen/releases/latest")
+                    11 -> toast(t("rules_note"))
                     else -> volver()
                 }
             }
